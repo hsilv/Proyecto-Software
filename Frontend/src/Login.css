@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Federo&family=Source+Sans+Pro:wght@300&display=swap');
+
+.formContainer {
+  background-color: #fff;
+  font-family: 'Source Sans Pro', sans-serif;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 8%;
+  display: block;
+  margin: 15% auto 10% auto;
+}
+
+h1 {
+  font-family: 'Federo', sans-serif;
+  font-size: 3rem;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.field {
+  padding-top: 1.3rem;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.formContainer input {
+
+  background-color: #EBD9C8;
+  border-radius: 10px;
+  display: block;
+  margin: 3% auto 0% auto;
+  width: 33%;
+  padding: 0% 2%;
+  height: 5%;
+  border: 0px;
+  box-shadow: 0px 2px 2px 1px rgb(0,0,0,10%);
+  transition: 0.2s;
+  font-size: 1.08rem;
+
+}
+
+
+
+.formContainer input:focus {
+
+  transform: scale(1.05);
+  box-shadow: 1px 1px 8px 1px rgb(0,0,0,30%);
+  outline: none;
+
+}
+
+.formContainer input:invalid {
+
+  box-shadow: 1px 1px 8px 1px rgba(226, 61, 61, 0.3);
+  border: 1px solid red;
+
+}
+
+button {
+  font-family: 'Source Sans Pro', sans-serif;
+  padding: 2% 16%;
+  border: 0px;
+  background-color: #003f5a;
+  color: #fff;
+  border-radius: 10px;
+  transition: 0.2s;
+  font-size: 1.1rem;
+  display: block;
+  margin: 5% auto 2% auto;
+}
+
+.disabled {
+  background-color: #445a64;
+}
+
+
+.enabled:hover {
+  background-color: #015477;
+}
+

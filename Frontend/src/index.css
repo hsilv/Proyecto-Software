@@ -1,0 +1,16 @@
+body {
+  margin: 0px;
+}
+
+#root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.largeimg {
+
+  grid-column-start: 1;
+  height: 100vh;
+  object-fit: contain;
+
+}
