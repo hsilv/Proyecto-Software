@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './Login.css'
 import BakerSVG from '/assets/baker-animate.svg';
 import Joi from 'joi'
-
-import useApi from './hooks/useApi'
-import useForm from './hooks/useForm'
-import Input from './components/Input/Input'
-import Button from './components/Button/Button';
+import useApi from '../../hooks/useApi'
+import useForm from '../../hooks/useForm'
+import Input from '../../components/Input/Input'
+import Button from '../../components/Button/Button';
 
 const schema = Joi.object({
   username: Joi.string()
@@ -19,22 +18,20 @@ const schema = Joi.object({
 })
 
 function Login() {
-  const {data, handleRequest } = useApi()
-  const [credentials, setCredentials] = useState(['', ''])
+  const {loading, data, handleRequest } = useApi()
   const form = useForm(schema, { username: '', password: ''})
-  const [loading, setLoading] = useState(false)
 
-  const postLogin = async () => {
-    const response = await handleRequest('POST', '/', {
-    })
+  const postLogin = async (username, password) => {
+    const response = await handleRequest('POST', '/login2', {username, password})
     if (response.success) {
-      console.log(response)
-      navigate('/')
+      window.location.replace("http://localhost:5173/Home");
     }
   }
 
-  const handleClick = () => {
-    console.log('send')
+  const handleLogin = () => {
+    if(form.validate()){
+      postLogin(form.values.username, form.values.password)
+    }
   }
 
   return (
@@ -66,7 +63,7 @@ function Login() {
           </div>
             <Button
             type="primary"
-            onClick={handleClick}
+            onClick={handleLogin}
             disabled={
               !form.values.username
               || !form.values.password

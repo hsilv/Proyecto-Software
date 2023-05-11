@@ -3,18 +3,16 @@ from flask_cors import CORS, cross_origin
 from flask_jwt_extended import *
 import jwt
 import json
+import dbFunctions
+import psycopg2
+from datetime import datetime, timedelta
 
 # Test
 cadena_json = '{"message": "Test"}'
 objeto_json = json.loads(cadena_json)
 
-
-
-import psycopg2
-from datetime import datetime, timedelta
-
 app = Flask(__name__)
-app.config['DATABASE_URI'] = 'postgresql://postgres:1234@localhost/Proyecto'
+app.config['DATABASE_URI'] = 'postgresql://postgres:agriodude@localhost/asdas'
 app.config['SECRET_KEY'] = 'SILVA'
 
 cors = CORS(app)
@@ -47,6 +45,7 @@ def hello():
     connection.close()
     return results'''
 
+
 @app.route('/login', methods=['GET'])
 def login():
     info = request.get_json()
@@ -60,6 +59,12 @@ def login():
         return {'token': token}, 200
     else:
         return {'error': 'Autenticación incorrecta'}, 401
+
+@app.route('/login2', methods=['POST'])
+def login2():
+    user = request.get_json()
+    print(user)
+    return jsonify(dbFunctions.login(user['username'], user['password']))
 
 def checkAuth(username, password):
     connection = connect()
