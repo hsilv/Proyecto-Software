@@ -2,11 +2,13 @@ from flask import Flask, request, jsonify
 import psycopg2
 import jwt
 from flask_jwt_extended import *
+from flask_cors import CORS
 from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.config['DATABASE_URI'] = 'postgresql://postgres:1234@localhost/Proyecto'
 app.config['SECRET_KEY'] = 'SILVA'
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 def connect():
