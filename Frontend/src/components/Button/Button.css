@@ -1,0 +1,30 @@
+.button {
+    background-color: #7F77EA;
+    color: #F5F5F5;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    width: 300px;
+  }
+  
+  .button[disabled] {
+    background-color: #DDD;
+    color: #333;
+    cursor: not-allowed;
+  }
+  
+  .button.secondary {
+    background-color: white;
+    color: #333;
+    border: 1px solid #333;
+  }
+  
+  .button > span {
+    display: block;
+    width: 250px;
+    height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

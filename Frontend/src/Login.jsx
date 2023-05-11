@@ -1,71 +1,84 @@
-import { useEffect, useState } from "react";
-import "./Login.css";
+import React, { useEffect, useState } from 'react'
+import './Login.css'
+import BakerSVG from '/assets/baker-animate.svg';
+import Joi from 'joi'
+
+import useApi from './hooks/useApi'
+import useForm from './hooks/useForm'
+import Input from './components/Input/Input'
+import Button from './components/Button/Button';
+
+const schema = Joi.object({
+  username: Joi.string()
+      .alphanum()
+      .min(3)
+      .max(30)
+      .required(),
+  password: Joi.string()
+      .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+})
 
 function Login() {
-  const [credentials, setCredentials] = useState(["", ""]);
-  const [buttonState, setButtonState] = useState([false, "disabled"]);
+  const {data, handleRequest } = useApi()
+  const [credentials, setCredentials] = useState(['', ''])
+  const form = useForm(schema, { username: '', password: ''})
+  const [loading, setLoading] = useState(false)
 
-  const validateInput = (credentials) => {
-    let testMail = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/.test(credentials[0])
-      ? true
-      : false;
-    if (testMail && credentials[1].length > 0) {
-      console.log(true);
-      setButtonState([true, "enabled"]);
-    } else {
-      console.log(false);
-      setButtonState([false, "disabled"]);
+  const postLogin = async () => {
+    const response = await handleRequest('POST', '/', {
+    })
+    if (response.success) {
+      console.log(response)
+      navigate('/')
     }
-  };
-
-  useEffect(() => validateInput(credentials), [credentials]);
+  }
 
   const handleClick = () => {
-    const data = {
-      username: "SILVA",
-      password: "silva",
-    };
-    fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data.token))
-      .catch((error) => console.log(error));
-    console.log("send");
-  };
+    console.log('send')
+  }
 
   return (
-    <div className="formContainer">
-      <img className="logo" src="./src/assets/Vector.png"></img>
-      <h1>Log In</h1>
-      <input
-        type="email"
-        id="emailInput"
-        placeholder="Correo"
-        onChange={(email) =>
-          setCredentials([email.target.value, credentials[1]])
-        }
-      ></input>
-      <input
-        type="password"
-        id="pwInput"
-        placeholder="Contraseña"
-        onChange={(pw) => setCredentials([credentials[0], pw.target.value])}
-      ></input>
-      <button
-        disabled={!buttonState[0]}
-        type="button"
-        className={buttonState[1]}
-        onClick={handleClick}
-      >
-        Log In
-      </button>
+    <div className='loginPage'>
+      <div className='loginContainer'>
+        <div className='imageContainer'>
+          <object className='bakerSVG' type="image/svg+xml" data={BakerSVG}>svg-animation</object>
+        </div>
+        <div className='formContainer'>
+          <h1 className='loginTitle'>Welcome Back!</h1>
+          <div className='inputContainer'>
+            <Input
+              value={form.values.username}
+              onChange={form.onChange('username')}
+              name="username"
+              label="Username"
+              type="text"
+              required
+            />
+            <Input
+              value={form.values.password}
+              onChange={form.onChange('password')}
+              name="password"
+              placeholder=""
+              label="Password"
+              type="password"
+              required
+            />
+          </div>
+            <Button
+            type="primary"
+            onClick={handleClick}
+            disabled={
+              !form.values.username
+              || !form.values.password
+            }
+            loading={loading}
+          >
+            Login
+          </Button>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
