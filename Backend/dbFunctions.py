@@ -56,7 +56,7 @@ def login(username, password):
     return False
 
 def generate_token(payload, expiration):
-    payload['exp'] = datetime.utcnow() + timedelta(hours=5)
+    payload['exp'] = datetime.utcnow() + timedelta(hours=3)
     token = jwt.encode(
         payload,
         os.environ['SECRET'],

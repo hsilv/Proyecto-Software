@@ -6,6 +6,7 @@ import useApi from "../../hooks/useApi";
 import useForm from "../../hooks/useForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
+import useSession from "../../hooks/session";
 
 const schema = Joi.object({
   username: Joi.string().alphanum().min(3).max(30).required(),
@@ -13,9 +14,10 @@ const schema = Joi.object({
 });
 
 function Login() {
+  const { session, checkSession } = useSession();
   const { loading, data, handleRequest } = useApi();
   const form = useForm(schema, { username: "", password: "" });
-  const [errState, setErrState] = useState(true)
+  const [errState, setErrState] = useState(true);
 
   const postLogin = async (username, password) => {
     const response = await handleRequest("POST", "/login", {
@@ -24,10 +26,10 @@ function Login() {
     });
     if (response.token) {
       localStorage.setItem("cook", response.token);
-      window.location.replace("http://localhost:5173/Home")
+      window.location.replace("http://localhost:5173/Home");
     } else {
       console.log("La contraseña o el usuario son incorrectos");
-      setErrState(false)
+      setErrState(false);
     }
   };
 
@@ -38,12 +40,18 @@ function Login() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('cook') == null) {
-      console.log('Logged Out')
-    }else{
-      console.log('Logged In')
-      window.location.replace("http://localhost:5173/Home")
+    async function checkLog() {
+      if (localStorage.getItem("cook") == null) {
+        console.log("Logged Out");
+      } else if (await checkSession()) {
+        console.log("Logged In");
+        window.location.replace("http://localhost:5173/Home");
+      } else {
+        console.log("Logged Out");
+        localStorage.removeItem("cook");
+      }
     }
+    checkLog();
   }, []);
 
   return (
@@ -76,7 +84,11 @@ function Login() {
             />
           </div>
 
-          {!errState ? <span className="errorMsg">Usuario o contraseña incorrecta</span> : <div />}
+          {!errState ? (
+            <span className="errorMsg">Usuario o contraseña incorrecta</span>
+          ) : (
+            <div />
+          )}
 
           <Button
             type="primary"
@@ -86,7 +98,6 @@ function Login() {
           >
             Login
           </Button>
-          
         </div>
       </div>
     </div>

@@ -85,9 +85,9 @@ def checkLog():
             print("Token válido")
             return {"log": "valid"}, 200
         except ExpiredSignatureError:
-            return {"log": "expired"}, 200
+            return {"error": "Sesión Expirada"}, 200
         except InvalidTokenError:
-            return {"log": "invalid"}, 200
+            return {"error": "Sesión no válida"}, 200
     else:
         return {"log": "not-provided"}, 200
 
