@@ -13,7 +13,7 @@ function Home() {
         if (await checkSession()) {
           console.log("Estás logeado");
         } else {
-         // window.location.replace("http://localhost:5173/");
+         window.location.replace("http://localhost:5173/");
         }
       } catch (error) {
         console.error("Verify process error: ", error);

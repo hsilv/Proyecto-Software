@@ -20,7 +20,7 @@ function SignUp() {
   const form = useForm(schema, { username: "", password: "", email: "" });
 
   const postSignUp = async (username, password, email) => {
-    const response = await handleRequest("POST", "/SignUp", {
+    const response = await handleRequest("POST", "/signup", {
       username,
       password,
       email,
