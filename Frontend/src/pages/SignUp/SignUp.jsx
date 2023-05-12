@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./SignUp.css";
+import CookSVG from "/assets/cook-animated.svg";
 import Joi from "joi";
 import useApi from "../../hooks/useApi";
 import useForm from "../../hooks/useForm";
@@ -48,6 +49,11 @@ function SignUp() {
   return (
     <div className="SignUpPage">
       <div className="SignUpContainer">
+      <div className="imageContainerSignUp">
+          <object className="bakerSVGSignUp" type="image/svg+xml" data={CookSVG}>
+            svg-animation
+          </object>
+        </div>
         <div className="formContainer">
           <h1 className="SignUpTitle">SignUp</h1>
           <div className="inputContainer">
@@ -77,6 +83,7 @@ function SignUp() {
               required
             />
           </div>
+
           <Button
             type="primary"
             onClick={handleSignUp}
