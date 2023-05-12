@@ -19,7 +19,7 @@ app = Flask(__name__)
 app.config["DATABASE_URI"] = os.environ["POSTGRESQL_URL"]
 app.config["SECRET_KEY"] = "SILVA"
 
-cors = CORS(app)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config["CORS_HEADERS"] = "Content-Type"
 
 
@@ -128,7 +128,7 @@ def signup():
     password = info["password"]
     email = info["email"]
 
-    result = dbFunctions.signup(username, password, email)
+    result = dbFunctions.signup(username, password)
     if 'token' in result:
         return jsonify(result), 200
     else:

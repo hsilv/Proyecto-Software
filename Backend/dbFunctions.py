@@ -55,12 +55,15 @@ def login(username, password):
   else:
     return False
 
-def signup(username, password, email):
+def signup(username, password):
     db = connect()
     cursor = db.cursor()
+    pfp = 'foto'
+    rol = 'usuario'
+    followers = 0
     cursor.execute(f"""
-        INSERT INTO usuario (username, password, email)
-        VALUES ('{username}', '{password}', '{email}')
+        INSERT INTO usuario (username, password, pfp, followers, rol)
+        VALUES ('{username}', '{password}', '{pfp}', '{followers}', '{rol}')
         RETURNING id
     """
     )
