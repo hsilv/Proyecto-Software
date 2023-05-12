@@ -23,6 +23,7 @@ function Login() {
     });
     if (response.token) {
       localStorage.setItem("cook", response.token);
+      window.location.replace("http://localhost:5173/Home")
     } else {
       console.log("La contraseña o el usuario son incorrectos");
     }
@@ -35,8 +36,11 @@ function Login() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("cook")) {
-      console.log("Logeado");
+    if (localStorage.getItem('cook') == null) {
+      console.log('Logged Out')
+    }else{
+      console.log('Logged In')
+      window.location.replace("http://localhost:5173/Home")
     }
   }, []);
 

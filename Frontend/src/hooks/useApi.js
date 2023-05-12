@@ -13,9 +13,9 @@ const useApi = () => {
         ...headers,
         'Content-Type': 'application/json'
       }
-    }
+    }    
 
-    if (method !== 'GET') {
+    if (method !== 'GET' && body) {
       options.body = JSON.stringify(body)
     }
 
