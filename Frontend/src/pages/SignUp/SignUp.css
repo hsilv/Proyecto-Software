@@ -29,7 +29,6 @@
 .bakerSVGSignUp{
     width: 110%;
 }
-  
 
 .formContainer{
     display:flex;
@@ -41,6 +40,7 @@
     border-top-right-radius: inherit;
     border-bottom-right-radius: inherit;
 }
+
 .SignUpTitle {
     font-size: 40px;
     font-family: Raleway, sans-serif;
@@ -55,4 +55,3 @@
     gap: 10px;
     margin-bottom: 20px;
 }
-
