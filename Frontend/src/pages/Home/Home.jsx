@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useSession from "../../hooks/session";
 import "./Home.css";
+import NavBar from "../../components/NavBar/NavBar";
+import { handleLogOut } from "../../hooks/session";
 
 function Home() {
   const { session, checkSession } = useSession();
@@ -21,14 +23,10 @@ function Home() {
     verifySession();
   }, []);
 
-  const handleLogOut = () => {
-    localStorage.removeItem("cook");
-    window.location.replace("http://localhost:5173/");
-  };
+
   return (
     <div className="Home">
-      Accessed
-      <button onClick={handleLogOut}>Cerrar Sesión</button>
+      <NavBar/>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useApi from "./useApi";
 
-const useSession = () => {
+export const useSession = () => {
   const { loading, data, handleRequest } = useApi();
   const [session, setSession] = useState(false);
   
@@ -25,5 +25,10 @@ const useSession = () => {
     checkSession,
   };
 };
+
+export const handleLogOut = () => {
+    localStorage.removeItem("cook");
+    window.location.replace("http://localhost:5173/");
+  };
 
 export default useSession;
