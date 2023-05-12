@@ -1,18 +1,21 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
-from flask_jwt_extended import *
 import jwt
+from flask_jwt_extended import *
 import json
 import dbFunctions
 import psycopg2
 from datetime import datetime, timedelta
 
+load_dotenv()
 # Test
 cadena_json = '{"message": "Test"}'
 objeto_json = json.loads(cadena_json)
 
 app = Flask(__name__)
-app.config['DATABASE_URI'] = 'postgresql://postgres:agriodude@localhost/asdas'
+app.config['DATABASE_URI'] = os.environ["POSTGRESQL_URL"]
 app.config['SECRET_KEY'] = 'SILVA'
 
 cors = CORS(app)
@@ -23,15 +26,6 @@ def connect():
     connection = psycopg2.connect(app.config['DATABASE_URI'])
     return connection
 
-
-def generate_token(payload, expiration):
-    payload['exp'] = datetime.utcnow() + timedelta(hours=5)
-    token = jwt.encode(
-        payload,
-        app.config['SECRET_KEY'],
-        algorithm='HS256',
-    )
-    return token
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -46,25 +40,23 @@ def hello():
     return results'''
 
 
-@app.route('/login', methods=['GET'])
+@app.route('/login', methods=['POST'])
 def login():
     info = request.get_json()
     username = info['username']
     password = info['password']
-    print(checkAuth(username, password))
-    if(checkAuth(username, password)):
-        payload = {'username': username}
-        expiration = datetime.utcnow() + timedelta(hours=3)
-        token = generate_token(payload, expiration)
-        return {'token': token}, 200
+    if(dbFunctions.login(username, password) != False):
+        return dbFunctions.login(username, password), 200
     else:
-        return {'error': 'Autenticación incorrecta'}, 401
+        return {'error': 'Usuario o contraseña incorrecta'}, 200
 
+'''
 @app.route('/login2', methods=['POST'])
 def login2():
     user = request.get_json()
     print(user)
     return jsonify(dbFunctions.login(user['username'], user['password']))
+'''
 
 def checkAuth(username, password):
     connection = connect()

@@ -25,5 +25,5 @@ pip install -U flask-cors
 ```
 Por último, ejecutar el servidor
 ```
-flask --app login run
+flask --app api run
 ```
