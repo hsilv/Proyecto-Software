@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
+
+.SignUpPage{
+  display: flex;
+  justify-content: center;
+}
+
+.SignUpContainer {
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+  width: 60%;
+  background-color: white;
+  margin-top: 5%;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.5);
+}
+
+.imageContainerSignUp{
+    display: flex;
+    justify-content: center;
+    height: 80vh;
+    width: 50%;
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+    padding-left: 25px;
+}
+  
+.bakerSVGSignUp{
+    width: 110%;
+}
+  
+
+.formContainer{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 50%;
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
+.SignUpTitle {
+    font-size: 40px;
+    font-family: Raleway, sans-serif;
+    font-weight: 700;
+    color: #35356E;
+}
+  
+.inputContainer {
+    width: 18rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+

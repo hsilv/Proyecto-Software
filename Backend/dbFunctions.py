@@ -55,6 +55,27 @@ def login(username, password):
   else:
     return False
 
+def signup(username, password, email):
+    db = connect()
+    cursor = db.cursor()
+    cursor.execute(f"""
+        INSERT INTO usuario (username, password, email)
+        VALUES ('{username}', '{password}', '{email}')
+        RETURNING id
+    """
+    )
+    inserted_id = cursor.fetchone()[0]
+    db.commit()
+    cursor.close()
+    db.close()
+
+    payload = {'username': username}
+    expiration = datetime.utcnow() + timedelta(hours=3)
+    token = generate_token(payload, expiration)
+
+    return {'token': token, 'id': inserted_id}
+
+
 def generate_token(payload, expiration):
     payload['exp'] = datetime.utcnow() + timedelta(hours=3)
     token = jwt.encode(

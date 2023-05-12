@@ -99,8 +99,8 @@ def protected():
     return {"message": "Esta es una ruta protegida"}
 
 
-@app.route("/register", methods=["POST"])
-def register():
+@app.route("/profile", methods=["POST"])
+def profile():
     info = request.get_json()
     username = info["username"]
     pfp = info["img"]
@@ -121,6 +121,19 @@ def register():
     connection.close()
     return {"message": f"Usuario registrado con ID: {id}"}
 
+@app.route("/signup", methods=["POST"])
+def signup():
+    info = request.get_json()
+    username = info["username"]
+    password = info["password"]
+    email = info["email"]
+
+    result = dbFunctions.signup(username, password, email)
+    if 'token' in result:
+        return jsonify(result), 200
+    else:
+        return jsonify({"error": "Failed to sign up"}), 400
+    
 
 if __name__ == "__main__":
     app.run()

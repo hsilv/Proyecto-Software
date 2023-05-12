@@ -1,5 +1,6 @@
 import Login from './pages/Login/Login'
 import Home from './pages/Home/Home'
+import SignUp from './pages/SignUp/SignUp'
 
 function App() {
     let component
@@ -12,6 +13,10 @@ function App() {
         case '/Home':
             component = <Home/>
             break
+
+        case '/SignUp':
+            component = <SignUp/>
+        break
 
         default:
             component = <Login/>
