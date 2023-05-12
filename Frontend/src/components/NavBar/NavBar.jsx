@@ -2,7 +2,8 @@ import "./NavBar.css";
 import { handleLogOut } from "../../hooks/session";
 import AnyButton from "../AnyButton/AnyButton";
 import logo from "/assets/Vector.png";
-import { BiSearch } from "react-icons/bi";
+import { BiBell, BiLogOut, BiPlusCircle, BiSearch, BiUserCircle } from "react-icons/bi";
+import IconButton from "../IconButton/IconButton";
 
 const NavBar = () => {
   return (
@@ -14,16 +15,28 @@ const NavBar = () => {
         </a>
       </div>
       <div className="searchContainer">
-        <button onClick={() => {console.log('Buscar')}}>
+        <IconButton onClick={() => {console.log('Buscar')}} classes={["t-60"]}>
             <BiSearch/>
-        </button>
+        </IconButton>
+
+
         <input placeholder="Busca algo :)" className="searchInput">
         </input>
       </div>
-      <div>
-        <AnyButton onClick={handleLogOut} classes={["left"]}>
-          Cerrar Sesión
-        </AnyButton>
+      <div className="userContainer">
+      <IconButton onClick={() => {console.log("Agregar Receta")}} classes={["p-i-medium"]}>
+            <BiPlusCircle/>
+        </IconButton>
+        <IconButton onClick={() => {console.log("Mostrar notificaciones")}} classes={["p-small", "p-i-medium"]}>
+            <BiBell/>
+        </IconButton>
+        <IconButton onClick={handleLogOut} classes={["p-small", "p-i-medium"]}>
+            <BiLogOut/>
+        </IconButton>
+        <IconButton onClick={() => {console.log("Ingresar a perfil")}} classes={["p-i-medium"]}>
+            <BiUserCircle/>
+        </IconButton>
+        
       </div>
     </div>
   );

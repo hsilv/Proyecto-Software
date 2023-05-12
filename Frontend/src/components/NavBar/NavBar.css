@@ -21,7 +21,7 @@
     margin-right: 10%;
 }
 
-a{
+.NavBar a{
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -38,7 +38,7 @@ a{
     color: black;
     height: 45px;
     border-radius: 20px;
-    padding-inline: 25px;
+    padding-inline: 15px;
     width: 50%;
     box-shadow: 0px 0px 2px black;
     transition: box-shadow 0.3s ease;
@@ -51,22 +51,6 @@ a{
 .searchContainer button{
     flex: 0 0 5%;
     display: flex;
-    align-content: center;
-    padding: 0px;
-    background-color: transparent;
-    border: 0px;
-    width: fit-content;
-    height: fit-content;
-}
-
-.searchContainer button svg{
-    width: 25px;
-    height: 25px;
-    transition: filter 0.3s ease;
-}
-
-.searchContainer button svg:hover{
-    filter: drop-shadow(0 0 0.7px rgba(0, 0, 0, 0.9));
 }
 
 .searchContainer .searchInput{
@@ -78,6 +62,12 @@ a{
 
 .searchContainer .searchInput:focus-visible{
     outline: 0;
+}
+
+.userContainer{
+    display: flex;
+    align-items: center;
+    height: 80%;
 }
 
 
