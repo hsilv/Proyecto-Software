@@ -7,8 +7,16 @@
     padding: 10px 20px;
     cursor: pointer;
     border: none;
-    width: 300px;
-    font-family: Raleway, sans-serif;
+    max-width: 300px;
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+    transition: 0.2s;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 6px 20px -6px;
+  }
+
+  .button:hover {
+    background-color: #756ed8;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 5px -6px;
   }
   
   .button[disabled] {
@@ -25,7 +33,6 @@
   
   .button > span {
     display: block;
-    width: 250px;
     height: 20px;
     white-space: nowrap;
     overflow: hidden;

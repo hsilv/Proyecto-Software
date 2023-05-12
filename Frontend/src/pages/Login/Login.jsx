@@ -15,6 +15,7 @@ const schema = Joi.object({
 function Login() {
   const { loading, data, handleRequest } = useApi();
   const form = useForm(schema, { username: "", password: "" });
+  const [errState, setErrState] = useState(true)
 
   const postLogin = async (username, password) => {
     const response = await handleRequest("POST", "/login", {
@@ -26,6 +27,7 @@ function Login() {
       window.location.replace("http://localhost:5173/Home")
     } else {
       console.log("La contraseña o el usuario son incorrectos");
+      setErrState(false)
     }
   };
 
@@ -73,6 +75,9 @@ function Login() {
               required
             />
           </div>
+
+          {!errState ? <span className="errorMsg">Usuario o contraseña incorrecta</span> : <div />}
+
           <Button
             type="primary"
             onClick={handleLogin}
@@ -81,6 +86,7 @@ function Login() {
           >
             Login
           </Button>
+          
         </div>
       </div>
     </div>
