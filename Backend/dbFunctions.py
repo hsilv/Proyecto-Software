@@ -1,11 +1,16 @@
+import os
+from dotenv import load_dotenv
 import jwt
 import psycopg2
+from datetime import datetime, timedelta
+
+load_dotenv()
 
 def connect():
-    connection = psycopg2.connect('postgresql://postgres:agriodude@localhost/asdas')
+    connection = psycopg2.connect(os.environ["POSTGRESQL_URL"])
     return connection
 
-def login(user, password):
+def login2(user, password):
   db = connect()
   cur = db.cursor()
   cur.execute(f"""
@@ -25,3 +30,36 @@ def login(user, password):
 
   else:
     return { "success": True, "id": row[0]}
+  
+
+def login(username, password):
+  db = connect()
+  cursor = db.cursor()
+  cursor.execute(f"""
+    SELECT 
+      *
+    FROM
+      usuario
+    WHERE
+      username = \'{username}\' AND password = \'{password}\'
+  """
+  )
+  results = cursor.fetchall()
+  cursor.close()
+  db.close()
+  if(len(results) == 1):
+    payload = {'username': username}
+    expiration = datetime.utcnow() + timedelta(hours=3)
+    token = generate_token(payload, expiration)
+    return {'token': token}
+  else:
+    return False
+
+def generate_token(payload, expiration):
+    payload['exp'] = datetime.utcnow() + timedelta(hours=5)
+    token = jwt.encode(
+        payload,
+        os.environ['SECRET'],
+        algorithm='HS256',
+    )
+    return token

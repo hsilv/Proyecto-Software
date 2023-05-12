@@ -56,3 +56,13 @@
   gap: 10px;
   margin-bottom: 20px;
 }
+
+.errorMsg {
+  font-family: Raleway, sans-serif;
+  margin-bottom: 10px;
+  transition: 0.1s;
+}
+
+.errorMsg.gone {
+  display: none;
+}
