@@ -1,14 +1,45 @@
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import jwt
 import psycopg2
 from datetime import datetime, timedelta
 
-load_dotenv()
+#load_dotenv()
 
 def connect():
-    connection = psycopg2.connect(os.environ["POSTGRESQL_URL"])
+    connection = psycopg2.connect('postgresql://postgres:andrea@localhost/software')
     return connection
+
+def home():
+    top_recipes = []
+    db = connect()
+    cur = db.cursor()
+    
+    cur.execute("""
+        SELECT RECETA.ID, RECETA.NOMBRE, RECETA.AUTOR_ID, RECETA.TIEMPO, RECETA.DESCRIPCION, RECETA.AVG_CALIFICACION, MINIATURA.URL
+        FROM RECETA
+        JOIN MINIATURA ON RECETA.ID = MINIATURA.RECETA_ID
+        ORDER BY RECETA.AVG_CALIFICACION DESC
+        LIMIT 2;
+    """)
+
+    results = cur.fetchall()
+    cur.close()
+    db.close()
+
+    for row in results:
+        recipe = {
+            "id": row[0],
+            "nombre": row[1],
+            "autor_id": row[2],
+            "tiempo": row[3],
+            "descripcion": row[4],
+            "avg_calificacion": row[5],
+            "url_minatura": row[6]
+        }
+        top_recipes.append(recipe)
+
+    return top_recipes
 
 def login2(user, password):
   db = connect()
@@ -93,7 +124,7 @@ def generate_token(payload, expiration):
     payload['exp'] = datetime.utcnow() + timedelta(hours=3)
     token = jwt.encode(
         payload,
-        os.environ['SECRET'],
+        'SILVA',
         algorithm='HS256',
     )
     return token
