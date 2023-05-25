@@ -16,7 +16,6 @@ function Home() {
       try {
         const response = await handleRequest("GET", "/home");
         setPopularRecipes(response);
-        console.log(response)
       } catch (error) {
         console.error("Error fetching popular recipes: ", error);
       }
@@ -60,8 +59,10 @@ function Home() {
       <Carousel
         title={popularRecipes[currentRecipeIndex]?.nombre}
         user={popularRecipes[currentRecipeIndex]?.username}
-        description={popularRecipes[currentRecipeIndex]?.description}
-        ratings={popularRecipes[currentRecipeIndex]?.ratings}
+        description={popularRecipes[currentRecipeIndex]?.descripcion}
+        ratings={popularRecipes[currentRecipeIndex]?.avg_calificacion}
+        time ={popularRecipes[currentRecipeIndex]?.tiempo}
+        img_url = {popularRecipes[currentRecipeIndex]?.url_minatura}
         onNext={handleNextRecipe}
         onPrevious={handlePreviousRecipe}
       />
