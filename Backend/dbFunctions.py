@@ -78,6 +78,16 @@ def signup(username, password):
 
     return {'token': token, 'id': inserted_id}
 
+def updateUser(username, name, desc):
+  db = connect()
+  cursor = db.cursor()
+  cursor.execute(f"""
+    UPDATE usuario SET name = '{name}', descr = '{desc}' WHERE username = '{username}'
+  """
+  )
+  db.commit()
+  cursor.close()
+  db.close()
 
 def generate_token(payload, expiration):
     payload['exp'] = datetime.utcnow() + timedelta(hours=3)

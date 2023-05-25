@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
+
+.profileWrapper {
+  display: flex;
+  width: 100%;
+  max-width: 98%;
+  height: 98%;
+  gap: 1%;
+  flex-wrap: nowrap;
+  margin: 0px auto;
+  font-family: 'Raleway', sans-serif;
+  color: black;
+}
+
+.infoContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 20px;
+  height: 100%;
+  width: 25%;
+  box-shadow: 0px 2.5px 5px 2px grey;
+}
+
+.pfp {
+  margin: 5% 0px 3% 0px;
+  border-radius: 50%;
+  width: 50%;
+  object-fit: cover;
+}
+
+.realName {
+  max-width: 70%;
+  font-weight: 600;
+  font-size: 1.7rem;
+}
+
+.username {
+  max-width: 70%;
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 7%;
+}
+
+.desc {
+  margin-top: 0;
+  text-align: center;
+  max-width: 70%;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 5%;
+}
+
+.recipesContainer {
+  display: flex;
+  border-radius: 20px;
+  flex-direction: column;
+  background-color: white;
+  height: 100%;
+  min-height: 86vh;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0px 2.5px 5px 2px grey;
+}
+
+.recipeViewer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recipeViewer span {
+  margin-top: 200px;
+}
+
+.editBtn {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.infoContainer input {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  font-size: 1.7rem;
+  width: 70%;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 2% 0%;
+  margin-bottom: 2%;
+  outline: none;
+  text-align: center;
+}
+
+.infoContainer input:focus {
+  border-bottom: 1px solid #35356e;
+}
+
+textarea {
+  font-family: 'Raleway', sans-serif;
+  width: 70%;
+  height: fit-content;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 2% 0%;
+  outline: none;
+  margin-bottom: 2%;
+  resize: none;
+  max-height: 40vh;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 5%;
+}
+
+textarea:focus {
+  border-bottom: 1px solid #35356e;
+}
+
+.formBtn {
+  background-color: #7f77ea;
+  color: #f5f5f5;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  width: 70%;
+  font-family: 'Raleway', sans-serif;
+  transition: 0.2s;
+  margin: 2% 0px;
+}
+
+.formBtn:first-of-type {
+  margin-top: 0%;
+}
+
+.formBtn:hover {
+  background-color: #756ed8;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 5px -6px;
+}
+
+.formBtn[disabled] {
+  background-color: #ddd;
+  color: #333;
+  cursor: not-allowed;
+}
+
+.formBtnSecondary {
+  background-color: transparent;
+  color: #7f77ea;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #7f77ea;
+  width: 70%;
+  font-family: 'Raleway', sans-serif;
+  transition: 0.2s;
+  margin: 2% 0px 5% 0px;
+}

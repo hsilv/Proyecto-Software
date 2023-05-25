@@ -133,7 +133,31 @@ def signup():
         return jsonify(result), 200
     else:
         return jsonify({"error": "Failed to sign up"}), 400
-    
+
+@app.route("/userData/<username>", methods=["GET"])
+def getUserData(username):
+    print(username)
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT PFP, FOLLOWERS, ROL, NAME, DESCR FROM USUARIO WHERE USERNAME = '{username}'")
+    results = cursor.fetchone()
+    return jsonify(results)
+
+@app.route("/updateUserData", methods=["POST"])
+def updateUserData():
+    info = request.get_json()
+    username = info["username"]
+    nombre = info["name"]
+    desc = info["desc"]
+
+    try:
+        dbFunctions.updateUser(username, nombre, desc)
+        return jsonify('success'), 200
+    except Exception as e:
+        print(e)
+        return jsonify('error'), 400
+
+
 
 if __name__ == "__main__":
     app.run()
