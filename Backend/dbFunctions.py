@@ -16,9 +16,10 @@ def home():
     cur = db.cursor()
     
     cur.execute("""
-        SELECT RECETA.ID, RECETA.NOMBRE, RECETA.AUTOR_ID, RECETA.TIEMPO, RECETA.DESCRIPCION, RECETA.AVG_CALIFICACION, MINIATURA.URL
+        SELECT RECETA.ID, RECETA.NOMBRE, USUARIO.USERNAME, RECETA.TIEMPO, RECETA.DESCRIPCION, RECETA.AVG_CALIFICACION, MINIATURA.URL
         FROM RECETA
         JOIN MINIATURA ON RECETA.ID = MINIATURA.RECETA_ID
+        JOIN USUARIO ON RECETA.AUTOR_ID = USUARIO.ID
         ORDER BY RECETA.AVG_CALIFICACION DESC
         LIMIT 2;
     """)
@@ -31,7 +32,7 @@ def home():
         recipe = {
             "id": row[0],
             "nombre": row[1],
-            "autor_id": row[2],
+            "username": row[2],
             "tiempo": row[3],
             "descripcion": row[4],
             "avg_calificacion": row[5],
