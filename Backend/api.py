@@ -51,13 +51,9 @@ def login():
         return {"error": "Usuario o contraseña incorrecta"}, 200
 
 
-"""
-@app.route('/login2', methods=['POST'])
-def login2():
-    user = request.get_json()
-    print(user)
-    return jsonify(dbFunctions.login(user['username'], user['password']))
-"""
+@app.route("/home", methods=["GET", "POST"])
+def topRecipes():
+    return dbFunctions.home()
 
 
 def checkAuth(username, password):
