@@ -60,3 +60,9 @@
     padding: 0px 45px;
     color: #FFF;
 }
+
+.time_container {
+    margin-left: 45px;
+    align-items: center;
+    display: flex;
+}

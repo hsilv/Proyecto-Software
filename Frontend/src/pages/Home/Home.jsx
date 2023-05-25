@@ -60,8 +60,9 @@ function Home() {
       <Carousel
         title={popularRecipes[currentRecipeIndex]?.nombre}
         user={popularRecipes[currentRecipeIndex]?.username}
-        description={popularRecipes[currentRecipeIndex]?.description}
-        ratings={popularRecipes[currentRecipeIndex]?.ratings}
+        description={popularRecipes[currentRecipeIndex]?.descripcion}
+        ratings={popularRecipes[currentRecipeIndex]?.avg_calificacion}
+        time ={popularRecipes[currentRecipeIndex]?.tiempo}
         onNext={handleNextRecipe}
         onPrevious={handlePreviousRecipe}
       />
