@@ -3,6 +3,8 @@ import useSession from "../../hooks/session";
 import "./Home.css";
 import NavBar from "../../components/NavBar/NavBar";
 import { handleLogOut } from "../../hooks/session";
+import Carousel from "../../components/Carousel/Carousel";
+
 
 function Home() {
   const { session, checkSession } = useSession();
@@ -26,7 +28,9 @@ function Home() {
 
   return (
     <div className="Home">
-      <NavBar/>
+      <NavBar />
+      <h1>Popular Recipes This Week</h1>
+      <Carousel />
     </div>
   );
 }
