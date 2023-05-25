@@ -16,7 +16,6 @@ function Home() {
       try {
         const response = await handleRequest("GET", "/home");
         setPopularRecipes(response);
-        console.log(response)
       } catch (error) {
         console.error("Error fetching popular recipes: ", error);
       }
@@ -63,6 +62,7 @@ function Home() {
         description={popularRecipes[currentRecipeIndex]?.descripcion}
         ratings={popularRecipes[currentRecipeIndex]?.avg_calificacion}
         time ={popularRecipes[currentRecipeIndex]?.tiempo}
+        img_url = {popularRecipes[currentRecipeIndex]?.url_minatura}
         onNext={handleNextRecipe}
         onPrevious={handlePreviousRecipe}
       />
