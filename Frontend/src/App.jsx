@@ -2,6 +2,7 @@ import Login from './pages/Login/Login'
 import Home from './pages/Home/Home'
 import SignUp from './pages/SignUp/SignUp'
 import Profile from './pages/Profile/Profile'
+import Recipe from './pages/Recipe/Recipe'
 
 function App() {
   let component
@@ -22,6 +23,10 @@ function App() {
     
     case '/profile':
       component = <Profile username={`${params.get('username')}`} />
+    break
+
+    case '/recipe':
+      component = <Recipe id={`${params.get('id')}`}/>
     break
 
     default:

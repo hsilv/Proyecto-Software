@@ -21,7 +21,7 @@ def home():
         JOIN MINIATURA ON RECETA.ID = MINIATURA.RECETA_ID
         JOIN USUARIO ON RECETA.AUTOR_ID = USUARIO.ID
         ORDER BY RECETA.AVG_CALIFICACION DESC
-        LIMIT 2;
+        ;
     """)
 
     results = cur.fetchall()

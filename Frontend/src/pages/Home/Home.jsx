@@ -43,6 +43,10 @@ function Home() {
     );
   };
 
+  const handleRedirection = () => {
+    window.location.replace("http://localhost:5173/recipe?id="+popularRecipes[currentRecipeIndex].id);
+  }
+
   useEffect(() => {
     const verifySession = async () => {
       try {
@@ -73,6 +77,7 @@ function Home() {
         callback={arrowCallback}
         onNext={handleNextRecipe}
         onPrevious={handlePreviousRecipe}
+        redir={handleRedirection}
       />
     </div>
   );
