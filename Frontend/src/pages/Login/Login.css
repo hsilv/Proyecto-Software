@@ -66,3 +66,12 @@
 .errorMsg.gone {
   display: none;
 }
+
+p, a {
+  padding: 10px 0px;
+  font-family: Raleway, sans-serif;;
+}
+
+.loginContainer h1 {
+  margin-left: 0;
+}

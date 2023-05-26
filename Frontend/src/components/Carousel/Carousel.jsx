@@ -11,24 +11,24 @@ const formatTime = (time) => {
   return `${minutes}:${seconds}`;
 };
 
-const Carousel = ({ title, user, description, ratings, time, img_url}) => {
+const Carousel = ({ title, user, description, ratings, time, img_url, callback}) => {
   return (
     <>
       <div className={styles.container}>
         <div className={styles.images_container}>
-          <button type='button'>
+          <button type='button' onClick={() => {callback(-1)}}>
             <img className={styles.arrow} src='/assets/left-arrow.png' alt="Left Arrow" />
           </button>
           <div className={styles.img_container}>
             <img src={img_url}></img>
           </div>
-          <button type='button'>
+          <button type='button' onClick={() => {callback(1)}}>
             <img style={{ transform: 'scaleX(-1)' }} className={styles.arrow} src='/assets/left-arrow.png' alt="Right Arrow" />
           </button>
         </div>
         <div className={styles.information_container}>
           <div className={styles.title_container}>
-            <h1 style={{'margin-right': '20px'}}>{title}</h1>
+            <h1 style={{marginRight: '20px'}}>{title}</h1>
             <BiBookmarkAlt color='#f6ae2d' size={45} />
           </div>
             <div className={styles.time_container}>

@@ -98,6 +98,8 @@ function Login() {
           >
             Login
           </Button>
+
+          <p>Don't have an account yet? <a href="http://localhost:5173/SignUp">Register here!</a></p>
         </div>
       </div>
     </div>

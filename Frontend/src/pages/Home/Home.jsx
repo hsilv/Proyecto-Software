@@ -11,11 +11,18 @@ function Home() {
   const [popularRecipes, setPopularRecipes] = useState([]);
   const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
 
+  const arrowCallback = (value) => {
+    if(!(currentRecipeIndex + value > popularRecipes.length - 1 || currentRecipeIndex + value < 0)) {
+      setCurrentRecipeIndex(currentRecipeIndex + value)
+    }
+  }
+
   useEffect(() => {
     const fetchPopularRecipes = async () => {
       try {
         const response = await handleRequest("GET", "/home");
         setPopularRecipes(response);
+        console.log(session)
       } catch (error) {
         console.error("Error fetching popular recipes: ", error);
       }
@@ -63,6 +70,7 @@ function Home() {
         ratings={popularRecipes[currentRecipeIndex]?.avg_calificacion}
         time ={popularRecipes[currentRecipeIndex]?.tiempo}
         img_url = {popularRecipes[currentRecipeIndex]?.url_minatura}
+        callback={arrowCallback}
         onNext={handleNextRecipe}
         onPrevious={handlePreviousRecipe}
       />
