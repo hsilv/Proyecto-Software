@@ -20,7 +20,16 @@ export const useSession = () => {
 
   };
 
+  const getUser = async () => {
+    const response = await handleRequest("POST", "/getUsername", undefined, {
+      Authorization: localStorage.getItem("cook"),
+    });
+    console.log(response.username);
+    return response.username;
+  }
+ 
   return {
+    getUser,
     session,
     checkSession,
   };

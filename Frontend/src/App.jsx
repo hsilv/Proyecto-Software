@@ -5,29 +5,34 @@ import Profile from './pages/Profile/Profile'
 
 function App() {
   let component
+  let params = new URLSearchParams(window.location.search);
   console.log(window.location.pathname)
-  switch (window.location.pathname) {
-    case '/Login':
+  switch (window.location.pathname.toLowerCase()) {
+    case '/login':
       component = <Login />
       break
 
-    case '/Home':
+    case '/home':
       component = <Home />
       break
 
-    case '/SignUp':
+    case '/signup':
       component = <SignUp />
       break
+    
+    case '/profile':
+      component = <Profile username={`${params.get('username')}`} />
+    break
 
     default:
       /* pido mis más sinceras disculpas de antemano, pero si me pongo a usar react router le explotan las rutas a todos */
       /* (creo) (prevenir > lamentar) */
       /* solo es para mostrar funcionalidad en el sprint */
-      if (window.location.pathname.slice(0, 8) === '/profile') {
-        component = <Profile username={`${window.location.pathname.slice(9)}`} />
-      } else {
+      /* if (window.location.pathname.slice(0, 8) === '/profile') {
+        component = <Profile username={`${params.get('username')}`} />
+      } else { */
         component = <Login />
-      }
+      /* } */
       break
   }
 

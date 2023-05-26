@@ -1,11 +1,12 @@
 import "./NavBar.css";
-import { handleLogOut } from "../../hooks/session";
+import useSession, { handleLogOut } from "../../hooks/session";
 import AnyButton from "../AnyButton/AnyButton";
 import logo from "/assets/Vector.png";
 import { BiBell, BiLogOut, BiPlusCircle, BiSearch, BiUserCircle } from "react-icons/bi";
 import IconButton from "../IconButton/IconButton";
 
 const NavBar = () => {
+  const {getUser} = useSession();
   return (
     <div className="NavBar">
       <div className="logoContainer">
@@ -33,7 +34,7 @@ const NavBar = () => {
         <IconButton onClick={handleLogOut} classes={["p-small", "p-i-medium"]}>
             <BiLogOut/>
         </IconButton>
-        <IconButton onClick={() => {console.log("Ingresar a perfil")}} classes={["p-i-medium"]}>
+        <IconButton onClick={() => {getUser().then(data => window.location.replace("http://localhost:5173/profile?username="+data))}} classes={["p-i-medium"]}>
             <BiUserCircle/>
         </IconButton>
         

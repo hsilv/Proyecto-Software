@@ -13,7 +13,7 @@ function Profile({ username }) {
   const { data, handleRequest } = useApi()
 
   const getUserData = async (user) => {
-    const response = await handleRequest('GET', '/userData/' + user)
+    const response = await handleRequest('GET', '/userData?username=' + user)
   }
 
   const showCurrent = () => {

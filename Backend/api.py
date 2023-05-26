@@ -128,8 +128,9 @@ def signup():
     else:
         return jsonify({"error": "Failed to sign up"}), 400
 
-@app.route("/userData/<username>", methods=["GET"])
-def getUserData(username):
+@app.route("/userData", methods=["GET"])
+def getUserData():
+    username = request.args.get('username');
     print(username)
     connection = connect()
     cursor = connection.cursor()
@@ -150,6 +151,22 @@ def updateUserData():
     except Exception as e:
         print(e)
         return jsonify('error'), 400
+
+@app.route("/getUsername", methods=["POST"])
+def getUsername():
+    info = request.headers.get('Authorization');
+    try:
+        payload = jwt.decode(info, os.environ['SECRET'], algorithms=['HS256']);
+        print(payload.get('username'));
+        return {"username": payload.get('username')}
+    except jwt.InvalidSignatureError:
+        # Manejar error de firma inválida
+        print("Firma del JWT inválida.")
+    except jwt.DecodeError:
+        # Manejar error de decodificación del JWT
+        print("Error al decodificar el JWT.")
+    return {"username": info}
+    
 
 if __name__ == "__main__":
     app.run()
