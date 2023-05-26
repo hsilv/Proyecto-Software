@@ -43,20 +43,21 @@ def home():
     return top_recipes
 
 def details(receta_id):
+    print(receta_id)
     details_recipe = []
     db = connect()
     cur = db.cursor()
 
-    cur.execute("""
-        SELECT RECETA.ID, RECETA.NOMBRE, USUARIO.USERNAME, RECETA.TIEMPO, RECETA.DESCRIPCION, RECETA.AVG_CALIFICACION, RECETA.PAIS, CATEGORIA.NOMBRE, PASO.NUMERO, PASO.DESCRIPCION, PASO.MULTIMEDIA_URL, RECETA.INGREDIENTES, RECETA.AUTOR_ID, COMENTARIO.FECHA, COMENTARIO.COMENTARIO, COMENTARIO.CALIFICACION, MINIATURA.URL
-        FROM RECETA
-        JOIN MINIATURA ON RECETA.ID = MINIATURA.RECETA_ID
-        JOIN USUARIO ON RECETA.AUTOR_ID = USUARIO.ID
-        JOIN CATEGORIA ON RECETA.CATEGORIA_ID = CATEGORIA.ID
-        JOIN PASO ON RECETA.ID = PASO.RECETA_ID
-        LEFT JOIN COMENTARIO ON RECETA.ID = COMENTARIO.RECETA_ID
-        WHERE RECETA.ID = %s
-    """, (receta_id,))
+    cur.execute(f"""
+      SELECT DISTINCT RECETA.ID, RECETA.NOMBRE, USUARIO.USERNAME, RECETA.TIEMPO, RECETA.DESCRIPCION, RECETA.AVG_CALIFICACION, 
+      RECETA.PAIS, CATEGORIA.NOMBRE, PASO.NUMERO, PASO.DESCRIPCION, PASO.MULTIMEDIA_URL, RECETA.INGREDIENTES, RECETA.AUTOR_ID, MINIATURA.URL
+      FROM RECETA
+      JOIN MINIATURA ON RECETA.ID = MINIATURA.RECETA_ID
+      JOIN USUARIO ON RECETA.AUTOR_ID = USUARIO.ID
+      JOIN CATEGORIA ON RECETA.CATEGORIA_ID = CATEGORIA.ID
+      JOIN PASO ON RECETA.ID = PASO.RECETA_ID
+		  WHERE RECETA.ID = \'{receta_id}\'
+    """)
 
     results = cur.fetchall()
     cur.close()
@@ -77,11 +78,7 @@ def details(receta_id):
             "descripcion_paso": row[9],
             "multimedia_url_paso": row[10],
             "ingredientes": row[11],
-            "autor_id": row[12],
-            "fecha_comentario": row[13],
-            "comentario": row[14],
-            "calificacion": row[15],
-            "url_minatura": row[16]
+            "url_minatura": row[13]
         }
         details_recipe.append(recipe_details)
 

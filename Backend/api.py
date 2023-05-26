@@ -56,7 +56,8 @@ def topRecipes():
 
 @app.route("/recipe", methods=["GET"])
 def getRecipeDetails():
-    recipe_id = request.args.get('id')
+    recipe_id = request.args.get('id');
+    print(recipe_id)
     recipe = dbFunctions.details(recipe_id)
     return jsonify(recipe)
 
