@@ -10,7 +10,7 @@ const NavBar = () => {
   return (
     <div className="NavBar">
       <div className="logoContainer">
-        <a href="#">
+        <a href="/home">
           <img src={logo} className="logo"></img>
           CookApp
         </a>
@@ -34,7 +34,7 @@ const NavBar = () => {
         <IconButton onClick={handleLogOut} classes={["p-small", "p-i-medium"]}>
             <BiLogOut/>
         </IconButton>
-        <IconButton onClick={() => {getUser().then(data => window.location.replace("http://localhost:5173/profile?username="+data))}} classes={["p-i-medium"]}>
+        <IconButton onClick={() => {getUser().then(data => window.location.replace("/profile?username="+data))}} classes={["p-i-medium"]}>
             <BiUserCircle/>
         </IconButton>
         

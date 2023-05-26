@@ -11,7 +11,7 @@ const formatTime = (time) => {
   return `${minutes}:${seconds}`;
 };
 
-const Carousel = ({ title, user, description, ratings, time, img_url, callback}) => {
+const Carousel = ({ title, user, description, ratings, time, img_url, callback, redir}) => {
   return (
     <>
       <div className={styles.container}>
@@ -20,7 +20,7 @@ const Carousel = ({ title, user, description, ratings, time, img_url, callback})
             <img className={styles.arrow} src='/assets/left-arrow.png' alt="Left Arrow" />
           </button>
           <div className={styles.img_container}>
-            <img src={img_url}></img>
+            <img src={img_url} onClick={redir}></img>
           </div>
           <button type='button' onClick={() => {callback(1)}}>
             <img style={{ transform: 'scaleX(-1)' }} className={styles.arrow} src='/assets/left-arrow.png' alt="Right Arrow" />
