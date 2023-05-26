@@ -54,6 +54,12 @@ def login():
 def topRecipes():
     return dbFunctions.home()
 
+@app.route("/recipe", methods=["GET"])
+def getRecipeDetails():
+    recipe_id = request.args.get('id')
+    recipe = dbFunctions.details(recipe_id)
+    return jsonify(recipe)
+
 def checkAuth(username, password):
     connection = connect()
     cursor = connection.cursor()
