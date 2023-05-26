@@ -2,8 +2,8 @@ import NavBar from "../../components/NavBar/NavBar";
 import style from "./Recipe.module.css";
 import { BiBookmarkAlt, BiWorld } from "react-icons/bi";
 import { BiPlusCircle, BiUserCircle, BiTime } from "react-icons/bi";
-import { GiAsparagus } from 'react-icons/gi'
-import {MdDinnerDining} from 'react-icons/md'
+import { GiAsparagus } from "react-icons/gi";
+import { MdDinnerDining } from "react-icons/md";
 
 function Recipe({ id }) {
   return (
@@ -31,22 +31,46 @@ function Recipe({ id }) {
             ></img>
             <div className={style.abtRecipe}>
               <div className={style.catRecipe}>
-                <div style={{marginInlineStart: '10%'}} className={style.catItem}>
-                  <BiTime size={30}/>
+                <div
+                  style={{ marginInlineStart: "10%" }}
+                  className={style.catItem}
+                >
+                  <BiTime size={30} />
                   <span>Tiempo</span>
                 </div>
                 <div className={style.catItem}>
-                  <BiWorld  size={30}/>
+                  <BiWorld size={30} />
                   <span>Geography</span>
                 </div>
                 <div className={style.catItem}>
-                  <MdDinnerDining size={30}/>
+                  <MdDinnerDining size={30} />
                   <span>Category</span>
                 </div>
-                <div style={{marginInlineEnd: '10%'}} className={style.catItem}>
-                  < GiAsparagus size={30}/>
+                <div
+                  style={{ marginInlineEnd: "10%" }}
+                  className={style.catItem}
+                >
+                  <GiAsparagus size={30} />
                   <span>Ingredients</span>
                 </div>
+              </div>
+              <div className={style.ingList}>
+                <span>Lista de Ingredientes:</span>
+                <ul>
+                  <li>Ingrediente 1</li>
+                  <li>Ingrediente 1</li>
+                  <li>Ingrediente 1</li>
+                  <li>Ingrediente 1</li>
+                  <li>Ingrediente 1</li>
+                  <li>Ingrediente 1</li>
+                  <li>Ingrediente 1</li>
+                  <li>Ingrediente 1</li>
+                </ul>
+              </div>
+              <div className={style.descRecipe}>
+                <span>
+                  Acá irá la descripción de la receta
+                </span>
               </div>
             </div>
           </div>
