@@ -1,29 +1,70 @@
+import React, { useEffect, useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import style from "./Recipe.module.css";
 import { BiBookmarkAlt, BiWorld } from "react-icons/bi";
 import { BiPlusCircle, BiUserCircle, BiTime } from "react-icons/bi";
 import { GiAsparagus } from "react-icons/gi";
 import { MdDinnerDining } from "react-icons/md";
+import useApi from "../../hooks/useApi";
+import useSession from "../../hooks/session";
+
 
 function Recipe({ id }) {
+  const { session, checkSession } = useSession();
+  const { loading, data, handleRequest } = useApi();
+  const [detailsRecipe, setDetailsRecipe] = useState([]);
+
+  useEffect(() => {
+    const fetchDetailsRecipe = async () => {
+      try {
+        const response = await handleRequest("GET", "/recipe");
+        setDetailsRecipe(response); // No se necesita ninguna transformación adicional
+        console.log(session);
+      } catch (error) {
+        console.error("Error fetching recipes: ", error);
+      }
+    };
+  
+    fetchDetailsRecipe();
+  }, []);
+  
+
+  useEffect(() => {
+    const verifySession = async () => {
+      try {
+        if (await checkSession()) {
+          console.log("Estás logeado");
+        } else {
+          const apiURL = "http://localhost:5173/"; 
+          const response = await fetch(apiURL);
+        }
+      } catch (error) {
+        console.error("Verify process error: ", error);
+      }
+    };
+  
+    verifySession();
+  }, []);
+  
+
   return (
     <>
       <NavBar />
       <div className={style.recipeContainer}>
         <div className={style.recipeInfo}>
-          <div className={style.recipeHeader}>
-            <h1>Nombre de la receta: ({id})</h1>
-            <div className={style.recipeHeader}>
-              <BiUserCircle size={60} />
-              <span>@Usuario</span>
-              <BiBookmarkAlt
-                color="#f6ae2d"
-                size={55}
-                style={{ marginInline: "5%" }}
-              />
-              <BiPlusCircle size={55} style={{ marginInlineStart: "5%" }} />
+        <div className={style.recipeHeader}>
+              <h1>Nombre de la receta: {detailsRecipe.name}</h1>
+              <div className={style.recipeHeader}>
+                <BiUserCircle size={60} />
+                <span>@Usuario</span>
+                <BiBookmarkAlt
+                  color="#f6ae2d"
+                  size={55}
+                  style={{ marginInline: "5%" }}
+                />
+                <BiPlusCircle size={55} style={{ marginInlineStart: "5%" }} />
+              </div>
             </div>
-          </div>
           <div className={style.recipeData}>
             <img
               src="https://th.bing.com/th/id/OIP.qIMMSQJ0Z4J86BJSoQ8aLAHaFi?pid=ImgDet&rs=1"
