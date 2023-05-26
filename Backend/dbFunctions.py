@@ -61,6 +61,7 @@ def details(receta_id):
     results = cur.fetchall()
     cur.close()
     db.close()
+    print(results)
 
     for row in results:
         recipe_details = {

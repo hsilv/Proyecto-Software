@@ -18,15 +18,16 @@ function Recipe({ id }) {
     const fetchDetailsRecipe = async () => {
       try {
         const response = await handleRequest("GET", "/recipe");
-        setDetailsRecipe(response);
-        console.log(session)
+        setDetailsRecipe(response); // No se necesita ninguna transformación adicional
+        console.log(session);
       } catch (error) {
         console.error("Error fetching recipes: ", error);
       }
     };
-
+  
     fetchDetailsRecipe();
   }, []);
+  
 
   useEffect(() => {
     const verifySession = async () => {
