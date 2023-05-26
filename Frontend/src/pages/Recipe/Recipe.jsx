@@ -40,22 +40,28 @@ function Recipe({ id }) {
                 </div>
                 <div className={style.catItem}>
                   <BiWorld size={30} />
-                  <span>Geography</span>
+                  <span>Geografía</span>
                 </div>
                 <div className={style.catItem}>
                   <MdDinnerDining size={30} />
-                  <span>Category</span>
+                  <span>Categoría</span>
                 </div>
                 <div
                   style={{ marginInlineEnd: "10%" }}
                   className={style.catItem}
                 >
                   <GiAsparagus size={30} />
-                  <span>Ingredients</span>
+                  <span>Ingredientes</span>
                 </div>
               </div>
               <div className={style.ingList}>
-                <span>Lista de Ingredientes:</span>
+                <div
+                  style={{ marginInlineEnd: "10%" }}
+                  className={style.catItem}
+                >
+                  <GiAsparagus size={20} style={{ marginInlineEnd: "0.5%" }} />
+                  <span>Ingredientes: </span>
+                </div>
                 <ul>
                   <li>Ingrediente 1</li>
                   <li>Ingrediente 1</li>
@@ -68,10 +74,38 @@ function Recipe({ id }) {
                 </ul>
               </div>
               <div className={style.descRecipe}>
-                <span>
-                  Acá irá la descripción de la receta
-                </span>
+                <span>Acá irá la descripción de la receta</span>
               </div>
+            </div>
+          </div>
+          <div className={style.step}>
+            <h1>Paso 1</h1>
+            <div className={style.stepItem}>
+              <img
+                src="https://th.bing.com/th/id/OIP.o-p0CGo1IgXqP6LXG7fMIAHaDz?pid=ImgDet&rs=1"
+                alt="Imagen de receta"
+              />
+              <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+            </div>
+          </div>
+          <div className={style.step}>
+            <h1>Paso 2</h1>
+            <div className={style.stepItem}>
+              <img
+                src="https://th.bing.com/th/id/OIP.o-p0CGo1IgXqP6LXG7fMIAHaDz?pid=ImgDet&rs=1"
+                alt="Imagen de receta"
+              />
+              <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+            </div>
+          </div>
+          <div className={style.step}>
+            <h1>Paso 3</h1>
+            <div className={style.stepItem}>
+              <img
+                src="https://th.bing.com/th/id/OIP.o-p0CGo1IgXqP6LXG7fMIAHaDz?pid=ImgDet&rs=1"
+                alt="Imagen de receta"
+              />
+              <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
             </div>
           </div>
         </div>

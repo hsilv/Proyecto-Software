@@ -81,3 +81,34 @@
     padding-bottom: 3%;
     overflow-wrap: break-word;
 }
+
+.step h1{
+    color: black;
+    margin: 0;
+    padding: 1%;
+    width: fit-content;
+}
+
+.step{
+    border-top: 1px solid black;
+    padding-bottom: 2%;
+}
+
+.stepItem{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 1%;
+}
+
+.stepItem img{
+    max-width: 25%;
+}
+
+.stepItem span{
+    width: 71%;
+    align-items: center;
+    padding-inline: 1%;
+    overflow-wrap: break-word;
+}
