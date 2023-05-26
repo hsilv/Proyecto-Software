@@ -1,13 +1,13 @@
 import os
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 import jwt
 import psycopg2
 from datetime import datetime, timedelta
 
-#load_dotenv()
+load_dotenv()
 
 def connect():
-    connection = psycopg2.connect('postgresql://postgres:andrea@localhost/software')
+    connection = psycopg2.connect(os.environ["POSTGRESQL_URL"])
     return connection
 
 def home():

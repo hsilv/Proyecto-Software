@@ -50,11 +50,9 @@ def login():
     else:
         return {"error": "Usuario o contraseña incorrecta"}, 200
 
-
 @app.route("/home", methods=["GET", "POST"])
 def topRecipes():
     return dbFunctions.home()
-
 
 def checkAuth(username, password):
     connection = connect()
@@ -152,8 +150,6 @@ def updateUserData():
     except Exception as e:
         print(e)
         return jsonify('error'), 400
-
-
 
 if __name__ == "__main__":
     app.run()

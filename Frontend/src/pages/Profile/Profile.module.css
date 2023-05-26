@@ -22,7 +22,7 @@
   border-radius: 20px;
   height: 100%;
   width: 25%;
-  box-shadow: 0px 2.5px 5px 2px grey;
+  box-shadow: 0px 2.5px 5px 2px #00000078;
 }
 
 .pfp {
@@ -60,10 +60,10 @@
   flex-direction: column;
   background-color: white;
   height: 100%;
-  min-height: 86vh;
+  min-height: 84vh;
   width: 100%;
   overflow: hidden;
-  box-shadow: 0px 2.5px 5px 2px grey;
+  box-shadow: 0px 2.5px 5px 2px #00000078;
 }
 
 .recipeViewer {
