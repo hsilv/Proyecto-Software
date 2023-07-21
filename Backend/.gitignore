@@ -1,2 +1,2 @@
-__pycache__
-env
+node_modules
+.node-persist
