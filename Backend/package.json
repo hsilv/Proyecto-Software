@@ -4,6 +4,7 @@
   "description": "API que servirá a CookApp",
   "author": "Sebastián Silva, Andrea Ramírez, Jennifer Toxcon, Adrián Flores",
   "main": "./bin/index.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hsilv/CookAppAPI.git"
@@ -16,36 +17,40 @@
     "test": "cross-env NODE_ENV=testing ts-node ./bin/index.js",
     "start": "cross-env NODE_ENV= ts-node ./bin/index.js",
     "inspect": "cross-env NODE_ENV= ts-node --inspect ./bin/index.js",
-    "dev": "cross-env NODE_ENV= nodemon --exec ts-node ./bin/index.js",
-    "production": "export NODE_ENV=production && pm2 start ./bin/index.js --name 'asigboApp'",
+    "dev": "cross-env NODE_ENV= nodemon --exec ts-node-esm ./bin/index.js",
+    "production": "export NODE_ENV=production && pm2 start ./bin/index.js --name 'CookApp'",
     "lint": "eslint ./**/*.js|ts"
   },
   "keywords": [],
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.26.0",
+    "@types/config": "^3.3.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/morgan": "^1.9.4",
+    "@types/node-persist": "^2.1.0",
     "config": "^3.3.9",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "csvtojson": "^2.0.10",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "fs": "0.0.1-security",
     "js-sha256": "^0.9.0",
     "jsonwebtoken": "^9.0.1",
-    "module-alias": "^2.2.3",
     "moment": "^2.29.4",
+    "morgan": "^1.10.0",
     "node-persist": "^2.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.17",
     "@types/node": "^20.4.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.45.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
-    "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
+    "nodemon": "^3.0.1"
   }
 }

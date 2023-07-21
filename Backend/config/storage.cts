@@ -22,5 +22,4 @@ class ExpressStorage {
   }
 }
 
-module.exports = { ExpressStorage };
-
+module.exports = {storage: ExpressStorage};

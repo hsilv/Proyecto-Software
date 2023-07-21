@@ -1,4 +1,6 @@
 Backend/__pycache__
 Backend/.venv
 Backend/.vscode
+Backend/node_modules
 Frontend/node_modules
+Backend/supabase

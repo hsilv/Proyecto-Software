@@ -1,4 +1,4 @@
-
+import { selectParams } from "./queryInterfaces";
 const storage = require('node-persist');
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
@@ -47,18 +47,16 @@ export const supabase = createClient(
   options,
 );
 
-async function select(table: string, columns: string[]) {
-  const columnNames = columns.join(', ');
+async function select(params: selectParams) {
+  const columnNames = params.columns.join(', ');
   // eslint-disable-next-line no-return-await
-  const values = await supabase
-    .from(table)
-    .select(columnNames)
-    .eq('username', 'user_1')
-    .then((data: any) => data);
-  console.table(values.data);
+  const {data, error} = await supabase.from(params.table).select(columnNames).eq(params.conditions.columnName, params.conditions.comparation);
+  if(error){
+    throw error
+  }
+  console.table(data);
+  return data;
 }
-
-select('usuario', ['*']);
 
 module.exports = {
   database: supabase,
