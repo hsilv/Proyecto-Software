@@ -1,8 +1,10 @@
+/* eslint-disable class-methods-use-this */
 const { init, getItem, setItem } = require('node-persist');
 require('dotenv').config();
 
 class ExpressStorage {
   constructor() {
+    // eslint-disable-next-line global-require
     this.storage = require('node-persist'); // Crear instancia de node-persist
     this.initStorage(); // Inicializar la instancia
   }

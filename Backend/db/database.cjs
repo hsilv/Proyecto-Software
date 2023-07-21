@@ -41,7 +41,7 @@ const options = {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export const supabase = createClient(
+const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY,
   options,
