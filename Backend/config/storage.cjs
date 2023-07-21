@@ -2,7 +2,6 @@ const { init, getItem, setItem } = require('node-persist');
 require('dotenv').config();
 
 class ExpressStorage {
-  storage: any;
   constructor() {
     this.storage = require('node-persist'); // Crear instancia de node-persist
     this.initStorage(); // Inicializar la instancia
@@ -12,14 +11,14 @@ class ExpressStorage {
     await init(process.env.STORAGE_CONFIG); // Uso directo de la función de node-persist
   }
 
-  async getItem(key: string) {
+  async getItem(key) {
     const value = await getItem(key); // Uso directo de la función de node-persist
     return value;
   }
 
-  async setItem(key: string, value: string) {
+  async setItem(key, value) {
     await setItem(key, value); // Uso directo de la función de node-persist
   }
 }
 
-module.exports = {storage: ExpressStorage};
+module.exports = ExpressStorage;

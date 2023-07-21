@@ -1,4 +1,3 @@
-import { selectParams } from "./queryInterfaces";
 const storage = require('node-persist');
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
@@ -17,11 +16,11 @@ async function main() {
 main();
 
 const appStorage = {
-  getItem: (key: string) => storage.getItemSync(key),
-  setItem: (key: string, value: string) => {
+  getItem: (key) => storage.getItemSync(key),
+  setItem: (key, value) => {
     storage.setItemSync(key, value);
   },
-  removeItem: (key: string) => {
+  removeItem: (key) => {
     storage.removeItemSync(key);
   },
 };
@@ -41,18 +40,19 @@ const options = {
   },
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY,
   options,
 );
 
-async function select(params: selectParams) {
+async function select(params) {
   const columnNames = params.columns.join(', ');
   // eslint-disable-next-line no-return-await
-  const {data, error} = await supabase.from(params.table).select(columnNames).eq(params.conditions.columnName, params.conditions.comparation);
-  if(error){
-    throw error
+  const { data, error } = await supabase.from(params.table).select(columnNames).eq(params.conditions.columnName, params.conditions.comparation);
+  if (error) {
+    throw error;
   }
   console.table(data);
   return data;
@@ -61,4 +61,4 @@ async function select(params: selectParams) {
 module.exports = {
   database: supabase,
   select,
-}
+};

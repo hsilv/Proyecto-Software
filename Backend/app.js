@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import getDirname from './utils/getDirname.ts';
+import getDirname from './utils/getDirname.js';
 
 const app = express();
 app.use(cors());
