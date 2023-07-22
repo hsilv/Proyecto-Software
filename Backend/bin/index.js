@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import app from '../app.js';
-import { database } from '../db/database.cjs';
 import auth from '../routes/auth/index.js';
 
 const port = process.env.DEPLOY_PORT;
