@@ -2,7 +2,7 @@ const storage = require('node-persist');
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 
-async function main() {
+async function initStorage() {
   await storage.init({
     dir: 'storage',
     stringify: JSON.stringify,
@@ -12,8 +12,6 @@ async function main() {
     ttl: false,
   });
 }
-
-main();
 
 const appStorage = {
   getItem: (key) => storage.getItemSync(key),
@@ -40,25 +38,19 @@ const options = {
   },
 };
 
-// eslint-disable-next-line import/prefer-default-export
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY,
-  options,
-);
-
-async function select(params) {
-  const columnNames = params.columns.join(', ');
-  // eslint-disable-next-line no-return-await
-  const { data, error } = await supabase.from(params.table).select(columnNames).eq(params.conditions.columnName, params.conditions.comparation);
-  if (error) {
-    throw error;
+class DatabaseInstance {
+  constructor() {
+    console.log('Incializando Storage...');
+    initStorage();
+    this.database = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_KEY,
+      options,
+    );
+    console.log('Conexión a base de datos satisfactoria');
   }
-  console.table(data);
-  return data;
 }
 
 module.exports = {
-  database: supabase,
-  select,
+  database: new DatabaseInstance().database,
 };

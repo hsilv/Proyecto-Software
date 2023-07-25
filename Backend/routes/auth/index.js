@@ -13,7 +13,16 @@ router.post('/login', async (req, res) => {
   if (result.data.length === 0) {
     res.status(203).json({ message: 'Incorrect username or password' });
   } else {
-    res.json({ token: setToken(result.data[0]) });
+    res.json({
+      token: setToken({
+        idUser: result.data[0].id,
+        username: result.data[0].username,
+        pfp: result.data[0].pfp,
+        followers: result.data[0].followers,
+        rol: result.data[0].rol,
+        email: result.data[0].correo,
+      }),
+    });
   }
 });
 
