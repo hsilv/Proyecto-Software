@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./SignUp.css";
 import CookSVG from "/assets/recipe-book-animated.svg";
 import Joi from "joi";
-import useApi from "../../hooks/useApi";
+/* import useApi from "../../hooks/useApi"; */
 import useForm from "../../hooks/useForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
@@ -16,10 +16,10 @@ const schema = Joi.object({
 });
 
 function SignUp() {
-  const { loading, handleRequest } = useApi();
+/*   const { loading, handleRequest } = useApi(); */
   const form = useForm(schema, { username: "", password: "", email: "" });
 
-  const postSignUp = async (username, password, email) => {
+  /* const postSignUp = async (username, password, email) => {
     const response = await handleRequest("POST", "/signup", {
       username,
       password,
@@ -31,13 +31,13 @@ function SignUp() {
     } else {
       console.log("Failed to SignUp");
     }
-  };
+  }; */
 
-  const handleSignUp = () => {
+  /* const handleSignUp = () => {
     if (form.validate()) {
       postSignUp(form.values.username, form.values.password, form.values.email);
     }
-  };
+  }; */
 
   useEffect(() => {
     if (localStorage.getItem("cook") !== null) {
@@ -86,9 +86,9 @@ function SignUp() {
 
           <Button
             type="primary"
-            onClick={handleSignUp}
+            /* onClick={handleSignUp} */
             disabled={!form.values.username || !form.values.password || !form.values.email}
-            loading={loading}
+            /* loading={loading} */
           >
             SignUp
           </Button>

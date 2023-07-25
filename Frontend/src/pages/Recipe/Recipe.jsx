@@ -5,21 +5,21 @@ import { BiBookmarkAlt, BiWorld } from "react-icons/bi";
 import { BiPlusCircle, BiUserCircle, BiTime } from "react-icons/bi";
 import { GiAsparagus } from "react-icons/gi";
 import { MdDinnerDining } from "react-icons/md";
-import useApi from "../../hooks/useApi";
-import useSession from "../../hooks/session";
+/* import useApi from "../../hooks/useApi";
+import useSession from "../../hooks/session"; */
 
 function Recipe({ id }) {
-  const { session, checkSession } = useSession();
-  const { loading, data, handleRequest } = useApi();
-  const [detailsRecipe, setDetailsRecipe] = useState([
+/*   const { session, checkSession } = useSession();
+  const { loading, data, handleRequest } = useApi(); */
+  /* const [detailsRecipe, setDetailsRecipe] = useState([
     {
       nombre: "Placeholder",
       ingredientes: ["", ""],
     },
-  ]);
+  ]); */
 
   useEffect(() => {
-    const fetchDetailsRecipe = async () => {
+    /* const fetchDetailsRecipe = async () => {
       try {
         const response = await handleRequest("GET", "/recipe?id=" + id);
         setDetailsRecipe(response); // No se necesita ninguna transformación adicional
@@ -30,11 +30,11 @@ function Recipe({ id }) {
       }
     };
 
-    fetchDetailsRecipe();
+    fetchDetailsRecipe(); */
   }, []);
 
   useEffect(() => {
-    const verifySession = async () => {
+    /* const verifySession = async () => {
       try {
         if (await checkSession()) {
           console.log("Estás logeado");
@@ -47,7 +47,7 @@ function Recipe({ id }) {
       }
     };
 
-    verifySession();
+    verifySession(); */
   }, []);
 
   return (
@@ -56,10 +56,10 @@ function Recipe({ id }) {
       <div className={style.recipeContainer}>
         <div className={style.recipeInfo}>
           <div className={style.recipeHeader}>
-            <h1>{detailsRecipe[0].nombre}</h1>
+            {/* <h1>{detailsRecipe[0].nombre}</h1> */}
             <div className={style.recipeHeader}>
               <BiUserCircle size={60} />
-              <span>@{detailsRecipe[0].username}</span>
+              {/* <span>@{detailsRecipe[0].username}</span> */}
               <BiBookmarkAlt
                 color="#f6ae2d"
                 size={55}
@@ -70,7 +70,7 @@ function Recipe({ id }) {
           </div>
           <div className={style.recipeData}>
             <img
-              src={detailsRecipe[0].url_minatura}
+              /* src={detailsRecipe[0].url_minatura} */
               placeholder="Imagen de Receta"
             ></img>
             <div className={style.abtRecipe}>
@@ -80,15 +80,15 @@ function Recipe({ id }) {
                   className={style.catItem}
                 >
                   <BiTime size={30} />
-                  <span>{detailsRecipe[0].tiempo} minutos</span>
+                  {/* <span>{detailsRecipe[0].tiempo} minutos</span> */}
                 </div>
                 <div className={style.catItem}>
                   <BiWorld size={30} />
-                  <span>{detailsRecipe[0].pais}</span>
+                  {/* <span>{detailsRecipe[0].pais}</span> */}
                 </div>
                 <div className={style.catItem}>
                   <MdDinnerDining size={30} />
-                  <span>{detailsRecipe[0].categoria}</span>
+                  {/* <span>{detailsRecipe[0].categoria}</span> */}
                 </div>
                 <div
                   style={{ marginInlineEnd: "10%" }}
@@ -107,21 +107,21 @@ function Recipe({ id }) {
                   <span>Ingredientes: </span>
                 </div>
                 <ul>
-                  {detailsRecipe[0].ingredientes.map((value) => {
+                  {/* {detailsRecipe[0].ingredientes.map((value) => {
                     return (
                       <li key={value[1]}>
                         {value[1]} de {value[0]}
                       </li>
                     );
-                  })}
+                  })} */}
                 </ul>
               </div>
               <div className={style.descRecipe}>
-                <span>{detailsRecipe[0].descripcion}</span>
+                {/* <span>{detailsRecipe[0].descripcion}</span> */}
               </div>
             </div>
           </div>
-          {detailsRecipe.map((value, index) => {
+          {/* {detailsRecipe.map((value, index) => {
             return (
               <>
                 <div className={style.step}>
@@ -138,7 +138,7 @@ function Recipe({ id }) {
                 </div>
               </>
             );
-          })}
+          })} */}
         </div>
       </div>
     </>
