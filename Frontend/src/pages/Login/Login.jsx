@@ -7,6 +7,7 @@ import useForm from "../../hooks/useForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import useSession from "../../hooks/session";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const schema = Joi.object({
   username: Joi.string().alphanum().min(3).max(30).required(),
@@ -18,6 +19,7 @@ function Login() {
   const { loading, data, handleRequest } = useApi();
   const form = useForm(schema, { username: "", password: "" });
   const [errState, setErrState] = useState(true);
+  const {item, saveItem, deleteItem} = useLocalStorage('silva', '10');
 
   const postLogin = async (username, password) => {
     const response = await handleRequest("POST", "/login", {
@@ -99,7 +101,7 @@ function Login() {
             Login
           </Button>
 
-          <p>Don't have an account yet? <a href="http://localhost:5173/SignUp">Register here!</a></p>
+          <p>Don't have an account yet? <a href="http://localhost:5173/SignUp">Register here!{item}</a></p>
         </div>
       </div>
     </div>

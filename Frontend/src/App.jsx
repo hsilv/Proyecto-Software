@@ -7,7 +7,7 @@ import Recipe from './pages/Recipe/Recipe'
 function App() {
   let component
   let params = new URLSearchParams(window.location.search);
-  console.log(window.location.pathname)
+  console.log(window.location.pathname);
   switch (window.location.pathname.toLowerCase()) {
     case '/login':
       component = <Login />
