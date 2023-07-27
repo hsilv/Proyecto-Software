@@ -17,10 +17,10 @@ function useAPI() {
     toJson = true,
     parseText = true,
     removeContentType = false,
-    log = true,
+    log = false,
   }) => {
     setLoading(true);
-    if (log) console.log(`Fetching API to... ${route}`);
+    if (log) console.log(`Fetching API to... ${serverHost}${route}`);
     try {
       const head3rs = {
         "Content-Type": "application/json",

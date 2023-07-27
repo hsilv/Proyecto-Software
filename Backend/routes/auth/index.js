@@ -11,7 +11,7 @@ router.post('/login', async (req, res) => {
     .eq('username', req.body.username)
     .eq('password', req.body.password);
   if (result.data.length === 0) {
-    res.status(203).json({ message: 'Incorrect username or password' });
+    res.status(203).json({ status: 203, message: 'Usuario o contraseña incorrectos' });
   } else {
     res.json({
       token: setToken({

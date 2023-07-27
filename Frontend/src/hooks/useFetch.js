@@ -11,7 +11,6 @@ function useFetch() {
       body,
       headers,
       signal,
-      credentials: "include",
     });
 
     if (!response.ok) throw response;

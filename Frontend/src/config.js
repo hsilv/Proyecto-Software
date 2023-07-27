@@ -1,4 +1,4 @@
 const appName = 'CookApp';
-const serverHost = '/api';
+const serverHost = 'http://localhost:3000/';
 
 export { appName, serverHost };
