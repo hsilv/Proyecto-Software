@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import "./SignUp.css";
 import CookSVG from "/assets/recipe-book-animated.svg";
 import Joi from "joi";
-/* import useApi from "../../hooks/useApi"; */
 import useForm from "../../hooks/useForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
+import { useNavigate } from "react-router-dom";
+import { SessionContext } from "../../context/sessionContext";
+import { useSignUp } from "../../hooks/useSignUp";
 
 const schema = Joi.object({
   username: Joi.string().alphanum().min(3).max(30).required(),
@@ -16,35 +18,26 @@ const schema = Joi.object({
 });
 
 function SignUp() {
-/*   const { loading, handleRequest } = useApi(); */
   const form = useForm(schema, { username: "", password: "", email: "" });
+  const {logged} = useContext(SessionContext);
+  const navigate = useNavigate();
+  const {signUp, signUpError, loading} = useSignUp();
 
-  /* const postSignUp = async (username, password, email) => {
-    const response = await handleRequest("POST", "/signup", {
-      username,
-      password,
-      email,
-    });
-    if (response.token) {
-      localStorage.setItem("cook", response.token);
-      window.location.replace("http://localhost:5173/Home");
-    } else {
-      console.log("Failed to SignUp");
+  useEffect(() => {
+    if(logged){
+      navigate('/Home');
     }
-  }; */
+  }, [logged, navigate]);
 
-  /* const handleSignUp = () => {
+  const postSignUp = async (username, password, email) => {
+    signUp(username, password, email);
+  }
+  
+  const handleSignUp = () => {
     if (form.validate()) {
       postSignUp(form.values.username, form.values.password, form.values.email);
     }
-  }; */
-
-  useEffect(() => {
-    if (localStorage.getItem("cook") !== null) {
-      console.log("Already logged in");
-      window.location.replace("http://localhost:5173/Home");
-    }
-  }, []);
+  };
 
   return (
     <div className="SignUpPage">
@@ -86,9 +79,9 @@ function SignUp() {
 
           <Button
             type="primary"
-            /* onClick={handleSignUp} */
+            onClick={handleSignUp}
             disabled={!form.values.username || !form.values.password || !form.values.email}
-            /* loading={loading} */
+            loading={loading}
           >
             SignUp
           </Button>

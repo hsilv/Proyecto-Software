@@ -6,7 +6,7 @@ import { BiBell, BiLogOut, BiPlusCircle, BiSearch, BiUserCircle } from "react-ic
 import IconButton from "../IconButton/IconButton";
 import { useCallback, useContext, useEffect } from "react";
 import { SessionContext } from "../../context/sessionContext";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 const NavBar = () => {
@@ -27,10 +27,10 @@ const NavBar = () => {
   return (
     <div className="NavBar">
       <div className="logoContainer">
-        <a href="/home">
+        <NavLink to="/Home">
           <img src={logo} className="logo"></img>
           CookApp
-        </a>
+        </NavLink>
       </div>
       <div className="searchContainer">
         <IconButton onClick={() => {console.log('Buscar')}} classes={["t-60"]}>

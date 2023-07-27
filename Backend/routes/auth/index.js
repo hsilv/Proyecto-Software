@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
           message: 'El usuario que intentas tomar, ya está en uso',
         });
     } else {
-      await database.from('usuario').insert({
+      const { error } = await database.from('usuario').insert({
         username: req.body.username,
         pfp: 'https://fakeimg.pl/600x600',
         followers: 500,
@@ -48,6 +48,7 @@ router.post('/register', async (req, res) => {
         rol: 'user',
         correo: req.body.email,
       });
+      console.error(error);
       res.status(200).json({ error: false, message: 'Usuario creado con éxito' });
     }
   } else {

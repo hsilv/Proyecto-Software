@@ -3,6 +3,7 @@ import { useSession } from "../hooks/useSession";
 
 const SessionContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 function SessionProvider({ children }) {
   const { login, logOut, logged, loading, loginError, error, checkSession } =
     useSession();
