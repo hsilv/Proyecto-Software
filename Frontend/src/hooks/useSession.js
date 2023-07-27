@@ -39,6 +39,7 @@ function useSession() {
 
   const logOut = () => {
     saveItem("");
+    setLogged(false);
   };
 
   const checkSession = async () => {

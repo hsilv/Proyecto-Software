@@ -1,11 +1,12 @@
 import Joi from "joi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import "./Login.css";
 import BakerSVG from "/assets/baker-animate.svg";
-import { useSession } from "../../hooks/useSession";
+import { SessionContext } from "../../context/sessionContext";
+import { useNavigate } from "react-router-dom";
 
 const schema = Joi.object({
   username: Joi.string().alphanum().min(3).max(30).required(),
@@ -16,7 +17,8 @@ function Login() {
   const form = useForm(schema, { username: "", password: "" });
   const [errState, setErrState] = useState(false);
   const [errMessage, setErrMessage] = useState();
-  const {login, logged, loading, loginError} = useSession();
+  const {login, logged, loading, loginError} = useContext(SessionContext);
+  const navigate = useNavigate();
 
   const postLogin = async (username, password) => {
     await login(username, password);
@@ -34,7 +36,7 @@ function Login() {
   useEffect(() => {
     if(logged){
       console.log("Logeado");
-      window.location.replace("http://localhost:5173/Home");
+      navigate("/Home");
     }
   }, [logged]);
 
