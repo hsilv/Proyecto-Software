@@ -1,7 +1,7 @@
 import express from 'express';
 import { database } from '../../db/database.cjs';
 import { setToken, verifyToken } from '../../utils/signToken.js';
-import { isUser } from '../../utils/checkIfUserExists.js';
+import { isUser, isEmail } from '../../utils/checkIfUserExists.js';
 
 const router = express.Router();
 
@@ -32,13 +32,26 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
   if (req.body.username) {
     const userExists = await isUser(req.body.username);
-    if (userExists) {
-      res
-        .status(200)
-        .json({
+    const emailExists = await isEmail(req.body.email);
+    if (userExists || emailExists) {
+      if (userExists) {
+        res.status(200).json({
           error: true,
           message: 'El usuario que intentas tomar, ya está en uso',
         });
+      }
+      if (emailExists) {
+        res.status(200).json({
+          error: true,
+          message: 'El correo electrónico que intentas tomar, ya está en uso',
+        });
+      }
+      if (emailExists && userExists) {
+        res.status(200).json({
+          error: true,
+          message: 'Las credenciales que intentas usar, ya están en uso',
+        });
+      }
     } else {
       const { error } = await database.from('usuario').insert({
         username: req.body.username,
@@ -48,16 +61,18 @@ router.post('/register', async (req, res) => {
         rol: 'user',
         correo: req.body.email,
       });
-      console.error(error);
-      res.status(200).json({ error: false, message: 'Usuario creado con éxito' });
+      if (error) {
+        res.status(500).json({ error: true, message: 'Error de servidor' });
+      }
+      res
+        .status(201)
+        .json({ error: false, message: 'Usuario creado con éxito' });
     }
   } else {
-    res
-      .status(400)
-      .json({
-        error: true,
-        message: 'Faltan campos en el formulario de registro',
-      });
+    res.status(204).json({
+      error: true,
+      message: 'Faltan campos en el formulario de registro',
+    });
   }
 });
 

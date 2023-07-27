@@ -11,5 +11,15 @@ async function isUser(username) {
   return true;
 }
 
-export { isUser };
+async function isEmail(email) {
+  const value = await database
+    .from('usuario')
+    .select('*')
+    .eq('correo', email);
+  if (value.data.length === 0) {
+    return false;
+  }
+  return true;
+}
+export { isUser, isEmail };
 export default isUser;
