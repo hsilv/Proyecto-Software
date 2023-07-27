@@ -1,71 +1,51 @@
-import { useEffect, useState } from "react";
-import "./Login.css";
-import BakerSVG from "/assets/baker-animate.svg";
 import Joi from "joi";
-import { useAPI } from "../../hooks/useAPI";
+import { useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
+import "./Login.css";
+import BakerSVG from "/assets/baker-animate.svg";
+import { useSession } from "../../hooks/useSession";
+
 const schema = Joi.object({
   username: Joi.string().alphanum().min(3).max(30).required(),
   password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
 });
 
 function Login() {
-  /*   const { checkSession } = useSession(); */
-  /*   const { loading, handleRequest } = useApi(); */
   const form = useForm(schema, { username: "", password: "" });
   const [errState, setErrState] = useState(false);
   const [errMessage, setErrMessage] = useState();
-  const { result, loading, error, fetchAPI } = useAPI();
+  const {login, logged, loading, loginError} = useSession();
 
   const postLogin = async (username, password) => {
-    await fetchAPI({
-      method: "POST",
-      route: "auth/login",
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-      log: true,
-    });
+    await login(username, password);
   };
 
   const handleLogin = () => {
     if (form.validate()) {
       postLogin(form.values.username, form.values.password);
+    } else {
+      setErrState(true);
+      setErrMessage('Usuario o contraseña no válidos');
     }
   };
 
   useEffect(() => {
-    if (result) {
-      if (result.status == 203) {
-        setErrState(true);
-        setErrMessage(result.message);
-      } else {
-        setErrMessage();
-      }
-      console.log(result);
-    } else if (error) {
-      setErrState(true);
-      setErrMessage(error.message);
+    if(logged){
+      console.log("Logeado");
+      window.location.replace("http://localhost:5173/Home");
     }
-  }, [loading]);
+  }, [logged]);
 
   useEffect(() => {
-    /* async function checkLog() {
-      if (localStorage.getItem("cook") == null) {
-        console.log("Logged Out");
-      } else if (await checkSession()) {
-        console.log("Logged In");
-        window.location.replace("http://localhost:5173/Home");
-      } else {
-        console.log("Logged Out");
-        localStorage.removeItem("cook");
+    if(loginError){
+      if(loginError.status){
+        setErrState(true);
+        setErrMessage(loginError.message);
       }
     }
-    checkLog(); */
-  }, []);
+  }, [loginError])
 
   return (
     <div className="loginPage">

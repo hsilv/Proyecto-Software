@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetch } from "./useFetch";
 import { serverHost } from "../config";
 
@@ -6,7 +6,14 @@ function useAPI() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showResultTable, setShowResultTable] = useState(false);
   const { fetchRequest } = useFetch();
+
+  useEffect(() => {
+    if(result && showResultTable){
+      console.table(result);
+    }
+  }, [result])
 
   const fetchAPI = async ({
     route,
@@ -18,8 +25,10 @@ function useAPI() {
     parseText = true,
     removeContentType = false,
     log = false,
+    showReply = false,
   }) => {
     setLoading(true);
+    showReply ? setShowResultTable(true) : setShowResultTable(false);
     if (log) console.log(`Fetching API to... ${serverHost}${route}`);
     try {
       const head3rs = {
@@ -43,6 +52,9 @@ function useAPI() {
       else response = await reply.text();
 
       setResult(response ?? true);
+
+      return response;
+
     } catch (ex) {
       setError({
         status: ex?.status,

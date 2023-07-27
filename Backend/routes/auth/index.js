@@ -11,9 +11,11 @@ router.post('/login', async (req, res) => {
     .eq('username', req.body.username)
     .eq('password', req.body.password);
   if (result.data.length === 0) {
-    res.status(203).json({ status: 203, message: 'Usuario o contraseña incorrectos' });
+    res
+      .status(203)
+      .json({ status: 203, message: 'Usuario o contraseña incorrectos' });
   } else {
-    res.json({
+    res.status(200).json({
       token: setToken({
         idUser: result.data[0].id,
         username: result.data[0].username,
@@ -27,8 +29,16 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/check', (req, res) => {
-  console.log(verifyToken(req.headers.authorization));
-  res.send('Token verificado');
+  if (req.headers.authorization) {
+    const tokenState = verifyToken(req.headers.authorization);
+    if (tokenState.error) {
+      res.status(200).json(tokenState);
+    } else {
+      res.status(200).json(tokenState);
+    }
+  } else {
+    res.status(200).json({ error: true, message: 'Header de autorización vacío' });
+  }
 });
 
 export default router;
