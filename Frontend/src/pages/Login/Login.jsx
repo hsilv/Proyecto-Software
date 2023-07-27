@@ -6,7 +6,7 @@ import Button from "../../components/Button/Button";
 import "./Login.css";
 import BakerSVG from "/assets/baker-animate.svg";
 import { SessionContext } from "../../context/sessionContext";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const schema = Joi.object({
   username: Joi.string().alphanum().min(3).max(30).required(),
@@ -35,8 +35,8 @@ function Login() {
 
   useEffect(() => {
     if(logged){
-      console.log("Logeado");
       navigate("/Home");
+      setErrState(false);
     }
   }, [logged]);
 
@@ -92,7 +92,7 @@ function Login() {
 
           <p>
             Don t have an account yet?{" "}
-            <a href="http://localhost:5173/SignUp">Register here!</a>
+            <NavLink to="/SignUp">Register here!</NavLink>
           </p>
         </div>
       </div>
