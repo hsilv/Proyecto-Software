@@ -5,7 +5,7 @@ const SessionContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 function SessionProvider({ children }) {
-  const { login, logOut, logged, loading, loginError, error, checkSession } =
+  const { login, logOut, logged, loading, loginError, error, checkSession, userInfo } =
     useSession();
 
     return (
@@ -17,6 +17,7 @@ function SessionProvider({ children }) {
             loginError,
             error,
             checkSession,
+            userInfo,
         }}>
             {children}
         </SessionContext.Provider>

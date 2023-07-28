@@ -1,6 +1,4 @@
 import "./NavBar.css";
-/* import useSession, { handleLogOut } from "../../hooks/session"; */
-import AnyButton from "../AnyButton/AnyButton";
 import logo from "/assets/Vector.png";
 import { BiBell, BiLogOut, BiPlusCircle, BiSearch, BiUserCircle } from "react-icons/bi";
 import IconButton from "../IconButton/IconButton";
