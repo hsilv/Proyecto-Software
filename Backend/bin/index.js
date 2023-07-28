@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import app from '../app.js';
 import auth from '../routes/auth/index.js';
+import recipe from '../routes/recipe/index.js';
 import {
   getAllUsers,
   getAllRecipes,
@@ -29,3 +30,4 @@ app.listen(port, async () => {
 });
 
 app.use('/auth/', auth);
+app.use('/recipe', recipe);

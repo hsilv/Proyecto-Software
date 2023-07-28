@@ -3,52 +3,58 @@ import React, { useEffect, useState } from "react";
 import "./Home.css";
 import NavBar from "../../components/NavBar/NavBar";
 import Carousel from "../../components/Carousel/Carousel";
-/* import useApi from "../../hooks/useApi"; */
+import { useAPI } from "../../hooks/useAPI";
 
 function Home() {
-/*   const { session, checkSession } = useSession(); */
-/*   const { loading, data, handleRequest } = useApi(); */
-  /* const [popularRecipes, setPopularRecipes] = useState([]); */
-  /* const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0); */
+  //const { session, checkSession } = useSession();
+  const {loading: loadingAPI, error, fetchAPI} = useAPI();
+  const [popularRecipes, setPopularRecipes] = useState([]);
+  const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
 
-  /* const arrowCallback = (value) => {
+  const arrowCallback = (value) => {
     if(!(currentRecipeIndex + value > popularRecipes.length - 1 || currentRecipeIndex + value < 0)) {
       setCurrentRecipeIndex(currentRecipeIndex + value)
     }
-  } */
+  }
 
   useEffect(() => {
-    /* const fetchPopularRecipes = async () => {
+    const fetchPopularRecipes = async () => {
       try {
-        const response = await handleRequest("GET", "/home");
-        setPopularRecipes(response);
-        console.log(session)
+        const res = await fetchAPI({
+          method: 'GET',
+          route: 'recipe/',
+          body: null,
+          log: true,
+          showReply: true,
+      });
+      console.log(res.data);
+        setPopularRecipes(res.data);
       } catch (error) {
         console.error("Error fetching popular recipes: ", error);
       }
     };
 
-    fetchPopularRecipes(); */
+    fetchPopularRecipes();
   }, []);
 
- /*  const handleNextRecipe = () => {
+  const handleNextRecipe = () => {
     setCurrentRecipeIndex((prevIndex) =>
       prevIndex < popularRecipes.length - 1 ? prevIndex + 1 : 0
     );
   };
- */
-  /* const handlePreviousRecipe = () => {
+ 
+  const handlePreviousRecipe = () => {
     setCurrentRecipeIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : popularRecipes.length - 1
     );
-  }; */
+  };
 
- /*  const handleRedirection = () => {
+ const handleRedirection = () => {
     window.location.replace("http://localhost:5173/recipe?id="+popularRecipes[currentRecipeIndex].id);
-  } */
-
+  }
+/*
   useEffect(() => {
-    /* const verifySession = async () => {
+    const verifySession = async () => {
       try {
         if (await checkSession()) {
           console.log("Estás logeado");
@@ -60,24 +66,24 @@ function Home() {
       }
     };
 
-    verifySession(); */
-  }, []);
+    verifySession();
+  }, []);*/
 
   return (
     <div className="Home">
       <NavBar />
       <h1>Popular Recipes This Week</h1>
       <Carousel
-        /* title={popularRecipes[currentRecipeIndex]?.nombre}
-        user={popularRecipes[currentRecipeIndex]?.username}
+        title={popularRecipes[currentRecipeIndex]?.nombre}
+        user={popularRecipes[currentRecipeIndex]?.usuario.username}
         description={popularRecipes[currentRecipeIndex]?.descripcion}
         ratings={popularRecipes[currentRecipeIndex]?.avg_calificacion}
         time ={popularRecipes[currentRecipeIndex]?.tiempo}
-        img_url = {popularRecipes[currentRecipeIndex]?.url_minatura}
+        img_url = {popularRecipes[currentRecipeIndex]?.miniatura[0] ? popularRecipes[currentRecipeIndex]?.miniatura[0].url: 'https://fakeimg.pl/1920x1080/ff0000'}
         callback={arrowCallback}
         onNext={handleNextRecipe}
         onPrevious={handlePreviousRecipe}
-        redir={handleRedirection} */
+        redir={handleRedirection}
       />
     </div>
   );

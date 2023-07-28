@@ -3,7 +3,7 @@ import { SessionContext } from "../context/sessionContext";
 import { useAPI } from "./useAPI";
 
 function useSignUp(){
-    const {login, loading: loadingSession, loginError, error: errorSession} = useContext(SessionContext);
+    //const {login, loading: loadingSession, loginError, error: errorSession} = useContext(SessionContext);
     const {loading: loadingAPI, error, fetchAPI} = useAPI();
     const [signUpError, setSignUpError] = useState();
     const [loading, setLoading] = useState(false);
