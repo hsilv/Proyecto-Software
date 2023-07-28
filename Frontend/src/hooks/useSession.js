@@ -22,8 +22,8 @@ function useSession() {
         username: username,
         password: password,
       }),
-      log: true,
-      showReply: true,
+      log: false,
+      showReply: false,
     });
 
     if (res) {
@@ -49,8 +49,8 @@ function useSession() {
       headers: {
         Authorization: item,
       },
-      log: true,
-      showReply: true,
+      log: false,
+      showReply: false,
     });
 
     if (res) {

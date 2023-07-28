@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-/* import useSession from "../../hooks/session"; */
+import { useContext, useEffect } from "react";
 import "./Home.css";
 import NavBar from "../../components/NavBar/NavBar";
 import Carousel from "../../components/Carousel/Carousel";
-/* import useApi from "../../hooks/useApi"; */
+import { SessionContext } from "../../context/sessionContext";
 
 function Home() {
+  const { checkSession } = useContext(SessionContext);
 /*   const { session, checkSession } = useSession(); */
 /*   const { loading, data, handleRequest } = useApi(); */
   /* const [popularRecipes, setPopularRecipes] = useState([]); */
@@ -48,19 +48,7 @@ function Home() {
   } */
 
   useEffect(() => {
-    /* const verifySession = async () => {
-      try {
-        if (await checkSession()) {
-          console.log("Estás logeado");
-        } else {
-          window.location.replace("http://localhost:5173/");
-        }
-      } catch (error) {
-        console.error("Verify process error: ", error);
-      }
-    };
-
-    verifySession(); */
+    checkSession();
   }, []);
 
   return (

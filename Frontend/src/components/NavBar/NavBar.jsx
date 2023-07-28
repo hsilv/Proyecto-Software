@@ -51,7 +51,7 @@ const NavBar = () => {
         <IconButton onClick={handleLogOut} classes={["p-small", "p-i-medium"]}>
             <BiLogOut/>
         </IconButton>
-        <IconButton /* onClick={() => {getUser().then(data => window.location.replace("/profile?username="+data))}} */ classes={["p-i-medium"]}>
+        <IconButton  onClick={() => {navigate('/Profile')}} classes={["p-i-medium"]}>
             <BiUserCircle/>
         </IconButton>
         
