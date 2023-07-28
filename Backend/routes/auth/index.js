@@ -86,7 +86,7 @@ router.post('/check', (req, res) => {
     }
   } else {
     res
-      .status(200)
+      .status(400)
       .json({ error: true, message: 'Header de autorización vacío' });
   }
 });

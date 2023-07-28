@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-/* import useSession from "../../hooks/session"; */
+import { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import NavBar from "../../components/NavBar/NavBar";
 import Carousel from "../../components/Carousel/Carousel";
 import { useAPI } from "../../hooks/useAPI";
+import { SessionContext } from "../../context/sessionContext";
+
 
 function Home() {
-  //const { session, checkSession } = useSession();
-  const {loading: loadingAPI, error, fetchAPI} = useAPI();
+  const {fetchAPI} = useAPI();
   const [popularRecipes, setPopularRecipes] = useState([]);
   const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
+  const { checkSession } = useContext(SessionContext);
 
   const arrowCallback = (value) => {
     if(!(currentRecipeIndex + value > popularRecipes.length - 1 || currentRecipeIndex + value < 0)) {
@@ -52,22 +53,10 @@ function Home() {
  const handleRedirection = () => {
     window.location.replace("http://localhost:5173/recipe?id="+popularRecipes[currentRecipeIndex].id);
   }
-/*
-  useEffect(() => {
-    const verifySession = async () => {
-      try {
-        if (await checkSession()) {
-          console.log("Estás logeado");
-        } else {
-          window.location.replace("http://localhost:5173/");
-        }
-      } catch (error) {
-        console.error("Verify process error: ", error);
-      }
-    };
 
-    verifySession();
-  }, []);*/
+  useEffect(() => {
+    checkSession();
+  }, []);
 
   return (
     <div className="Home">

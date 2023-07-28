@@ -5,6 +5,7 @@ import { useAPI } from "./useAPI.js";
 function useSession() {
   const [ logged, setLogged ] = useState(false);
   const { item, saveItem } = useLocalStorage("cookapptoken", "", true);
+  const { item: userInfo, saveItem: saveUserInfo } = useLocalStorage("cookappuser", {}, false);
   const { loading, error, fetchAPI } = useAPI();
   const [ loginError, setLoginError ] = useState();
 
@@ -22,8 +23,8 @@ function useSession() {
         username: username,
         password: password,
       }),
-      log: true,
-      showReply: true,
+      log: false,
+      showReply: false,
     });
 
     if (res) {
@@ -49,13 +50,13 @@ function useSession() {
       headers: {
         Authorization: item,
       },
-      log: true,
-      showReply: true,
+      log: false,
+      showReply: false,
     });
 
     if (res) {
       if (res.username) {
-        saveItem(item);
+        saveUserInfo(res);
         setLogged(true);
       } else if (res.status) {
         setLogged(false);
@@ -66,7 +67,7 @@ function useSession() {
     }
   };
 
-  return { logged, login, loading, error, logOut, checkSession, loginError };
+  return { logged, login, loading, error, logOut, checkSession, loginError, userInfo };
 }
 
 export { useSession };
