@@ -8,6 +8,7 @@ router.get('/', async (req, res) => {
     const result = await database
       .from('receta')
       .select(`
+        id,
         nombre,
         usuario (
             username
@@ -20,7 +21,7 @@ router.get('/', async (req, res) => {
         descripcion
       `)
       .order('avg_calificacion', { ascending: false })
-      .limit(10);
+      .limit(5);
 
     res.status(200).json(result);
   } catch (error) {

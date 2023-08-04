@@ -10,12 +10,13 @@ const Button = ({
     <button
       className={`${'button'} ${type === 'primary' ? 'primary' : 'secondary'}`}
       type='button'
+      role='button'
       onClick={() => {
         if (!loading && !disabled) {
           onClick()
         }
       }}
-      disabled={disabled}
+      disabled={disabled || loading}
     >
       <span>{loading ? '...' : children}</span>
     </button>
