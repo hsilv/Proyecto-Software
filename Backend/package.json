@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/hsilv/CookAppAPI#readme",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing node ./bin/index.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpx jest",
     "start": "cross-env NODE_ENV= node ./bin/index.js",
     "inspect": "cross-env NODE_ENV= node --inspect ./bin/index.js",
     "dev": "cross-env NODE_ENV= nodemon --exec node ./bin/index.js",
@@ -43,6 +43,8 @@
     "eslint": "^8.45.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
-    "nodemon": "^3.0.1"
+    "jest": "^29.6.2",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
   }
 }
