@@ -2,7 +2,6 @@ import 'dotenv/config';
 import app from '../app.js';
 import auth from '../routes/auth/index.js';
 import recipe from '../routes/recipe/index.js';
-
 import recipeByCategory from '../routes/recipe_category/index.js';
 
 import {

@@ -4,8 +4,35 @@ import { database } from '../../db/database.cjs';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+  let result;
   try {
-    const result = await database
+    if(req.query.id){
+      result = await database
+        .from('receta')
+        .select(`
+          id,
+          nombre,
+          ingredientes,
+          categoria (
+            categoria
+          ),
+          paso (
+            *
+          ),
+          usuario (
+              username
+          ),
+          miniatura (
+              url
+          ),
+          tiempo,
+          avg_calificacion,
+          descripcion
+      `)
+      .eq('id', req.query.id)
+    }
+    else {
+      result = await database
       .from('receta')
       .select(`
         id,
@@ -22,7 +49,8 @@ router.get('/', async (req, res) => {
       `)
       .order('avg_calificacion', { ascending: false })
       .limit(5);
-
+    }
+    
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener datos de recetas' });

@@ -15,7 +15,7 @@ const formatTime = (time) => {
 const Carousel = ({ recipes }) => {
 
   const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const moveIndex = (value) => {
     if(!(currentRecipeIndex + value > recipes.length - 1 || currentRecipeIndex + value < 0)) {
@@ -24,8 +24,8 @@ const Carousel = ({ recipes }) => {
   }
 
   const handleRedirection = (recipeID) => {
-      //navigate("/recipe?id=" + recipeID);
-    }
+      navigate("/recipe/" + recipeID);
+  }
 
   return (
     <>
