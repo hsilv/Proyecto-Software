@@ -32,7 +32,7 @@ function Home() {
 
     fetchPopularRecipes();
   }, []);
-  
+  /*
   useEffect(() => {
     const fetchPopularRecipesCategory = async () => {
       try {
@@ -55,7 +55,7 @@ function Home() {
 
   useEffect(() => {
     checkSession();
-  }, []);
+  }, []);*/
 
   return (
     <div className="Home">

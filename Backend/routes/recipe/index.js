@@ -26,6 +26,7 @@ router.get('/', async (req, res) => {
               url
           ),
           tiempo,
+          pais,
           avg_calificacion,
           descripcion
       `)
