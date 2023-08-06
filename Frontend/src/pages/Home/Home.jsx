@@ -8,7 +8,7 @@ import { SessionContext } from "../../context/sessionContext";
 
 
 function Home() {
-  const {fetchAPI} = useAPI();
+  const { fetchAPI } = useAPI();
   const [popularRecipes, setPopularRecipes] = useState([]);
   const { checkSession } = useContext(SessionContext);
   const [popularByCategory, setPopularByCategory] = useState([])
@@ -32,7 +32,7 @@ function Home() {
 
     fetchPopularRecipes();
   }, []);
-  
+  /*
   useEffect(() => {
     const fetchPopularRecipesCategory = async () => {
       try {
@@ -55,7 +55,7 @@ function Home() {
 
   useEffect(() => {
     checkSession();
-  }, []);
+  }, []);*/
 
   return (
     <div className="Home">

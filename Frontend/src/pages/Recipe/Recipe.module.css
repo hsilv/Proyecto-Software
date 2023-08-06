@@ -53,14 +53,19 @@
 }
 
 .catRecipe{
+    margin-left: 5%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
 }
 
 .catRecipe span{
-    margin-inline-start: 6%;
+    margin-left: 2%;
+    width: fit-content;
+}
+
+.categoryHeader {
+    width: 100%;
 }
 
 .catItem{

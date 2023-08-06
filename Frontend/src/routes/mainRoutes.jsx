@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-dom"
+import { useRoutes, useSearchParams } from "react-router-dom"
 import Login from "../pages/Login/Login"
 import Home from "../pages/Home/Home"
 import Recipe from "../pages/Recipe/Recipe"
@@ -9,7 +9,7 @@ const MainRoutes = () => {
     let routes = useRoutes([
         {path: '/', element: <Login />},
         {path: '/Home', element: <Home />},
-        {path: '/Recipe', element: <Recipe />},
+        {path: '/Recipe/:id', element: <Recipe />},
         {path: '/SignUp', element: <SignUp />},
         {path: '/Profile', element: <Profile />},
     ]);
