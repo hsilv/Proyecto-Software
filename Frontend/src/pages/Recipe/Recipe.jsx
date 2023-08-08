@@ -8,11 +8,13 @@ import { MdDinnerDining } from "react-icons/md";
 import { useAPI } from "../../hooks/useAPI";
 import { SessionContext } from "../../context/sessionContext";
 import { useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function Recipe() {
   const { checkSession } = useContext(SessionContext);
   const { fetchAPI } = useAPI();
   let {id} = useParams();
+  const navigate = useNavigate();
   const [detailsRecipe, setDetailsRecipe] = useState([
     {
       nombre: "Placeholder",
@@ -32,7 +34,6 @@ function Recipe() {
           showReply: true,
         });
         setDetailsRecipe(res.data[0]);
-        //console.log(res.data[0].usuario.username)
       } catch (error) {
         console.error("Error fetching recipes: ", error);
       }
@@ -40,23 +41,6 @@ function Recipe() {
 
     fetchDetailsRecipe();
 
-  }, []);
-
-  useEffect(() => {
-    /* const verifySession = async () => {
-      try {
-        if (await checkSession()) {
-          console.log("Estás logeado");
-        } else {
-          const apiURL = "http://localhost:5173/";
-          const response = await fetch(apiURL);
-        }
-      } catch (error) {
-        console.error("Verify process error: ", error);
-      }
-    };
-
-    verifySession(); */
   }, []);
 
   return (
@@ -68,7 +52,7 @@ function Recipe() {
             {<h1>{detailsRecipe.nombre}</h1>}
             <div className={style.recipeHeader}>
               <BiUserCircle size={60} />
-              {<span className="userLink">@{detailsRecipe.usuario?.username}</span>}
+              {<span className="userLink"><a href={"localhost:5173/Profile/"+detailsRecipe.usuario?.username}>@{detailsRecipe.usuario?.username}</a></span>}
               <BiBookmarkAlt
                 color="#f6ae2d"
                 size={55}
@@ -124,6 +108,19 @@ function Recipe() {
           
         </div>
       </div>
+      <div className={style.stepHolder}>
+          {
+            detailsRecipe.paso?.map((value, x) => {
+              return (
+                <div className={style.step} key={x}>
+                  <span className={style.stepNumber}>{value.numero}. </span>
+                  <img src={value.multimedia_url}/>
+                  <p className={style.stepDesc}>{value.descripcion}</p>
+                </div>
+              )
+            })
+          }
+        </div>
     </>
   );
 }

@@ -2,21 +2,23 @@ import 'dotenv/config';
 import app from '../app.js';
 import auth from '../routes/auth/index.js';
 import recipe from '../routes/recipe/index.js';
-import recipeByCategory from '../routes/recipe_category/index.js';
+import user from '../routes/user/index.js';
 
-/* import {
+import {
   getAllUsers,
-} from '../utils/getAllTables.js'; */
+} from '../utils/getAllTables.js';
 
 const port = process.env.DEPLOY_PORT;
 
 app.listen(port, async () => {
   console.log(`Server running on ${port}`);
-  /* getAllUsers(); // Falta el nombre real del usuario */
+  getAllUsers();
+
 });
 
 app.use('/auth/', auth);
 app.use('/recipe', recipe);
-app.use('/recipeByCategory', recipeByCategory);
+app.use('/user/', user);
 
 export default app;
+
