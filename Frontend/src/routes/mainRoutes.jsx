@@ -13,7 +13,7 @@ const MainRoutes = () => {
         {path: '/Recipe/:id', element: <Recipe />},
         {path: '/SignUp', element: <SignUp />},
         {path: '/Profile', element: <Profile />},
-        {path: '/Profile/:id', element: <ProfileView />}
+        {path: '/Profile/:username', element: <ProfileView />}
     ]);
 
     return routes;

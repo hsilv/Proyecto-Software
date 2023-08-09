@@ -2,15 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import ProfileNav from "../../components/ProfileNav/ProfileNav";
 import style from "./Profile.module.css";
-import Edit from "/assets/edit-btn.svg";
-import Button from "../../components/Button/Button";
 import { SessionContext } from "../../context/sessionContext";
+import { useParams, useNavigate } from "react-router-dom"
+import { useAPI } from '../../hooks/useAPI'
 
 function Profile() {
-  const [selected, setSelected] = useState(1);
+  const [ selected, setSelected ] = useState(1);
   const { checkSession } = useContext(SessionContext);
   const [ userInfo, setUserInfo ] = useState([]);
-  let {username} = useParams();
+  const { fetchAPI } = useAPI();
+  let { username } = useParams();
   const navigate = useNavigate();
 
   const showCurrent = () => {
@@ -26,7 +27,11 @@ function Profile() {
   };
 
   useEffect(() => {
-    if(id){
+    checkSession();
+  }, []);
+
+  useEffect(() => {
+    if(username){
         const fetchUserData = async () => {
             try {
                 const res = await fetchAPI({
@@ -36,7 +41,7 @@ function Profile() {
                     log: true,
                     showReply: true,
                 })
-                setUserInfo(res.data);
+                setUserInfo(res.data[0]);
             } catch (error) {
                 console.error("Error fetching user: ", error);
             }
@@ -48,12 +53,9 @@ function Profile() {
   const loadInfo = () => {
       return (
         <>
-          <button className={style.editBtn} onClick={() => setEditMode(true)}>
-            <img src={Edit} />
-          </button>
-          <span className={style.realName}>{userInfo ? userInfo.nombre : 'Nombre'}</span>
-          <span className={style.username}>@{userInfo ? userInfo.username : ''}</span>
-          <span className={style.username}>Followers: {userInfo ? userInfo.followers : '0'}</span>
+          <span className={style.realName}>{userInfo ? userInfo?.nombre : 'Nombre'}</span>
+          <span className={style.username}>@{userInfo ? userInfo?.username : ''}</span>
+          <span className={style.username}>Followers: {userInfo ? userInfo?.followers : '0'}</span>
           <p className={style.desc}>descripcion</p>
         </>
       );

@@ -52,7 +52,7 @@ function Recipe() {
             {<h1>{detailsRecipe.nombre}</h1>}
             <div className={style.recipeHeader}>
               <BiUserCircle size={60} />
-              {<span className="userLink"><a href={"localhost:5173/Profile/"+detailsRecipe.usuario?.username}>@{detailsRecipe.usuario?.username}</a></span>}
+              {<span className="userLink" onClick={() => {navigate('/Profile/'+detailsRecipe.usuario?.username)}}>@{detailsRecipe.usuario?.username}</span>}
               <BiBookmarkAlt
                 color="#f6ae2d"
                 size={55}
