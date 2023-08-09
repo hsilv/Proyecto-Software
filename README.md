@@ -12,7 +12,7 @@ Luego se deben instalar las dependencias dentro de la carpeta **Backend** con:
 pnpm i
 ```
 Para correr el servidor existen varios scripts:
-- Para testing: `pnpm run dev`
+- Para testing: `pnpm run test`
 - Para simular un deploy en desarrollo: `pnpm run start`
 - Para debugging: `pnpm run inspect`
 - Para desarrollo: `pnpm run dev`
