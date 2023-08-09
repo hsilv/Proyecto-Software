@@ -4,12 +4,14 @@ import { BiTime, BiBookmarkAlt } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 const formatTime = (time) => {
-  let minutes = Math.floor(time / 60);
-  let seconds = Math.floor(time - minutes * 60);
+  let hours = Math.floor(time / 60);
+  let remainingMinutes = time % 60;
 
-  if (minutes <= 10) minutes = `0${minutes}`;
-  if (seconds <= 10) seconds = `0${seconds}`;
-  return `${minutes}:${seconds}`;
+  let formattedTime = '';
+
+  if (hours > 0) formattedTime += `${hours} hrs `;
+  if (remainingMinutes > 0) formattedTime += `${remainingMinutes} min`;
+  return formattedTime.trim();
 };
 
 const Carousel = ({ recipes }) => {
@@ -48,7 +50,7 @@ const Carousel = ({ recipes }) => {
           </div>
             <div className={styles.time_container}>
               <BiTime color='#FFF' size={'30px'} />
-              <h2 style={{padding: '0px 20px'}}>{formatTime(recipes[currentRecipeIndex]?.tiempo)} minutes</h2>
+              <h2 style={{padding: '0px 20px'}}>{formatTime(recipes[currentRecipeIndex]?.tiempo)}</h2>
             </div>
           <h2>Recipe Submitted By: {recipes[currentRecipeIndex]?.usuario.username}</h2>
           <p>{recipes[currentRecipeIndex]?.descripcion}</p>

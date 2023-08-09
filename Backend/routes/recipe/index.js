@@ -58,4 +58,32 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/ByCategory', async (req, res) => {
+  let result;
+  try {
+      result = await database
+        .from('receta')
+        .select(`
+          id,
+          nombre,
+          ingredientes,
+          categoria!inner(categoria),
+          usuario (
+              username
+          ),
+          miniatura (
+              url
+          ),
+          tiempo,
+          avg_calificacion,
+          descripcion
+      `)
+      .eq('categoria.categoria', 'Postres')
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener datos de recetas' });
+  }
+});
+
 export default router;

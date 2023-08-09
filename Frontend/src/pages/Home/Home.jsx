@@ -10,6 +10,7 @@ import { SessionContext } from "../../context/sessionContext";
 function Home() {
   const { fetchAPI } = useAPI();
   const [popularRecipes, setPopularRecipes] = useState([]);
+  const [popularRecipesByCategory, setPopularRecipesByCategory] = useState([]);
   const { checkSession } = useContext(SessionContext);
   const [popularByCategory, setPopularByCategory] = useState([])
 
@@ -32,30 +33,26 @@ function Home() {
 
     fetchPopularRecipes();
   }, []);
-  /*
+
   useEffect(() => {
-    const fetchPopularRecipesCategory = async () => {
+    const fetchPopularRecipesByCategory = async () => {
       try {
         const res = await fetchAPI({
           method: 'GET',
-          route: 'recipeByCategory/',
+          route: `recipe/ByCategory?category=${"Postres"}`,
           body: null,
           log: true,
           showReply: true,
       });
       console.log(res.data);
-        setPopularByCategory(res.data);
+        setPopularRecipesByCategory(res.data);
       } catch (error) {
         console.error("Error fetching popular recipes: ", error);
       }
     };
 
-    fetchPopularRecipesCategory();
+    fetchPopularRecipesByCategory();
   }, []);
-
-  useEffect(() => {
-    checkSession();
-  }, []);*/
 
   return (
     <div className="Home">
@@ -65,7 +62,7 @@ function Home() {
 
       <h1>Popular Recipes by Category</h1>
       <h2 style={{marginLeft:"45px", fontSize:"2.1rem"}}>Desserts</h2>
-      <Carousel recipes={popularRecipes}/>
+      <Carousel recipes={popularRecipesByCategory}/>
     </div>
   );
 }
