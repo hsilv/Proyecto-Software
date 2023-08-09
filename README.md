@@ -1,7 +1,7 @@
 # Proyecto-Software
 
 ## Backend
-Para ejecutar el Backend es necesario poseer el manejador de paquetes `pnpm` de NodeJS
+Para ejecutar el Backend es necesario poseer el manejador de paquetes `pnpm` de NodeJS.
 
 Para instalar pnpm hace falta abrir una terminal con permisos de administrador en cualquier sistema operativo y colocar:
 ```
