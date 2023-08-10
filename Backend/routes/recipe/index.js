@@ -78,7 +78,7 @@ router.get('/ByCategory', async (req, res) => {
           avg_calificacion,
           descripcion
       `)
-      .eq('categoria.categoria', 'Postres')
+      .eq('categoria.categoria', req.query.categoria)
 
     res.status(200).json(result);
   } catch (error) {

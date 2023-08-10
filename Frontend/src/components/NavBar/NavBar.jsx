@@ -36,7 +36,7 @@ const NavBar = () => {
         </IconButton>
 
 
-        <input placeholder="Busca algo :)" className="searchInput">
+        <input placeholder="Search..." className="searchInput">
         </input>
       </div>
       <div className="userContainer">

@@ -37,7 +37,7 @@ const Carousel = ({ recipes }) => {
             <img className={styles.arrow} src='/assets/left-arrow.png' alt="Left Arrow" />
           </button>
           <div className={styles.img_container}>
-            <img alt="recipeImage" src={recipes[currentRecipeIndex]?.miniatura[0] ? recipes[currentRecipeIndex]?.miniatura[0].url : 'https://fakeimg.pl/1920x1080/ff0000'} onClick={() => {handleRedirection(recipes[currentRecipeIndex]?.id)}}></img>
+            <img alt="recipeImage" src={recipes[currentRecipeIndex]?.miniatura[0] ? recipes[currentRecipeIndex]?.miniatura[0].url : 'https://fakeimg.pl/1920x1080/000000'} onClick={() => {handleRedirection(recipes[currentRecipeIndex]?.id)}}></img>
           </div>
           <button type='button' aria-label='right-arrow' onClick={() => {moveIndex(1)}}>
             <img style={{ transform: 'scaleX(-1)' }} className={styles.arrow} src='/assets/left-arrow.png' alt="Right Arrow" />

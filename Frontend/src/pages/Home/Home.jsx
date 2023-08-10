@@ -39,7 +39,7 @@ function Home() {
       try {
         const res = await fetchAPI({
           method: 'GET',
-          route: `recipe/ByCategory?category=${"Postres"}`,
+          route: `recipe/ByCategory?categoria=${'Postres'}`,
           body: null,
           log: true,
           showReply: true,
