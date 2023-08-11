@@ -8,8 +8,9 @@ import { useState } from "react";
 import styles from "./NavBar.module.css";
 
 const NavBar = () => {
-  const { logOut, logged } = useContext(SessionContext);
+  const { logOut, logged, checkSession, loading } = useContext(SessionContext);
   const navigate = useNavigate();
+  const [checked, setChecked] = useState(0);
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const handleSearchChange = (value) => {
@@ -22,10 +23,20 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    if (!logged) {
-      navigate("/");
+    checkSession();
+  }, []);
+
+  useEffect(() => {
+    if(checked === 3){
+      if (!logged) {
+        navigate("/");
+      }
     }
-  }, [logged]);
+  }, [logged, checked]);
+
+  useEffect(() => {
+    setChecked(checked + 1);
+  }, [loading]);
 
   const handleLogOut = useCallback(() => {
     logOut();
@@ -49,7 +60,7 @@ const NavBar = () => {
         <NavLink to={"/Profile"} className={styles.link}>
           <BsFillPersonFill />
         </NavLink>
-        <TbLogout onClick={handleLogOut}/>
+        <TbLogout onClick={handleLogOut} />
       </div>
     </div>
   );

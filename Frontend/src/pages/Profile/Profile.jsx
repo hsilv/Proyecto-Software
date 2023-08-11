@@ -13,8 +13,7 @@ function Profile() {
   const [selected, setSelected] = useState(1);
   const [editMode, setEditMode] = useState(false);
   const [editedValues, setEditedValues] = useState(["", ""]);
-  const { checkSession, userInfo } = useContext(SessionContext);
-  const [ userInfo2, setUserInfo ] = useState([]);
+  const { userInfo } = useContext(SessionContext);
   const [ userRecipes, setUserRecipes ] = useState([]);
   const { fetchAPI } = useAPI();
   const navigate = useNavigate();
@@ -52,25 +51,7 @@ function Profile() {
   };
 
   useEffect(() => {
-    checkSession();
-  }, []);
-
-  useEffect(() => {
     if(userInfo.username){
-        const fetchUserData = async () => {
-            try {
-                const res = await fetchAPI({
-                    method: 'GET',
-                    route: `user?id=${username}`,
-                    body: null,
-                    log: true,
-                    showReply: true,
-                });
-                setUserInfo(res.data[0]);
-            } catch (error) {
-                console.error("Error fetching user: ", error);
-            }
-        }
         const fetchUserRecipes = async () => {
           try {
             const res = await fetchAPI({

@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import "./Home.css";
-import { NavLink, useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import Carousel from "../../components/Carousel/Carousel";
 import { useAPI } from "../../hooks/useAPI";
@@ -12,7 +11,7 @@ function Home() {
   const [popularRecipes, setPopularRecipes] = useState([]);
   const [popularRecipesByCategory, setPopularRecipesByCategory] = useState([]);
   const { checkSession } = useContext(SessionContext);
-  const [popularByCategory, setPopularByCategory] = useState([])
+  const [popularByCategory, setPopularByCategory] = useState([]);
 
   useEffect(() => {
     const fetchPopularRecipes = async () => {
@@ -32,6 +31,10 @@ function Home() {
     };
 
     fetchPopularRecipes();
+  }, []);
+
+  useEffect(() => {
+    checkSession();
   }, []);
 
   useEffect(() => {
