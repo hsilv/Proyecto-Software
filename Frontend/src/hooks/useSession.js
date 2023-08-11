@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "./useLocalStorage.js";
 import { useAPI } from "./useAPI.js";

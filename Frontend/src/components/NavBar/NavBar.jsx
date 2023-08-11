@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useCallback } from "react";
 import { BsBell, BsPlusCircle, BsFillPersonFill } from "react-icons/bs";
 import { SessionContext } from "../../context/sessionContext";

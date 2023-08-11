@@ -120,6 +120,18 @@
     margin: auto 0 auto 1%;
 }
 
+.userLink {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.userLink:visited {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .userLink:hover {
     cursor: pointer;
 }

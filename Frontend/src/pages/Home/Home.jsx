@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import NavBar from "../../components/NavBar/NavBar";
@@ -11,7 +12,7 @@ function Home() {
   const [popularRecipes, setPopularRecipes] = useState([]);
   const [popularRecipesByCategory, setPopularRecipesByCategory] = useState([]);
   const { checkSession } = useContext(SessionContext);
-  const [popularByCategory, setPopularByCategory] = useState([]);
+  /* const [popularByCategory, setPopularByCategory] = useState([]); */
 
   useEffect(() => {
     const fetchPopularRecipes = async () => {
