@@ -5,6 +5,7 @@ import Recipe from "../pages/Recipe/Recipe"
 import SignUp from "../pages/SignUp/SignUp"
 import Profile from "../pages/Profile/Profile"
 import ProfileView from '../pages/Profile/ProfileView'
+import SearchPage from "../pages/Search/SearchPage"
 
 const MainRoutes = () => {
     let routes = useRoutes([
@@ -13,6 +14,7 @@ const MainRoutes = () => {
         {path: '/Recipe/:id', element: <Recipe />},
         {path: '/SignUp', element: <SignUp />},
         {path: '/Profile', element: <Profile />},
+        {path: '/SearchPage/:search', element: <SearchPage />},
         {path: '/Profile/:username', element: <ProfileView />}
     ]);
 

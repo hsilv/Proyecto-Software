@@ -1,0 +1,10 @@
+
+.SearchbarContainer {
+    font-family: inherit;
+    background-color: #fcf7f8;
+    width: 30rem;
+    height: 1.5rem;
+    border-radius: 15px;
+    border: transparent;
+    padding-left: 10px;
+}
