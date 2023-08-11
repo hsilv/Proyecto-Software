@@ -57,11 +57,11 @@ function Home() {
   return (
     <div className="Home">
       <NavBar />
-      <h1>Popular Recipes This Week</h1>
+      <h1 className="homeTitle">Popular Recipes This Week</h1>
       <Carousel recipes={popularRecipes}/>
 
-      <h1>Popular Recipes by Category</h1>
-      <h2 style={{marginLeft:"45px", fontSize:"2.1rem"}}>Desserts</h2>
+      <h1 className="homeTitle">Popular Recipes by Category</h1>
+      <h2 className="homeSubtitle" style={{fontSize:"2.1rem"}}>Desserts</h2>
       <Carousel recipes={popularRecipesByCategory}/>
     </div>
   );

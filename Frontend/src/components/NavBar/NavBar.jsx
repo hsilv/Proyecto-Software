@@ -1,19 +1,27 @@
-import "./NavBar.css";
-import logo from "/assets/Vector.png";
-import { BiBell, BiLogOut, BiPlusCircle, BiSearch, BiUserCircle } from "react-icons/bi";
-import IconButton from "../IconButton/IconButton";
-import { useCallback, useContext, useEffect } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
+import { BsBell, BsPlusCircle, BsFillPersonFill} from "react-icons/bs";
 import { SessionContext } from "../../context/sessionContext";
-import { NavLink, useNavigate } from "react-router-dom";
-
+import { Navigate, useNavigate } from "react-router-dom";
+import SearchBar from '../SearchBar/Searchbar';
+import { useState } from "react";
+import styles from './Navbar.module.css';
 
 const NavBar = () => {
-
-  const {logOut, logged} = useContext(SessionContext);
+  const { logOut, logged } = useContext(SessionContext);
   const navigate = useNavigate();
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  const handleSearchChange = (value) => {
+    setSearchKeyword(value);
+  };
+
+  const handleEnter = () => {
+    console.log("Search triggered:", searchKeyword);
+    navigate('/SearchPage/' + searchKeyword)
+  };
 
   useEffect(() => {
-    if(!logged){
+    if (!logged) {
       navigate('/');
     }
   }, [logged]);
@@ -22,37 +30,22 @@ const NavBar = () => {
     logOut();
   }, [logOut]);
 
+  // botón de logout pendiente
+
   return (
-    <div className="NavBar">
-      <div className="logoContainer">
-        <NavLink to="/Home">
-          <img src={logo} className="logo"></img>
-          CookApp
-        </NavLink>
+    <div className={styles.NavbarContainer}>
+      <div className={styles.LeftAlignedContent} onClick={() => {navigate('/')}}>
+        CookApp
       </div>
-      <div className="searchContainer">
-        <IconButton onClick={() => {console.log('Buscar')}} classes={["t-60"]}>
-            <BiSearch/>
-        </IconButton>
-
-
-        <input placeholder="Search..." className="searchInput">
-        </input>
-      </div>
-      <div className="userContainer">
-      <IconButton onClick={() => {console.log("Agregar Receta")}} classes={["p-i-medium"]}>
-            <BiPlusCircle/>
-        </IconButton>
-        <IconButton onClick={() => {console.log("Mostrar notificaciones")}} classes={["p-small", "p-i-medium"]}>
-            <BiBell/>
-        </IconButton>
-        <IconButton onClick={handleLogOut} classes={["p-small", "p-i-medium"]}>
-            <BiLogOut/>
-        </IconButton>
-        <IconButton  onClick={() => {navigate('/Profile')}} classes={["p-i-medium"]}>
-            <BiUserCircle/>
-        </IconButton>
-        
+        <SearchBar
+          keyword={searchKeyword}
+          onChange={handleSearchChange}
+          onEnter={handleEnter}
+        />
+      <div className={styles.icons}>
+        <BsBell />
+        <BsPlusCircle />
+        <BsFillPersonFill onClick={() => {navigate('/Profile')}} />
       </div>
     </div>
   );

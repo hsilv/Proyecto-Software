@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Carousel.module.css';
-import { BiTime, BiBookmarkAlt } from "react-icons/bi";
+import { BiTime, BiBookmarkAlt, BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 const formatTime = (time) => {
@@ -33,23 +33,23 @@ const Carousel = ({ recipes }) => {
     <>
       <div className={styles.container}>
         <div className={styles.images_container}>
-          <button type='button' aria-label='left-arrow' onClick={() => {moveIndex(-1)}}>
-            <img className={styles.arrow} src='/assets/left-arrow.png' alt="Left Arrow" />
+          <button className={styles.arrowBtn} type='button' aria-label='left-arrow' onClick={() => {moveIndex(-1)}}>
+            <BiArrowBack size={40}/>
           </button>
           <div className={styles.img_container}>
             <img alt="recipeImage" src={recipes[currentRecipeIndex]?.miniatura[0] ? recipes[currentRecipeIndex]?.miniatura[0].url : 'https://fakeimg.pl/1920x1080/000000'} onClick={() => {handleRedirection(recipes[currentRecipeIndex]?.id)}}></img>
           </div>
-          <button type='button' aria-label='right-arrow' onClick={() => {moveIndex(1)}}>
-            <img style={{ transform: 'scaleX(-1)' }} className={styles.arrow} src='/assets/left-arrow.png' alt="Right Arrow" />
+          <button className={styles.arrowBtn} type='button' aria-label='right-arrow' onClick={() => {moveIndex(1)}}>
+            <BiArrowBack size={40} style={{ transform: 'scaleX(-1)' }}/>
           </button>
         </div>
         <div className={styles.information_container}>
           <div className={styles.title_container}>
-            <h1 aria-label='titleText' style={{marginRight: '20px'}}>{recipes[currentRecipeIndex]?.nombre}</h1>
+            <h1 aria-label='titleText' style={{marginRight: '20px', marginLeft: '2.25vw'}}>{recipes[currentRecipeIndex]?.nombre}</h1>
             <BiBookmarkAlt color='#f6ae2d' size={45} />
           </div>
             <div className={styles.time_container}>
-              <BiTime color='#FFF' size={'30px'} />
+              <BiTime color='#343a40' size={'30px'} />
               <h2 style={{padding: '0px 20px'}}>{formatTime(recipes[currentRecipeIndex]?.tiempo)}</h2>
             </div>
           <h2>Recipe Submitted By: {recipes[currentRecipeIndex]?.usuario.username}</h2>

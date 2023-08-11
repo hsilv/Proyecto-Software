@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
+
+.NavbarContainer {
+    background-color: #753742;
+    color: #F2F2F2;
+    font-weight: 600;
+    height: 56px;
+    font-size: large;
+    font-family: Raleway, sans-serif;
+    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.4));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+}
+
+.LeftAlignedContent {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.icons {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+  }
+  
+.icons > *:not(:last-child) {
+    margin-right: 20px;
+}
