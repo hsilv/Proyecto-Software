@@ -9,8 +9,8 @@ import { SessionContext } from "../../context/sessionContext";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const schema = Joi.object({
-  username: Joi.string().alphanum().min(3).max(30).required(),
-  password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
+  username: Joi.string().pattern(new RegExp("^[a-zA-Z0-9|_|-]{3,30}$")).required(),
+  password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
 });
 
 function Login() {

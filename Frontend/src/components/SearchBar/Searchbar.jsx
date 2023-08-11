@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './Searchbar.module.css';
+import styles from './SearchBar.module.css';
 
 const SearchBar = ({ keyword, onChange, onEnter }) => {
   const handleKeyPress = (e) => {

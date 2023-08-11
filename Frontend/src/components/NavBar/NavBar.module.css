@@ -20,7 +20,13 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    text-decoration: none;
 }
+
+.LeftAlignedContent:visited {
+    color: #F2F2F2;
+}
+
 
 .icons {
     font-size: 24px;
@@ -30,4 +36,12 @@
   
 .icons > *:not(:last-child) {
     margin-right: 20px;
+}
+
+.link{
+    text-decoration: none;
+}
+
+.link:visited {
+    color: #F2F2F2;
 }

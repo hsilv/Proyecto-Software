@@ -39,7 +39,7 @@ function useSession() {
   };
 
   const logOut = () => {
-    saveItem("");
+    saveItem("not");
     setLogged(false);
   };
 

@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useCallback } from "react";
-import { BsBell, BsPlusCircle, BsFillPersonFill} from "react-icons/bs";
+import { useContext, useEffect, useCallback } from "react";
+import { BsBell, BsPlusCircle, BsFillPersonFill } from "react-icons/bs";
 import { SessionContext } from "../../context/sessionContext";
-import { Navigate, useNavigate } from "react-router-dom";
-import SearchBar from '../SearchBar/Searchbar';
+import { TbLogout } from "react-icons/tb";
+import { NavLink, useNavigate } from "react-router-dom";
+import SearchBar from "../SearchBar/Searchbar";
 import { useState } from "react";
-import styles from './Navbar.module.css';
+import styles from "./NavBar.module.css";
 
 const NavBar = () => {
   const { logOut, logged } = useContext(SessionContext);
@@ -17,12 +18,12 @@ const NavBar = () => {
 
   const handleEnter = () => {
     console.log("Search triggered:", searchKeyword);
-    navigate('/SearchPage/' + searchKeyword)
+    navigate("/SearchPage/" + searchKeyword);
   };
 
   useEffect(() => {
     if (!logged) {
-      navigate('/');
+      navigate("/");
     }
   }, [logged]);
 
@@ -34,18 +35,21 @@ const NavBar = () => {
 
   return (
     <div className={styles.NavbarContainer}>
-      <div className={styles.LeftAlignedContent} onClick={() => {navigate('/')}}>
+      <NavLink className={styles.LeftAlignedContent} to={"/Home"}>
         CookApp
-      </div>
-        <SearchBar
-          keyword={searchKeyword}
-          onChange={handleSearchChange}
-          onEnter={handleEnter}
-        />
+      </NavLink>
+      <SearchBar
+        keyword={searchKeyword}
+        onChange={handleSearchChange}
+        onEnter={handleEnter}
+      />
       <div className={styles.icons}>
         <BsBell />
         <BsPlusCircle />
-        <BsFillPersonFill onClick={() => {navigate('/Profile')}} />
+        <NavLink to={"/Profile"} className={styles.link}>
+          <BsFillPersonFill />
+        </NavLink>
+        <TbLogout onClick={handleLogOut}/>
       </div>
     </div>
   );

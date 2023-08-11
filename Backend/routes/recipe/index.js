@@ -6,10 +6,11 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   let result;
   try {
-    if(req.query.id){
+    if (req.query.id) {
       result = await database
         .from('receta')
-        .select(`
+        .select(
+          `
           id,
           nombre,
           ingredientes,
@@ -29,13 +30,14 @@ router.get('/', async (req, res) => {
           pais,
           avg_calificacion,
           descripcion
-      `)
-      .eq('id', req.query.id)
-    }
-    else {
+      `,
+        )
+        .eq('id', req.query.id);
+    } else {
       result = await database
-      .from('receta')
-      .select(`
+        .from('receta')
+        .select(
+          `
         id,
         nombre,
         usuario (
@@ -47,11 +49,12 @@ router.get('/', async (req, res) => {
         tiempo,
         avg_calificacion,
         descripcion
-      `)
-      .order('avg_calificacion', { ascending: false })
-      .limit(5);
+      `,
+        )
+        .order('avg_calificacion', { ascending: false })
+        .limit(5);
     }
-    
+
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener datos de recetas' });
@@ -61,9 +64,10 @@ router.get('/', async (req, res) => {
 router.get('/ByCategory', async (req, res) => {
   let result;
   try {
-      result = await database
-        .from('receta')
-        .select(`
+    result = await database
+      .from('receta')
+      .select(
+        `
           id,
           nombre,
           ingredientes,
@@ -77,8 +81,9 @@ router.get('/ByCategory', async (req, res) => {
           tiempo,
           avg_calificacion,
           descripcion
-      `)
-      .eq('categoria.categoria', req.query.categoria)
+      `,
+      )
+      .eq('categoria.categoria', req.query.categoria);
 
     res.status(200).json(result);
   } catch (error) {
@@ -89,8 +94,9 @@ router.get('/ByCategory', async (req, res) => {
 router.get('/byUser', async (req, res) => {
   try {
     const result = await database
-    .from('receta')
-    .select(`
+      .from('receta')
+      .select(
+        `
       id,
       nombre,
       usuario!inner(username),
@@ -99,12 +105,13 @@ router.get('/byUser', async (req, res) => {
       ),
       tiempo,
       avg_calificacion
-    `)
-    .eq('usuario.username', req.query.username)
+    `,
+      )
+      .eq('usuario.username', req.query.username);
     res.status(200).json(result);
-  } catch( error ) {
-    res.status(500).json({ error: 'Error al obtener datos de recetas'})
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener datos de recetas' });
   }
-})
+});
 
 export default router;
