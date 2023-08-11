@@ -70,12 +70,6 @@
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.recipeViewer span {
-  margin-top: 200px;
 }
 
 .editBtn {
@@ -163,4 +157,9 @@ textarea:focus {
   font-family: 'Raleway', sans-serif;
   transition: 0.2s;
   margin: 2% 0px 5% 0px;
+}
+
+.noData {
+  margin: auto;
+  margin-top: 20vh;
 }

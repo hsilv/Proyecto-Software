@@ -86,4 +86,25 @@ router.get('/ByCategory', async (req, res) => {
   }
 });
 
+router.get('/byUser', async (req, res) => {
+  try {
+    const result = await database
+    .from('receta')
+    .select(`
+      id,
+      nombre,
+      usuario!inner(username),
+      miniatura (
+        url
+      ),
+      tiempo,
+      avg_calificacion
+    `)
+    .eq('usuario.username', req.query.username)
+    res.status(200).json(result);
+  } catch( error ) {
+    res.status(500).json({ error: 'Error al obtener datos de recetas'})
+  }
+})
+
 export default router;

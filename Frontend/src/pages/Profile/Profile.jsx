@@ -5,27 +5,88 @@ import style from "./Profile.module.css";
 import Edit from "/assets/edit-btn.svg";
 import Button from "../../components/Button/Button";
 import { SessionContext } from "../../context/sessionContext";
+import RecipePreview from "../../components/RecipePreview/RecipePreview"
+import { useNavigate } from "react-router-dom"
+import { useAPI } from '../../hooks/useAPI'
 
 function Profile() {
   const [selected, setSelected] = useState(1);
   const [editMode, setEditMode] = useState(false);
   const [editedValues, setEditedValues] = useState(["", ""]);
   const { checkSession, userInfo } = useContext(SessionContext);
+  const [ userInfo2, setUserInfo ] = useState([]);
+  const [ userRecipes, setUserRecipes ] = useState([]);
+  const { fetchAPI } = useAPI();
+  const navigate = useNavigate();
+
+  const recipeClickHandler = (recipeID) => {
+    navigate('/Recipe/'+recipeID)
+  }
 
   const showCurrent = () => {
-    let currentStr;
     if (selected === 1) {
-      currentStr = "Recetas";
+      if(userRecipes.length > 0){
+        return (
+          userRecipes.map((recipe, x) => {
+            return (
+              <RecipePreview recipe={recipe} callback={recipeClickHandler} key={x}/>
+            ) 
+          }
+        )
+        )
+      } else {
+        return (
+          <span className={style.noData}>{userInfo.username} no ha publicado recetas</span>
+        )
+      }
+      
     } else if (selected === 2) {
-      currentStr = "Favoritos";
+      return (
+        <span className={style.noData}>Favoritos</span>
+      )
     } else {
-      currentStr = "Colecciones";
+      return (
+        <span className={style.noData}>Colecciones</span>
+      )
     }
-    return <span>{`${currentStr} de ${userInfo ? userInfo.username : ''}`}</span>;
   };
 
   useEffect(() => {
     checkSession();
+  }, []);
+
+  useEffect(() => {
+    if(userInfo.username){
+        const fetchUserData = async () => {
+            try {
+                const res = await fetchAPI({
+                    method: 'GET',
+                    route: `user?id=${username}`,
+                    body: null,
+                    log: true,
+                    showReply: true,
+                });
+                setUserInfo(res.data[0]);
+            } catch (error) {
+                console.error("Error fetching user: ", error);
+            }
+        }
+        const fetchUserRecipes = async () => {
+          try {
+            const res = await fetchAPI({
+              method: 'GET',
+              route: `recipe/byUser?username=${userInfo.username}`,
+              body: null,
+              log: true,
+              showReply: true,
+            });
+            setUserRecipes(res.data);
+          } catch ( error ) {
+            console.error("Error fetching user recipes: ", error);
+          }
+        }
+        fetchUserRecipes();
+    }
   }, []);
 
   const handleNameChange = (event) => {
