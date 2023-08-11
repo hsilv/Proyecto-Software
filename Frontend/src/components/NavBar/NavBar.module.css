@@ -19,6 +19,7 @@
 .LeftAlignedContent {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .icons {

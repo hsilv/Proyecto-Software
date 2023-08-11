@@ -25,7 +25,7 @@ const CategoryList = [
 // Esta es fija
 const TimeList = [
     {value: "Short", label:"< 0-5min"},
-    {value: "Medium", label:"< 5-30min"},
+    {value: "Medium", label:"5-30min"},
     {value: "Long", label:"> 1hrs"},
 ]
 
@@ -42,6 +42,20 @@ function SearchPage() {
         }
     };
 
+    const filterCategory = ( options ) => {
+        return (
+            <div className={styles.CountryOptions}>
+                    {options.map((x,i) => <label key={i}>
+                        <input
+                        type="checkbox"
+                        name="lang"
+                        value={x.value}
+                        /> {x.label}
+                    </label>)}
+            </div>
+        )
+    }
+
     return(
         <>
           <NavBar />
@@ -53,15 +67,7 @@ function SearchPage() {
                         <GrMapLocation fontSize={'1.5rem'} />
                         <h2>Country</h2>
                     </div>
-                    <div className={styles.CountryOptions}>
-                            {CountryList.map((x,i) => <label key={i}>
-                                <input
-                                type="checkbox"
-                                name="lang"
-                                value={x.value}
-                                /> {x.label}
-                            </label>)}
-                    </div>
+                    {filterCategory(CountryList)}
                 </div>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
@@ -86,15 +92,7 @@ function SearchPage() {
                         <GrAlarm fontSize={'1.5rem'} />
                         <h2>Time</h2>
                     </div>
-                    <div className={styles.CountryOptions}>
-                            {TimeList.map((x,i) => <label key={i}>
-                                <input
-                                type="checkbox"
-                                name="lang"
-                                value={x.value}
-                                /> {x.label}
-                            </label>)}
-                    </div>
+                    {filterCategory(TimeList)}
                 </div>
             </div>
 

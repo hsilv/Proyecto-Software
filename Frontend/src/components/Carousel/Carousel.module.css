@@ -12,19 +12,27 @@
     height: 400px;
 }
 
-.images_container button {
+.arrowBtn {
     background-color: transparent;
-    border: none;
+    outline: none;
     cursor: pointer;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .images_container button:hover {
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
+    border: none;
+    border-radius: 12px;
+    transition: 0.2s;
 
-  .img_container {
+}
+/* Verificar si el index está en su máximo para deshabilitar la flecha correspondiente
+.arrowBtn[Disabled] {
+
+}*/
+
+
+.arrowBtn:hover {
+    transform: scale(1.1);
+
+}
+
+.img_container {
     height: inherit;
     width: 500px;
     overflow: hidden;
@@ -49,24 +57,19 @@
     width: 100%;
 }
 
-.arrow {
-    width: 50px;
-    height: auto;
-}
-
 .information_container p {
     font-size: 1.2rem;
     line-height: 1.5rem;
     font-family: inherit;
     padding: 0px 45px;
-    color: #FFF;
+    color: #343a40;
 }
 
 .information_container h2 {
     font-size: 1.2rem;
     font-family: inherit;
     padding: 0px 45px;
-    color: #FFF;
+    color: #343a40;
 }
 
 .time_container {

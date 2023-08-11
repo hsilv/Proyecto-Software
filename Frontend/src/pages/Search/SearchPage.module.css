@@ -15,7 +15,8 @@
     flex-direction: column;
     background-color: #dee2e6;
     width: 20%; 
-    height: inherit;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 .FiltersContainer h1 {
@@ -25,9 +26,8 @@
     margin-left: 20px;
     color: #343a40;
     width: fit-content;
-    display: inline;
     border-bottom: thin solid #212529;
-    padding-right: 190px;
+    padding-right: 10vw;
 }
 
 .FiltersCountryContainer{
@@ -52,8 +52,9 @@
 }
 
 .CountryOptions {
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
     gap: 0.2em;
     margin-top: 15px;
     line-height: 2rem;
@@ -68,7 +69,7 @@
     font-size: 1.1rem;
     border-radius: 8px;
     border: none;
-    background-color: #e9ecef;
+    background-color: /*#e9ecef*/ #f3f5f7;
     padding: 3px 20px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -86,7 +87,7 @@
 }
 
 .ResultsContainer h1 {
-    margin-left: 30px;
+    margin-left: 1.8vw;
     font-family: Raleway, sans-serif;
     font-size: 1.2rem;
     margin-top: 100px;
@@ -94,7 +95,7 @@
     width: fit-content;
     display: inline;
     border-bottom: thin solid #212529;
-    padding-right: 1000px;
+    width: 84%;
 }
 
 .ResultListContainer {

@@ -30,10 +30,12 @@ const NavBar = () => {
     logOut();
   }, [logOut]);
 
+  // botón de logout pendiente
+
   return (
     <div className={styles.NavbarContainer}>
-      <div className={styles.LeftAlignedContent}>
-        CookingApp
+      <div className={styles.LeftAlignedContent} onClick={() => {navigate('/')}}>
+        CookApp
       </div>
         <SearchBar
           keyword={searchKeyword}

@@ -7,10 +7,11 @@
     flex-direction: row;
     margin-top: 30px;
     background-color: #FFFF;
-    width: 800px;
-    height: 200px;
+    width: 45vw;
+    height: 21vh;
     border-radius: 10px;
     filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.4));
+    cursor: pointer;
 }
 
 .resultContainerImage {
@@ -29,6 +30,7 @@
 }
 
 .resultContainerInfo {
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     border-top-right-radius: inherit;
