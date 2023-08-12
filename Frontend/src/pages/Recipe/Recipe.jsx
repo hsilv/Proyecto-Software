@@ -78,7 +78,15 @@ function Recipe() {
                 </div>
                 <div className={style.catItem}>
                   <MdDinnerDining size={30} />
-                  {<span>{detailsRecipe.categoria?.categoria}</span>}
+                  {<span>{detailsRecipe.receta_categoria?.map((categoria) => 
+                    {return (
+                      <button role="button"
+                      className={style.categoryItem}
+                      onClick={() => {navigate(`/SearchPage/${categoria.categoria_id.categoria}`)}}>
+                        {categoria.categoria_id.categoria}
+                      </button>
+                    )
+                    })}</span>}
                 </div>
                 
               </div>

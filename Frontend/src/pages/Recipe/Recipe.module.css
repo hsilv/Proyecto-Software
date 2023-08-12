@@ -123,3 +123,20 @@
 .userLink:hover {
     cursor: pointer;
 }
+
+.categoryItem {
+    font-family: Raleway, sans-serif;
+    width: fit-content;
+    border-radius: 8px;
+    border: none;
+    background-color: #e9ecef;
+    cursor: pointer;
+    padding: 3px 20px;
+    margin: 0 0.3vw;
+    transition: 0.2s;
+}
+
+.categoryItem:hover {
+    background-color: #753742;
+    color: #F2F2F2;
+}

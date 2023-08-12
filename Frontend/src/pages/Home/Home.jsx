@@ -47,8 +47,7 @@ function Home() {
           log: true,
           showReply: true,
       });
-      console.log(res.data);
-        setPopularRecipesByCategory(res.data);
+        setPopularRecipesByCategory(res);
       } catch (error) {
         console.error("Error fetching popular recipes: ", error);
       }

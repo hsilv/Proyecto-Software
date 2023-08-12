@@ -74,18 +74,18 @@ function SearchPage() {
                         <GrList fontSize={'1.5rem'} />
                         <h2>Category</h2>
                     </div>
-                        <div className={styles.CountryOptions}>
-                            {CategoryList.map((x, i) => (
-                                <label key={i}>
-                                    <button
-                                        className={activeCategories.includes(x.value) ? styles.activeButton : ''}
-                                        onClick={() => handleCategoryClick(x.value)}
-                                    >
-                                        {x.label}
-                                    </button>
-                                </label>
-                            ))}
-                        </div>
+                    <div className={styles.CountryOptions}>
+                        {CategoryList.map((x, i) => (
+                            <label key={i}>
+                                <button
+                                    className={activeCategories.includes(x.value) ? styles.activeButton : ''}
+                                    onClick={() => handleCategoryClick(x.value)}
+                                >
+                                    {x.label}
+                                </button>
+                            </label>
+                        ))}
+                    </div>
                 </div>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
