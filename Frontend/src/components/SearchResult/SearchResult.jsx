@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './SearchResult.module.css';
-import { GrAlarm } from "react-icons/gr";
+import { TbAlarm } from "react-icons/tb";
 
 const searchData = [
     {
@@ -95,7 +95,7 @@ const searchData = [
                   <div className={styles.resultContainerTitle}>
                       <h2>{data.nombre || 'No title available'}</h2>
                       <div className={styles.timeInformation}>
-                          <GrAlarm fontSize={'1.5rem'} />
+                          <TbAlarm fontSize={'1.5rem'} />
                           <h3>{formatTime(data.tiempo || 0)}</h3>
                       </div>
                   </div>

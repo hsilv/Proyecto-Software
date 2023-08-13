@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './SearchPage.module.css';
 import NavBar from "../../components/NavBar/NavBar";
-import { GrMapLocation, GrList, GrAlarm } from "react-icons/gr";
+import { TbMap2, TbLayoutList, TbAlarm} from "react-icons/tb";
 import { useState } from "react";
 import SearchResultsList from "../../components/SearchResult/SearchResult";
 import { useParams, useNavigate } from "react-router-dom"
@@ -64,14 +64,14 @@ function SearchPage() {
                 <h1>Filters</h1>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
-                        <GrMapLocation fontSize={'1.5rem'} />
+                        <TbMap2 fontSize={'1.5rem'} />
                         <h2>Country</h2>
                     </div>
                     {filterCategory(CountryList)}
                 </div>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
-                        <GrList fontSize={'1.5rem'} />
+                        <TbLayoutList fontSize={'1.5rem'} />
                         <h2>Category</h2>
                     </div>
                     <div className={styles.CountryOptions}>
@@ -89,7 +89,7 @@ function SearchPage() {
                 </div>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
-                        <GrAlarm fontSize={'1.5rem'} />
+                        <TbAlarm fontSize={'1.5rem'} />
                         <h2>Time</h2>
                     </div>
                     {filterCategory(TimeList)}

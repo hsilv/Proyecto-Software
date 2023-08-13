@@ -26,9 +26,6 @@
     margin-top: 90px;
     margin-left: 20px;
     color: #343a40;
-    width: fit-content;
-    border-bottom: thin solid #212529;
-    padding-right: 10vw;
 }
 
 .FiltersCountryContainer{
@@ -100,7 +97,7 @@
     width: fit-content;
     display: inline;
     border-bottom: thin solid #212529;
-    width: 84%;
+    width: 100%;
 }
 
 .ResultListContainer {
