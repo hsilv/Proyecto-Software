@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
 
 
 .resultContainer {
@@ -15,6 +15,7 @@
 }
 
 .resultContainerImage {
+    font-family: 'Aclonica', sans-serif; 
     width: 35%;
     height: inherit;
     border-top-left-radius: inherit;
@@ -42,7 +43,8 @@
 
 .resultContainerInfo h2 {
     font-size: 1.8rem;
-    color: #f27059;
+    color: #FF8B5C;
+    font-family: 'Aclonica', sans-serif; 
 }
 
 .resultContainerTitle {
@@ -64,15 +66,16 @@
 }
 
 .timeInformation h3 {
-    font-family: inherit;
+    font-family: 'Aclonica', sans-serif; 
     font-size: 1.2rem;
     color: #343a40;
-    font-family: Raleway, sans-serif;
 }
 
 .resultContainerInfo p {
     line-height: 1.3rem;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 300;
     text-align: justify;
     margin: 0;
 }

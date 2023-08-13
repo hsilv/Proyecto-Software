@@ -2,17 +2,6 @@ import React from "react";
 import styles from './SearchResult.module.css';
 import { GrAlarm } from "react-icons/gr";
 
-const formatTime = (time) => {
-    let hours = Math.floor(time / 60);
-    let remainingMinutes = time % 60;
-
-    let formattedTime = '';
-
-    if (hours > 0) formattedTime += `${hours} hrs `;
-    if (remainingMinutes > 0) formattedTime += `${remainingMinutes} min`;
-    return formattedTime.trim();
-};
-
 const searchData = [
     {
       "id": 24,
@@ -75,34 +64,56 @@ const searchData = [
     }
   ];
 
-const SearchResult = ({ data }) => {
-    return (
-        <div className={styles.resultContainer}>
-            <div className={styles.resultContainerImage}>
-                <img src={data.miniatura[0]?.url || ''} alt="Thumbnail" />
-            </div>
-            <div className={styles.resultContainerInfo}>
-                <div className={styles.resultContainerTitle}>
-                    <h2>{data.nombre || 'No title available'}</h2>
-                    <div className={styles.timeInformation}>
-                        <GrAlarm fontSize={'1.5rem'} />
-                        <h3>{formatTime(data.tiempo || 0)}</h3>
-                    </div>
-                </div>
-                <p>{data.descripcion || 'No description available'}</p>
-            </div>
-        </div>
-    );
-};
-
-const SearchResultsList = () => {
-    return (
-        <div>
-            {searchData.map((item) => (
-                <SearchResult key={item.id} data={item} />
-            ))}
-        </div>
-    );
-};
-
-export default SearchResultsList;
+  const formatTime = (time) => {
+      let hours = Math.floor(time / 60);
+      let remainingMinutes = time % 60;
+  
+      let formattedTime = '';
+  
+      if (hours > 0) formattedTime += `${hours} hrs `;
+      if (remainingMinutes > 0) formattedTime += `${remainingMinutes} min`;
+      return formattedTime.trim();
+  };
+  
+  const truncateDescription = (description, maxWords) => {
+      const words = description.split(' ');
+      if (words.length > maxWords) {
+          return words.slice(0, maxWords).join(' ') + '...';
+      }
+      return description;
+  };
+  
+  const SearchResult = ({ data }) => {
+      const truncatedDescription = truncateDescription(data.descripcion || 'No description available', 30);
+  
+      return (
+          <div className={styles.resultContainer}>
+              <div className={styles.resultContainerImage}>
+                  <img src={data.miniatura[0]?.url || ''} alt="Thumbnail" />
+              </div>
+              <div className={styles.resultContainerInfo}>
+                  <div className={styles.resultContainerTitle}>
+                      <h2>{data.nombre || 'No title available'}</h2>
+                      <div className={styles.timeInformation}>
+                          <GrAlarm fontSize={'1.5rem'} />
+                          <h3>{formatTime(data.tiempo || 0)}</h3>
+                      </div>
+                  </div>
+                  <p>{truncatedDescription}</p>
+              </div>
+          </div>
+      );
+  };
+  
+  const SearchResultsList = () => {
+      return (
+          <div>
+              {searchData.map((item) => (
+                  <SearchResult key={item.id} data={item} />
+              ))}
+          </div>
+      );
+  };
+  
+  export default SearchResultsList;
+  

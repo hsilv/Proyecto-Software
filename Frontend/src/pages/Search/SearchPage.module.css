@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
 
 .SearchPageContainer{
     display: flex;
@@ -20,7 +21,7 @@
 }
 
 .FiltersContainer h1 {
-    font-family: Raleway, sans-serif;
+    font-family: 'Aclonica', sans-serif; 
     font-size: 1.6rem;
     margin-top: 90px;
     margin-left: 20px;
@@ -46,6 +47,7 @@
 }
 
 .FiltersCountryContainerInfo h2 {
+    font-family: 'Aclonica', sans-serif; 
     padding: 0;
     margin-left: 10px;
     color: #343a40;
@@ -58,15 +60,17 @@
     gap: 0.2em;
     margin-top: 15px;
     line-height: 2rem;
-    font-family: Raleway, sans-serif;
-    font-size: 1.1rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 300;
+    font-size: 1.3rem;
 }
 
 .CountryOptions button {
-    font-family: Raleway, sans-serif;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 300;
     width: fit-content;
     max-width: 170px;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     border-radius: 8px;
     border: none;
     background-color: #e9ecef;
@@ -76,7 +80,7 @@
 }
 
 .CountryOptions .activeButton {
-    background-color: #753742;
+    background-color: #BF3545;
     color: #F2F2F2;
 }
 
@@ -88,7 +92,8 @@
 
 .ResultsContainer h1 {
     margin-left: 1.8vw;
-    font-family: Raleway, sans-serif;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 500;
     font-size: 1.2rem;
     margin-top: 100px;
     color: #343a40;
