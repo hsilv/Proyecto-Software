@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from "react";
-import styles from"./Home.module.css";
+import React, { useContext, useEffect, useState } from "react";
+import styles from "./Home.module.css";
 import NavBar from "../../components/NavBar/NavBar";
-import Carousel from "../../components/Carousel/Carousel";
 import { useAPI } from "../../hooks/useAPI";
 import { SessionContext } from "../../context/sessionContext";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import RecipeCard from "../../components/RecipeCard/RecipeCard";
 
 function Home() {
   const { fetchAPI } = useAPI();
   const [popularRecipes, setPopularRecipes] = useState([]);
-  const [popularRecipesByCategory, setPopularRecipesByCategory] = useState([]);
   const { checkSession } = useContext(SessionContext);
-  const [popularByCategory, setPopularByCategory] = useState([]);
 
   useEffect(() => {
     const fetchPopularRecipes = async () => {
@@ -22,8 +22,7 @@ function Home() {
           body: null,
           log: true,
           showReply: true,
-      });
-      console.log(res.data);
+        });
         setPopularRecipes(res.data);
       } catch (error) {
         console.error("Error fetching popular recipes: ", error);
@@ -31,29 +30,7 @@ function Home() {
     };
 
     fetchPopularRecipes();
-  }, []);
-
-  useEffect(() => {
     checkSession();
-  }, []);
-
-  useEffect(() => {
-    const fetchPopularRecipesByCategory = async () => {
-      try {
-        const res = await fetchAPI({
-          method: 'GET',
-          route: `recipe/ByCategory?categoria=${'Postres'}`,
-          body: null,
-          log: true,
-          showReply: true,
-      });
-        setPopularRecipesByCategory(res);
-      } catch (error) {
-        console.error("Error fetching popular recipes: ", error);
-      }
-    };
-
-    fetchPopularRecipesByCategory();
   }, []);
 
   return (
@@ -65,9 +42,18 @@ function Home() {
             <h1 style={{fontSize:'1.7rem'}}>Hey there Carlos!</h1>
             <p>Are you feeling hungry for some delicious inspiration? Get ready to explore a world of amazing recipes!</p>
           </div>
-          <img src="assets/pancakes.png"/>
+          <img src="assets/pancakes.png" alt="Pancakes" />
         </div>
-        <h1 style={{margin:'70px 50px', width: 'fit-content', borderBottom: 'thin solid #212529', paddingRight: '10vw'}}>Popular Recipes This Week</h1>
+        <h1 style={{marginBlockEnd: 0, margin:'30px 50px', width: 'fit-content', borderBottom: 'thin solid #212529', paddingRight: '10vw'}}>Popular Recipes This Week</h1>
+        <div className={styles.swiperWraper}>
+          <Swiper loop= {true} >
+            {popularRecipes.map(recipe => (
+              <SwiperSlide key={recipe.id}>
+                <RecipeCard recipe={recipe} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </>
   );

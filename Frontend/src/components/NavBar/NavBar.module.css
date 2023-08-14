@@ -16,13 +16,10 @@
 
 .LeftAlignedContent {
     display: flex;
+    color: #F2F2F2;
     align-items: center;
     cursor: pointer;
     text-decoration: none;
-}
-
-.LeftAlignedContent:visited {
-    color: #F2F2F2;
 }
 
 .icons {

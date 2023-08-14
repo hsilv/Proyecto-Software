@@ -90,7 +90,7 @@ function SearchPage() {
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
                         <TbAlarm fontSize={'1.5rem'} />
-                        <h2>Time</h2>
+                        <h2>Duration</h2>
                     </div>
                     {filterCategory(TimeList)}
                 </div>
