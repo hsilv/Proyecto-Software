@@ -6,6 +6,9 @@ import { SessionContext } from "../../context/sessionContext";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import {EffectCoverflow, Pagination} from 'swiper/modules';
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 
 function Home() {
@@ -46,7 +49,14 @@ function Home() {
         </div>
         <h1 style={{marginBlockEnd: 0, margin:'30px 50px', width: 'fit-content', borderBottom: 'thin solid #212529', paddingRight: '10vw'}}>Popular Recipes This Week</h1>
         <div className={styles.swiperWraper}>
-          <Swiper loop= {true} >
+          <Swiper effect={'coverflow'} grabCursor={true} centeredSlides={true} slidesPerView={3} pagination={true}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 2.5,
+          }}
+          modules={[EffectCoverflow, Pagination]}>
             {popularRecipes.map(recipe => (
               <SwiperSlide key={recipe.id}>
                 <RecipeCard recipe={recipe} />
