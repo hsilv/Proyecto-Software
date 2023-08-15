@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+
+.CategoryCardContainer {
+  height: 8em;
+  width: 17em;
+  background-color: #dedede;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; 
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.CategoryCardContainer:hover {
+  background-color: #c0c0c0;
+  transform: scale(1.05); 
+}
+
+.CategoryCardContainer h3 {
+  font-family: 'Aclonica', sans-serif;
+  font-size: 1.2rem;
+  transition: color 0.2s ease-in-out; 
+}
+
+.CategoryCardContainer:hover h3 {
+  color: #333;
+}
+
+.CategoryCardContainer > *:not(:last-child) {
+  margin-right: 20px;
+}

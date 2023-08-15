@@ -85,6 +85,8 @@
     display: flex;
     flex-direction: column;
     width: 80%;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .ResultsContainer h1 {
