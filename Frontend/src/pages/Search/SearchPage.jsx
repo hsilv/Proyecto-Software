@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './SearchPage.module.css';
 import NavBar from "../../components/NavBar/NavBar";
 import { TbMap2, TbLayoutList, TbAlarm} from "react-icons/tb";
 import { useState } from "react";
 import SearchResultsList from "../../components/SearchResult/SearchResult";
 import { useParams, useNavigate } from "react-router-dom"
+import { useAPI } from "../../hooks/useAPI";
 
 
 // Backend logic
@@ -32,6 +33,8 @@ const TimeList = [
 
 function SearchPage() {
     let { search } = useParams();
+    const { fetchAPI } = useAPI();
+    const [searchResults, setSearchResults] = useState([]);
     const [activeCategories, setActiveCategories] = useState([]);
 
     const handleCategoryClick = (value) => {
@@ -42,7 +45,29 @@ function SearchPage() {
         }
     };
 
-    const filterCategory = ( options ) => {
+    const getSearchResults = async () => {
+        try {
+          const res = await fetchAPI({
+            method: 'GET',
+            route: `search?text=${search}`,
+            body: null,
+            log: true,
+            showReply: true,
+          });
+          setSearchResults(res);
+        } catch (error) {
+          console.error("Error fetching recipes: ", error);
+        }
+    };
+
+    useEffect(() => {
+        getSearchResults();
+    }, [])
+
+    useEffect(() => {}, [searchResults])
+    useEffect(() => {getSearchResults()},[search]) 
+
+    const filterCategoryBuilder = ( options ) => {
         return (
             <div className={styles.CountryOptions}>
                     {options.map((x,i) => <label key={i}>
@@ -67,7 +92,7 @@ function SearchPage() {
                         <TbMap2 fontSize={'1.5rem'} />
                         <h2>Country</h2>
                     </div>
-                    {filterCategory(CountryList)}
+                    {filterCategoryBuilder(CountryList)}
                 </div>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
@@ -92,14 +117,14 @@ function SearchPage() {
                         <TbAlarm fontSize={'1.5rem'} />
                         <h2>Duration</h2>
                     </div>
-                    {filterCategory(TimeList)}
+                    {filterCategoryBuilder(TimeList)}
                 </div>
             </div>
 
             <div className={styles.ResultsContainer}>
-                <h1>We've found xx results for "{search}"</h1>
+                <h1>We've found {searchResults ? searchResults.length : 'no'} results for "{search}"</h1>
                 <div className={styles.ResultListContainer}>
-                    <SearchResultsList />
+                    <SearchResultsList data={searchResults ? searchResults : []}/>
                 </div>
             </div>
           </div>
