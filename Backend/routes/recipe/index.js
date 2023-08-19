@@ -18,6 +18,8 @@ router.get('/', async (req, res) => {
           avg_calificacion,
           descripcion,
           pais,
+          calorias,
+          porciones,
           usuario (
             username
           ),
