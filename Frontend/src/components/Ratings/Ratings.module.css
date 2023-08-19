@@ -1,0 +1,16 @@
+
+.RatingsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+}
+
+.RatingsContainer h2 {
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 400;
+    margin-left: 10px;
+    color: #434343;
+    font-size: 1rem;
+}
