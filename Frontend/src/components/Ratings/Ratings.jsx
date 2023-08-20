@@ -3,7 +3,7 @@ import styles from './Ratings.module.css';
 import { Rate } from "antd";
 import { TbCherryFilled } from "react-icons/tb";
 
-const Ratings = ({ value, count }) => {
+const Ratings = ({ value, color }) => {
     const modifiedValue = Math.floor(
         value + (value % 1 > 0.5 ? 1 : value % 1 >= 0.25 ? 0.5 : 0)
     );
@@ -25,7 +25,7 @@ const Ratings = ({ value, count }) => {
                     color: '#BF3545',
                 }}
             />
-            <h2>{value} out of 5</h2>
+            <h2 style={{color:color}}>{value} out of 5</h2>
         </div>
     );
 }

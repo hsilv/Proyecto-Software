@@ -3,16 +3,19 @@ import NavBar from "../../components/NavBar/NavBar";
 import styles from "./Recipe.module.css";
 import { useAPI } from "../../hooks/useAPI";
 import { SessionContext } from "../../context/sessionContext";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Ratings from "../../components/Ratings/Ratings";
 import { TbFolderPlus, TbHeartPlus } from "react-icons/tb";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 function Recipe() {
   const { checkSession } = useContext(SessionContext);
   const { fetchAPI } = useAPI();
-  let {id} = useParams();
+  let { id } = useParams();
   const navigate = useNavigate();
+  const [searchResults, setSearchResults] = useState([]);
   const [detailsRecipe, setDetailsRecipe] = useState([
     {
       nombre: "Placeholder",
@@ -26,6 +29,37 @@ function Recipe() {
       <h2>{subtitle}</h2>
     </div>
   );
+
+  function renderIngredients(title, data) {
+    return (
+      <div>
+        <h1 style={{ fontSize: '1.7rem' }}>{title}</h1>
+        <ul>
+          {data?.map((value, index) => {
+            const [ingredient, amount] = value.split(",");
+            return (
+              <li key={index}>
+                {ingredient.slice(1)} - {amount.slice(0, -1)}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+
+  function renderSteps(title, data) {
+    return (
+      <div>
+        <h1 style={{ fontSize: '1.7rem', marginTop: '50px' }}>{title}</h1>
+        <ul>
+          {data?.map((value, index) => (
+            <li key={index}>{value.descripcion}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 
   useEffect(() => {
     const fetchDetailsRecipe = async () => {
@@ -44,7 +78,6 @@ function Recipe() {
     };
 
     fetchDetailsRecipe();
-
   }, []);
 
   return (
@@ -53,9 +86,14 @@ function Recipe() {
       <div className={styles.RecipeInfoContainer}>
         <div className={styles.RecipeImageContainer}>
           <img
-            src={detailsRecipe.miniatura && detailsRecipe.miniatura[0]?.url ? detailsRecipe.miniatura[0]?.url : 'https://fakeimg.pl/1920x1080/161616'}
-            placeholder="Imagen de Receta">
-          </img>
+            src={
+              detailsRecipe.miniatura && detailsRecipe.miniatura[0]?.url
+                ? detailsRecipe.miniatura[0]?.url
+                : 'https://fakeimg.pl/1920x1080/161616'
+            }
+            placeholder="Imagen de Receta"
+            alt="Recipe"
+          />
         </div>
         <div className={styles.RecipeDetails}>
           <div className={styles.UserInteractionsContainer}>
@@ -64,12 +102,35 @@ function Recipe() {
             <TbHeartPlus fontSize={'24px'} />
           </div>
           <h1>{detailsRecipe.nombre}</h1>
-          <Ratings value={detailsRecipe.avg_calificacion}/>
+          <Ratings value={detailsRecipe.avg_calificacion} color={'#434343'} />
           <p>{detailsRecipe.descripcion}</p>
           <div className={styles.DetailsContainer}>
             {renderBlock(detailsRecipe.tiempo, 'minutes')}
-            {renderBlock("77", 'calories')}
             {renderBlock(detailsRecipe.ingredientes?.length, 'ingredients')}
+            {renderBlock(detailsRecipe.porciones, 'portion(s)')}
+            {renderBlock(detailsRecipe.calorias, 'calories/portion')}
+          </div>
+          <div className={styles.SimilarRecipesContainer}>
+            <p
+              style={{
+                marginBlockEnd: '0',
+                transform:
+                  'translateX(-15%) translateY(5%) rotate(-90deg)',
+              }}
+            >
+              Similar Recipes
+            </p>
+            <div className={styles.SimilarRecipesCards}>
+              <Swiper
+                centeredSlides={true}
+                slidesPerView={3}
+              >
+              </Swiper>
+            </div>
+          </div>
+          <div className={styles.RecipeInstructions}>
+            {renderIngredients('Ingredients', detailsRecipe.ingredientes)}
+            {renderSteps('Steps', detailsRecipe.paso)}
           </div>
         </div>
       </div>

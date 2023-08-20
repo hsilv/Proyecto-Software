@@ -2,6 +2,7 @@ import React from "react";
 import styles from './RecipeCard.module.css';
 import { TbCherryFilled } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import Ratings from "../../components/Ratings/Ratings";
 
 const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const RecipeCard = ({ recipe }) => {
         <h1>{recipe.nombre}</h1>
         <div className={styles.ratingInfoContainer}>
           <TbCherryFilled color="#BF3545" fontSize={'1.7rem'} />
-          <h3 style={{ marginLeft: '10px' }}>{recipe.avg_calificacion}</h3>
+          <Ratings style={{ marginLeft: '10px' }} value={recipe.avg_calificacion} color={'#F2F2F2'}/>
         </div>
       </div>
     </div>
