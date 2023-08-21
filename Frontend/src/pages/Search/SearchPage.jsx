@@ -35,13 +35,35 @@ function SearchPage() {
     let { search } = useParams();
     const { fetchAPI } = useAPI();
     const [searchResults, setSearchResults] = useState([]);
+    const [filteredResults, setFilteredResults] = useState([]);
     const [activeCategories, setActiveCategories] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [countries, setCountries] = useState([]);
+    const [activeCountries, setActiveCountries] = useState([]);
+    const [activeDuration, setActiveDuration] = useState([]);
 
+    //cosa fea horrible pero no tengo las ganas para unir las 3 funciones en una en este momento
     const handleCategoryClick = (value) => {
         if (activeCategories.includes(value)) {
             setActiveCategories(activeCategories.filter(category => category !== value));
         } else {
             setActiveCategories([...activeCategories, value]);
+        }
+    };
+
+    const handleCountryClick = (value) => {
+        if (activeCountries.includes(value)) {
+            setActiveCountries(activeCountries.filter(country => country !== value));
+        } else {
+            setActiveCountries([...activeCountries, value]);
+        }
+    };
+
+    const handleDurationClick = (value) => {
+        if (activeDuration.includes(value)) {
+            setActiveDuration(activeDuration.filter(duration => duration !== value));
+        } else {
+            setActiveDuration([...activeDuration, value]);
         }
     };
 
@@ -51,7 +73,7 @@ function SearchPage() {
             method: 'GET',
             route: `search?text=${search}`,
             body: null,
-            log: true,
+            log: false,
             showReply: true,
           });
           setSearchResults(res);
@@ -60,12 +82,57 @@ function SearchPage() {
         }
     };
 
+    const getCountries = async () => {
+        try {
+            const res = await fetchAPI({
+                method: 'GET',
+                route: `misc/countries`,
+                body: null,
+                log: false,
+                showReply: true,
+            });
+            setCountries(res.data);
+        } catch (error) {
+            console.error("Error fetching countries: ", error)
+        }
+    };
+
+    const getCategories = async () => {
+        try {
+            const res = await fetchAPI({
+                method: 'GET',
+                route: `misc/categories`,
+                body: null,
+                log: false,
+                showReply: true,
+            });
+            setCategories(res.data);
+        } catch (error) {
+            console.error("Error fetching countries: ", error)
+        }
+    };
+
+    const applyFilters = () => {
+        if(activeCountries.length > 0 || activeCategories.length > 0 || activeDuration.length > 0){
+            setFilteredResults(searchResults.filter((receta) => activeCountries.includes(receta.pais) /*revisar tiempo y categoria*/ || activeCategories.includes(receta.categoria)))
+        } else {
+            setFilteredResults(searchResults)
+        }
+    }
+
     useEffect(() => {
         getSearchResults();
+        setFilteredResults(searchResults);
+        getCategories();
+        getCountries();
     }, [])
 
-    useEffect(() => {}, [searchResults])
-    useEffect(() => {getSearchResults()},[search]) 
+    useEffect(() => {
+        applyFilters();
+    }, [activeCategories, activeCountries, activeDuration])
+
+    useEffect(() => {setFilteredResults(searchResults)}, [searchResults])
+    useEffect(() => {getSearchResults();},[search]) 
 
     const filterCategoryBuilder = ( options ) => {
         return (
@@ -74,8 +141,9 @@ function SearchPage() {
                         <input
                         type="checkbox"
                         name="lang"
-                        value={x.value}
-                        /> {x.label}
+                        value={x.pais ? x.pais : x.value}
+                        onClick={() => {x.pais ? handleCountryClick(x.pais) : handleDurationClick(x.value)}}
+                        /> {x.pais ? x.pais : x.label}
                     </label>)}
             </div>
         )
@@ -92,7 +160,7 @@ function SearchPage() {
                         <TbMap2 fontSize={'1.5rem'} />
                         <h2>Country</h2>
                     </div>
-                    {filterCategoryBuilder(CountryList)}
+                    {filterCategoryBuilder(countries)}
                 </div>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
@@ -100,13 +168,13 @@ function SearchPage() {
                         <h2>Category</h2>
                     </div>
                     <div className={styles.CountryOptions}>
-                        {CategoryList.map((x, i) => (
+                        {categories.map((x, i) => (
                             <label key={i}>
                                 <button
-                                    className={activeCategories.includes(x.value) ? styles.activeButton : ''}
-                                    onClick={() => handleCategoryClick(x.value)}
+                                    className={activeCategories.includes(x.categoria) ? styles.activeButton : ''}
+                                    onClick={() => handleCategoryClick(x.categoria)}
                                 >
-                                    {x.label}
+                                    {x.categoria}
                                 </button>
                             </label>
                         ))}
@@ -124,7 +192,7 @@ function SearchPage() {
             <div className={styles.ResultsContainer}>
                 <h1>We've found {searchResults ? searchResults.length : 'no'} results for "{search}"</h1>
                 <div className={styles.ResultListContainer}>
-                    <SearchResultsList data={searchResults ? searchResults : []}/>
+                    <SearchResultsList data={searchResults ? filteredResults : []}/>
                 </div>
             </div>
           </div>

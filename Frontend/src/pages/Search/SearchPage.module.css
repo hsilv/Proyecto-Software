@@ -31,8 +31,8 @@
 .FiltersCountryContainer{
     display: flex;
     flex-direction: column;
-    height: 20%;
-    padding: 0px 20px;
+    height: 25%;
+    padding: 0 20px;
 }
 
 .FiltersCountryContainerInfo {
@@ -55,11 +55,13 @@
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 0.2em;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
     line-height: 2rem;
     font-family: 'League Spartan', sans-serif;
     font-weight: 300;
     font-size: 1.3rem;
+    overflow: auto;
+    margin-bottom: 0;
 }
 
 .CountryOptions button {

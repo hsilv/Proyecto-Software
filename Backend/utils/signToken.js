@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 function setToken(payload) {
   return jwt.sign(payload, process.env.SECRET, {
     algorithm: 'HS256',
-    expiresIn: '30000',
+    expiresIn: '30m',
   });
 }
 

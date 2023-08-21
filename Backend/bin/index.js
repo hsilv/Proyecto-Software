@@ -3,7 +3,8 @@ import app from '../app.js';
 import auth from '../routes/auth/index.js';
 import recipe from '../routes/recipe/index.js';
 import user from '../routes/user/index.js';
-import search from '../routes/search/index.js'
+import search from '../routes/search/index.js';
+import misc from '../routes/misc/index.js'
 import { getAllUsers } from '../utils/getAllTables.js';
 
 const port = process.env.DEPLOY_PORT;
@@ -16,6 +17,7 @@ app.listen(port, async () => {
 app.use('/auth/', auth);
 app.use('/recipe/', recipe);
 app.use('/user/', user);
-app.use('/search/', search)
+app.use('/search/', search);
+app.use('/misc/', misc);
 
 export default app;
