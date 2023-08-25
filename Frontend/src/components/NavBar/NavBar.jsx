@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useCallback, useState } from "react";
+import { useContext, useEffect, useCallback, useState } from "react";
 import { TbChefHat, TbBell, TbSquareRoundedPlus, TbUser } from "react-icons/tb";
 import { SessionContext } from "../../context/sessionContext";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -66,7 +66,7 @@ const NavBar = () => {
           {isDropdownOpen && (
             <div className={styles.dropdownContent}>
               <NavLink className={styles.item} to="/profile">Profile</NavLink>
-              <NavLink className={styles.item} to="/profile">Log Out</NavLink>
+              <button className={styles.item} onClick={handleLogOut}>Log Out</button>
             </div>
           )}
         </div>

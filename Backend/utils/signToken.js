@@ -12,6 +12,7 @@ function verifyToken(token) {
   let verified;
   try {
     verified = jwt.verify(token, process.env.SECRET);
+    console.log(verified);
     delete verified.iat;
     delete verified.exp;
     delete verified.email;

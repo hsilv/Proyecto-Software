@@ -24,6 +24,7 @@ router.post('/login', async (req, res) => {
         followers: result.data[0].followers,
         rol: result.data[0].rol,
         email: result.data[0].correo,
+        name: result.data[0].nombre,
       }),
     });
   }

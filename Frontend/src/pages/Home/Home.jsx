@@ -5,9 +5,6 @@ import { useAPI } from "../../hooks/useAPI";
 import { SessionContext } from "../../context/sessionContext";
 import { TbSeeding, TbCake, TbCoffee, TbAlarm } from "react-icons/tb";
 import { BiParty } from "react-icons/bi";
-
-
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -19,7 +16,7 @@ import CategoryCard from "../../components/CategoryCard/CategoryCard";
 function Home() {
   const { fetchAPI } = useAPI();
   const [popularRecipes, setPopularRecipes] = useState([]);
-  const { checkSession } = useContext(SessionContext);
+  const { checkSession, userInfo } = useContext(SessionContext);
 
   useEffect(() => {
     const fetchPopularRecipes = async () => {
@@ -56,7 +53,7 @@ function Home() {
       <div className={styles.homeElementsContainer}>
         <div className={styles.welcomeBackContainer}>
           <div className={styles.welcomeBackInfo}>
-            <h1 style={{ fontSize: '1.7rem' }}>Hey there Carlos!</h1>
+            <h1 style={{ fontSize: '1.7rem' }}>Hey there {userInfo.name}!</h1>
             <p>Are you feeling hungry for some delicious inspiration? Get ready to explore a world of amazing recipes!</p>
           </div>
           <img src="assets/pancakes.png" alt="Pancakes" />

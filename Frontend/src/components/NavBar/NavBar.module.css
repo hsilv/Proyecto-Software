@@ -64,6 +64,12 @@
     font-size: 1rem;
 }
 
+.dropdownContent button {
+    border-color: transparent;
+    cursor: pointer;
+    width: 100%;
+}
+
 .dropdownContent a:hover,
 .dropdownContent button:hover {
     background-color: #d8d7d7;
