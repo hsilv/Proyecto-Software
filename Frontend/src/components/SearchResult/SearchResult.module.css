@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
 
 
 .resultContainer {
@@ -15,6 +15,7 @@
 }
 
 .resultContainerImage {
+    font-family: 'Aclonica', sans-serif; 
     width: 35%;
     height: inherit;
     border-top-left-radius: inherit;
@@ -37,12 +38,13 @@
     border-bottom-right-radius: inherit;
     width: 100%;
     height: inherit;
-    padding: 10px 30px;
+    padding: 10px 20px;
 }
 
 .resultContainerInfo h2 {
     font-size: 1.8rem;
-    color: #f27059;
+    color: #434343;
+    font-family: 'Aclonica', sans-serif; 
 }
 
 .resultContainerTitle {
@@ -56,23 +58,24 @@
 
 .timeInformation{
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
     height: inherit;
     width: 200px;
     flex-direction: row;
+    justify-content: space-around; 
 }
 
 .timeInformation h3 {
-    font-family: inherit;
-    font-size: 1.2rem;
+    font-family: 'Aclonica', sans-serif; 
+    font-size: 1rem;
     color: #343a40;
-    font-family: Raleway, sans-serif;
 }
 
 .resultContainerInfo p {
     line-height: 1.3rem;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 300;
     text-align: justify;
     margin: 0;
 }

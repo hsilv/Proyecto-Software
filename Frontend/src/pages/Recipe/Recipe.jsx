@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
-import style from "./Recipe.module.css";
-import { BiBookmarkAlt, BiWorld } from "react-icons/bi";
-import { BiPlusCircle, BiUserCircle, BiTime } from "react-icons/bi";
-import { GiAsparagus } from "react-icons/gi";
-import { MdDinnerDining } from "react-icons/md";
+import styles from "./Recipe.module.css";
 import { useAPI } from "../../hooks/useAPI";
-import { NavLink, useParams } from "react-router-dom";
+import { SessionContext } from "../../context/sessionContext";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Ratings from "../../components/Ratings/Ratings";
+import { TbFolderPlus, TbHeartPlus } from "react-icons/tb";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 function Recipe() {
   const { fetchAPI } = useAPI();
   let { id } = useParams();
+  const navigate = useNavigate();
+  const [searchResults, setSearchResults] = useState([]);
   const [detailsRecipe, setDetailsRecipe] = useState([
     {
       nombre: "Placeholder",
@@ -18,10 +22,47 @@ function Recipe() {
     },
   ]);
 
+  const renderBlock = (title, subtitle) => (
+    <div className={styles.Block}>
+      <h1>{title}</h1>
+      <h2>{subtitle}</h2>
+    </div>
+  );
+
+  function renderIngredients(title, data) {
+    return (
+      <div>
+        <h1 style={{ fontSize: '1.7rem' }}>{title}</h1>
+        <ul>
+          {data?.map((value, index) => {
+            const [ingredient, amount] = value.split(",");
+            return (
+              <li key={index}>
+                {ingredient.slice(1)} - {amount.slice(0, -1)}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+
+  function renderSteps(title, data) {
+    return (
+      <div>
+        <h1 style={{ fontSize: '1.7rem', marginTop: '50px' }}>{title}</h1>
+        <ul>
+          {data?.map((value, index) => (
+            <li key={index}>{value.descripcion}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
   useEffect(() => {
     const fetchDetailsRecipe = async () => {
       try {
-        console.log(id);
         const res = await fetchAPI({
           method: "GET",
           route: `recipe?id=${id}`,
@@ -41,87 +82,56 @@ function Recipe() {
   return (
     <>
       <NavBar />
-      <div className={style.recipeContainer}>
-        <div className={style.recipeInfo}>
-          <div className={style.recipeHeader}>
-            {<h1>{detailsRecipe.nombre}</h1>}
-            <div className={style.recipeHeader}>
-              <BiUserCircle size={60} />
-              <NavLink to={"/Profile/" + detailsRecipe.usuario?.username} className={style.userLink}>
-                  @{detailsRecipe.usuario?.username}
-              </NavLink>
-              <BiBookmarkAlt
-                color="#f6ae2d"
-                size={55}
-                style={{ marginInline: "5%" }}
-              />
-              <BiPlusCircle size={55} />
+      <div className={styles.RecipeInfoContainer}>
+        <div className={styles.RecipeImageContainer}>
+          <img
+            src={
+              detailsRecipe.miniatura && detailsRecipe.miniatura[0]?.url
+                ? detailsRecipe.miniatura[0]?.url
+                : 'https://fakeimg.pl/1920x1080/161616'
+            }
+            placeholder="Imagen de Receta"
+            alt="Recipe"
+          />
+        </div>
+        <div className={styles.RecipeDetails}>
+          <div className={styles.UserInteractionsContainer}>
+            <h2>@{detailsRecipe.usuario?.username}</h2>
+            <TbFolderPlus fontSize={'24px'} />
+            <TbHeartPlus fontSize={'24px'} />
+          </div>
+          <h1>{detailsRecipe.nombre}</h1>
+          <Ratings value={detailsRecipe.avg_calificacion} color={'#434343'} />
+          <p>{detailsRecipe.descripcion}</p>
+          <div className={styles.DetailsContainer}>
+            {renderBlock(detailsRecipe.tiempo, 'minutes')}
+            {renderBlock(detailsRecipe.ingredientes?.length, 'ingredients')}
+            {renderBlock(detailsRecipe.porciones, 'portion(s)')}
+            {renderBlock(detailsRecipe.calorias, 'calories/portion')}
+          </div>
+          <div className={styles.SimilarRecipesContainer}>
+            <p
+              style={{
+                marginBlockEnd: '0',
+                transform:
+                  'translateX(-15%) translateY(5%) rotate(-90deg)',
+              }}
+            >
+              Similar Recipes
+            </p>
+            <div className={styles.SimilarRecipesCards}>
+              <Swiper
+                centeredSlides={true}
+                slidesPerView={3}
+              >
+              </Swiper>
             </div>
           </div>
-          <div className={style.recipeData}>
-            <img
-              src={
-                detailsRecipe.miniatura && detailsRecipe.miniatura[0]?.url
-                  ? detailsRecipe.miniatura[0]?.url
-                  : "https://fakeimg.pl/1920x1080/35356e"
-              }
-              placeholder="Imagen de Receta"
-            ></img>
-            <div className={style.abtRecipe}>
-              <div className={style.catRecipe}>
-                <div className={style.catItem}>
-                  <BiTime size={30} />
-                  {
-                    <span className="categoryHeader">
-                      {detailsRecipe.tiempo} minutos
-                    </span>
-                  }
-                </div>
-                <div className={style.catItem}>
-                  <BiWorld size={30} />
-                  {<span>{detailsRecipe.pais}</span>}
-                </div>
-                <div className={style.catItem}>
-                  <MdDinnerDining size={30} />
-                  {<span>{detailsRecipe.categoria?.categoria}</span>}
-                </div>
-              </div>
-              <div className={style.ingList}>
-                <div
-                  style={{ marginInlineEnd: "10%" }}
-                  className={style.catItem}
-                >
-                  <GiAsparagus size={30} style={{ marginInlineEnd: "0.5%" }} />
-                  <span>Ingredientes: </span>
-                </div>
-                <ul>
-                  {detailsRecipe.ingredientes?.map((value, x) => {
-                    return (
-                      <li key={x}>
-                        {value.split(",")[0].slice(1)} -{" "}
-                        {value.split(",")[1].slice(0, -1)}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className={style.descRecipe}>
-                {<span>{detailsRecipe.descripcion}</span>}
-              </div>
-            </div>
+          <div className={styles.RecipeInstructions}>
+            {renderIngredients('Ingredients', detailsRecipe.ingredientes)}
+            {renderSteps('Steps', detailsRecipe.paso)}
           </div>
         </div>
-      </div>
-      <div className={style.stepHolder}>
-        {detailsRecipe.paso?.map((value, x) => {
-          return (
-            <div className={style.step} key={x}>
-              <span className={style.stepNumber}>{value.numero}. </span>
-              <img src={value.multimedia_url} />
-              <p className={style.stepDesc}>{value.descripcion}</p>
-            </div>
-          );
-        })}
       </div>
     </>
   );

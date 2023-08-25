@@ -1,11 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useCallback } from "react";
-import { BsBell, BsPlusCircle, BsFillPersonFill } from "react-icons/bs";
+import React, { useContext, useEffect, useCallback, useState } from "react";
+import { TbChefHat, TbBell, TbSquareRoundedPlus, TbUser } from "react-icons/tb";
 import { SessionContext } from "../../context/sessionContext";
-import { TbLogout } from "react-icons/tb";
 import { NavLink, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/Searchbar";
-import { useState } from "react";
 import styles from "./NavBar.module.css";
 
 const NavBar = () => {
@@ -13,12 +10,14 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(0);
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 
   const handleSearchChange = (value) => {
     setSearchKeyword(value);
   };
 
-  const handleEnter = () => {
+  const handleSearch = () => {
     console.log("Search triggered:", searchKeyword);
     navigate("/SearchPage/" + searchKeyword);
   };
@@ -43,25 +42,34 @@ const NavBar = () => {
     logOut();
   }, [logOut]);
 
-  // botón de logout pendiente
+    const toggleDropdown = () => {
+      setIsDropdownOpen(!isDropdownOpen);
+    };
+
 
   return (
     <div className={styles.NavbarContainer}>
       <NavLink className={styles.LeftAlignedContent} to={"/Home"}>
+        <TbChefHat style={{marginRight:'5px'}} fontSize={'24px'} />
         CookApp
       </NavLink>
       <SearchBar
         keyword={searchKeyword}
         onChange={handleSearchChange}
-        onEnter={handleEnter}
+        onSearch={handleSearch}
       />
       <div className={styles.icons}>
-        <BsBell />
-        <BsPlusCircle />
-        <NavLink to={"/Profile"} className={styles.link}>
-          <BsFillPersonFill />
-        </NavLink>
-        <TbLogout onClick={handleLogOut} />
+        <TbBell />
+        <TbSquareRoundedPlus />
+        <div className={styles.userIcon} onClick={toggleDropdown}>
+          <TbUser />
+          {isDropdownOpen && (
+            <div className={styles.dropdownContent}>
+              <NavLink className={styles.item} to="/profile">Profile</NavLink>
+              <NavLink className={styles.item} to="/profile">Log Out</NavLink>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

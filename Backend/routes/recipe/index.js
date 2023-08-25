@@ -14,22 +14,22 @@ router.get('/', async (req, res) => {
           id,
           nombre,
           ingredientes,
-          categoria (
-            categoria
-          ),
-          paso (
-            *
-          ),
+          tiempo,
+          avg_calificacion,
+          descripcion,
+          pais,
+          calorias,
+          porciones,
           usuario (
-              username
+            username
           ),
           miniatura (
               url
           ),
-          tiempo,
-          pais,
-          avg_calificacion,
-          descripcion
+          paso( * ),
+          receta_categoria (
+            categoria_id!inner(categoria)
+          )
       `,
         )
         .eq('id', req.query.id);
@@ -38,17 +38,20 @@ router.get('/', async (req, res) => {
         .from('receta')
         .select(
           `
-        id,
-        nombre,
-        usuario (
+          id,
+          nombre,
+          tiempo,
+          avg_calificacion,
+          descripcion,
+          usuario (
             username
-        ),
-        miniatura (
-            url
-        ),
-        tiempo,
-        avg_calificacion,
-        descripcion
+          ),
+          miniatura (
+              url
+          ),
+          receta_categoria (
+            categoria_id!inner(categoria)
+          )
       `,
         )
         .order('avg_calificacion', { ascending: false })
@@ -70,22 +73,32 @@ router.get('/ByCategory', async (req, res) => {
         `
           id,
           nombre,
-          ingredientes,
-          categoria!inner(categoria),
+          tiempo,
+          avg_calificacion,
+          descripcion,
           usuario (
-              username
+            username
           ),
           miniatura (
               url
           ),
-          tiempo,
-          avg_calificacion,
-          descripcion
+          receta_categoria (
+            categoria_id!inner(categoria)
+          )
       `,
       )
-      .eq('categoria.categoria', req.query.categoria);
+      
+      let filtered = []
 
-    res.status(200).json(result);
+      result.data.map((recipe) => {
+        recipe.receta_categoria.map((categoria) => {
+          if(categoria.categoria_id.categoria === req.query.categoria) {
+            filtered.push(recipe)
+          }
+        })
+      })
+
+    res.status(200).json(filtered);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener datos de recetas' });
   }

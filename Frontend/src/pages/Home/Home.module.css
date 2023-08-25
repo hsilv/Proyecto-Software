@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
+
+.homeElementsContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0px;
+}
+
+.homeElementsContainer > :first-child {
+    align-self: center; 
+}
+
+.welcomeBackContainer {
+    background-color: #fde0d4;
+    width: 50rem;
+    height: 12rem; 
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.welcomeBackInfo {
+    display: flex ;
+    justify-content: space-between;
+    flex-direction: column;
+    border-radius: inherit;
+    padding: 2rem;
+    width: 60%;
+}
+
+.welcomeBackInfo p {
+    margin: 0;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+}
+
+.homeElementsContainer h1 {
+    color: #434343;
+    margin-block-end: 0;
+    font-size: 2.3rem;
+    font-family: 'Aclonica', sans-serif;
+}
+
+.welcomeBackContainer img {
+    position: absolute;
+    width: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40%;
+    right: -5%;
+}
+
+.swiperWraper {
+    align-self: center;
+    width: 70%;
+    height: fit-content;
+}
+
+.homeCategoriesContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 30px 0px;
+    justify-content: space-evenly;
+}

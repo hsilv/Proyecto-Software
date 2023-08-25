@@ -1,137 +1,138 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
 
-.recipeContainer{
-    width: 96%;
-    height: fit-content;
-    background-color: white;
-    margin-inline: 1%;
-    box-shadow: 0px 2.5px 5px 2px #00000078;
-    font-family: Raleway, sans-serif;
-    border-radius: 12px;
-    padding-left: 1%;
-    padding-right: 1%;
-    
+.RecipeInfoContainer {
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  position: fixed;
+  z-index: -1;
+  display: flex;
+  flex-direction: row;
 }
 
-.recipeHeader h1{
-    color: black;
-    margin: 0;
-    padding: 1%;
-    width: fit-content;
+.RecipeImageContainer {
+  height: inherit;
+  width: 35%;
 }
 
-.recipeInfo img{
-    border-radius: 12px;
-    box-shadow: 0px 2.5px 5px 2px #00000078;
-    margin-inline: 1%;
-    margin-bottom: 1.5%;
-    max-width: 25%;
+.RecipeImageContainer img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
-.recipeHeader{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+.RecipeDetails {
+  height: inherit;
+  width: 60%;
+  padding: 0px 40px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-.icons{
-    margin-inline: 5%;
+.RecipeDetails p {
+  margin-block-start: 0;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 300;
 }
 
-.recipeData{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+.UserInteractionsContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10%;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.abtRecipe{
-    display: flex;
-    flex-direction: column;
-    width: 75%;
+.UserInteractionsContainer h2 {
+  color: #434343;
+  font-size: 1.3rem;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 400;
 }
 
-.catRecipe{
-    margin-left: 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.UserInteractionsContainer > *:not(:last-child) {
+  margin-right: 20px;
 }
 
-.catRecipe span{
-    margin-left: 2%;
-    width: fit-content;
+.RecipeDetails h1 {
+  color: #434343;
+  margin-block-end: 0;
+  font-size: 2.3rem;
+  font-family: 'Aclonica', sans-serif;
 }
 
-.categoryHeader {
-    width: 100%;
+.DetailsContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10rem;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-.catItem{
-    display: flex;
-    align-items: center;
+.Block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: thin solid #434343;
+  padding: 10px;
+  min-width: 18%;
 }
 
-.ingList{
-    width: 92%;
-    padding-top: 2%;
-    padding-inline: 5%;
+.Block h1 {
+  font-size: 1.5rem;
 }
 
-.descRecipe{
-    width: 92%;
-    padding-top: 2%;
-    padding-inline: 5%;
-    padding-bottom: 3%;
-    overflow-wrap: break-word;
+.Block h2 {
+  font-size: 1.5rem;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 300;
 }
 
-.step {
-    width: 96%;
-    height: fit-content;
-    flex-direction: row;
-    background-color: white;
-    margin-inline: 1%;
-    box-shadow: 0px 2.5px 5px 2px #00000078;
-    font-family: Raleway, sans-serif;
-    border-radius: 12px;
-    padding-left: 1%;
-    padding-right: 1%;
-    display: flex;
-    margin: 1% auto;
+.SimilarRecipesContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10rem;
+  margin-top: 20px;
+  align-items: center;
 }
 
-.step img {
-    max-width: 15%;
-    border-radius: 12%;
-    margin: 1% 0%;
+.SimilarRecipesCards {
+  height: inherit;
+  border: 1px solid red;
+  width: 88%;
 }
 
-.stepNumber {
-    color: #35356E;
-    font-style: bold;
-    align-self: center;
-    font-size: 3rem;
-    margin-right: 1%;
+.RecipeInstructions {
+  margin-top: 60px;
 }
 
-.stepDesc {
-    margin: auto 0 auto 1%;
+.RecipeInstructions ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
 }
 
-.userLink {
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
+.RecipeInstructions li {
+  padding: 10px 20px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: #161616;
 }
 
-.userLink:visited {
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.userLink:hover {
-    cursor: pointer;
+.RecipeInstructions li::before {
+  content: '\2022';
+  font-size: 1.1rem;
+  margin-right: 10px;
+  color: #ffa179;
 }

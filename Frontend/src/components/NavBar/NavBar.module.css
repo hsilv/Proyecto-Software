@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
 
 .NavbarContainer {
-    background-color: #753742;
+    background-color: #BF3545;
     color: #F2F2F2;
     font-weight: 600;
     height: 56px;
-    font-size: large;
-    font-family: Raleway, sans-serif;
     filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.4));
     display: flex;
     justify-content: space-between;
@@ -18,30 +16,55 @@
 
 .LeftAlignedContent {
     display: flex;
+    color: #F2F2F2;
     align-items: center;
     cursor: pointer;
     text-decoration: none;
 }
 
-.LeftAlignedContent:visited {
-    color: #F2F2F2;
-}
-
-
 .icons {
     font-size: 24px;
     display: flex;
     align-items: center;
-  }
-  
+}
+
 .icons > *:not(:last-child) {
     margin-right: 20px;
 }
 
-.link{
-    text-decoration: none;
+.userIcon {
+    position: relative;
+    cursor: pointer;
 }
 
-.link:visited {
-    color: #F2F2F2;
+.dropdownContent {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #F2F2F2;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    min-width: 150px;
+    text-align: center;
+    display: block;
+}
+
+.item:not(:last-child) {
+    border-bottom: 0.2px solid #afafaf;
+}
+
+.dropdownContent a,
+.dropdownContent button {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.dropdownContent a:hover,
+.dropdownContent button:hover {
+    background-color: #d8d7d7;
 }

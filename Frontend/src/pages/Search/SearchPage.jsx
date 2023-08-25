@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './SearchPage.module.css';
 import NavBar from "../../components/NavBar/NavBar";
-import { GrMapLocation, GrList, GrAlarm } from "react-icons/gr";
+import { TbMap2, TbLayoutList, TbAlarm} from "react-icons/tb";
 import { useState } from "react";
 import SearchResultsList from "../../components/SearchResult/SearchResult";
 import { useParams, useNavigate } from "react-router-dom"
+import { useAPI } from "../../hooks/useAPI";
 
 
 // Backend logic
@@ -32,8 +33,16 @@ const TimeList = [
 
 function SearchPage() {
     let { search } = useParams();
+    const { fetchAPI } = useAPI();
+    const [searchResults, setSearchResults] = useState([]);
+    const [filteredResults, setFilteredResults] = useState([]);
     const [activeCategories, setActiveCategories] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [countries, setCountries] = useState([]);
+    const [activeCountries, setActiveCountries] = useState([]);
+    const [activeDuration, setActiveDuration] = useState([]);
 
+    //cosa fea horrible pero no tengo las ganas para unir las 3 funciones en una en este momento
     const handleCategoryClick = (value) => {
         if (activeCategories.includes(value)) {
             setActiveCategories(activeCategories.filter(category => category !== value));
@@ -42,15 +51,99 @@ function SearchPage() {
         }
     };
 
-    const filterCategory = ( options ) => {
+    const handleCountryClick = (value) => {
+        if (activeCountries.includes(value)) {
+            setActiveCountries(activeCountries.filter(country => country !== value));
+        } else {
+            setActiveCountries([...activeCountries, value]);
+        }
+    };
+
+    const handleDurationClick = (value) => {
+        if (activeDuration.includes(value)) {
+            setActiveDuration(activeDuration.filter(duration => duration !== value));
+        } else {
+            setActiveDuration([...activeDuration, value]);
+        }
+    };
+
+    const getSearchResults = async () => {
+        try {
+          const res = await fetchAPI({
+            method: 'GET',
+            route: `search?text=${search}`,
+            body: null,
+            log: false,
+            showReply: true,
+          });
+          setSearchResults(res);
+        } catch (error) {
+          console.error("Error fetching recipes: ", error);
+        }
+    };
+
+    const getCountries = async () => {
+        try {
+            const res = await fetchAPI({
+                method: 'GET',
+                route: `misc/countries`,
+                body: null,
+                log: false,
+                showReply: true,
+            });
+            setCountries(res.data);
+        } catch (error) {
+            console.error("Error fetching countries: ", error)
+        }
+    };
+
+    const getCategories = async () => {
+        try {
+            const res = await fetchAPI({
+                method: 'GET',
+                route: `misc/categories`,
+                body: null,
+                log: false,
+                showReply: true,
+            });
+            setCategories(res.data);
+        } catch (error) {
+            console.error("Error fetching countries: ", error)
+        }
+    };
+
+    const applyFilters = () => {
+        if(activeCountries.length > 0 || activeCategories.length > 0 || activeDuration.length > 0){
+            setFilteredResults(searchResults.filter((receta) => activeCountries.includes(receta.pais) /*revisar tiempo y categoria*/ || activeCategories.includes(receta.categoria)))
+        } else {
+            setFilteredResults(searchResults)
+        }
+    }
+
+    useEffect(() => {
+        getSearchResults();
+        setFilteredResults(searchResults);
+        getCategories();
+        getCountries();
+    }, [])
+
+    useEffect(() => {
+        applyFilters();
+    }, [activeCategories, activeCountries, activeDuration])
+
+    useEffect(() => {setFilteredResults(searchResults)}, [searchResults])
+    useEffect(() => {getSearchResults();},[search]) 
+
+    const filterCategoryBuilder = ( options ) => {
         return (
             <div className={styles.CountryOptions}>
                     {options.map((x,i) => <label key={i}>
                         <input
                         type="checkbox"
                         name="lang"
-                        value={x.value}
-                        /> {x.label}
+                        value={x.pais ? x.pais : x.value}
+                        onClick={() => {x.pais ? handleCountryClick(x.pais) : handleDurationClick(x.value)}}
+                        /> {x.pais ? x.pais : x.label}
                     </label>)}
             </div>
         )
@@ -64,42 +157,42 @@ function SearchPage() {
                 <h1>Filters</h1>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
-                        <GrMapLocation fontSize={'1.5rem'} />
+                        <TbMap2 fontSize={'1.5rem'} />
                         <h2>Country</h2>
                     </div>
-                    {filterCategory(CountryList)}
+                    {filterCategoryBuilder(countries)}
                 </div>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
-                        <GrList fontSize={'1.5rem'} />
+                        <TbLayoutList fontSize={'1.5rem'} />
                         <h2>Category</h2>
                     </div>
-                        <div className={styles.CountryOptions}>
-                            {CategoryList.map((x, i) => (
-                                <label key={i}>
-                                    <button
-                                        className={activeCategories.includes(x.value) ? styles.activeButton : ''}
-                                        onClick={() => handleCategoryClick(x.value)}
-                                    >
-                                        {x.label}
-                                    </button>
-                                </label>
-                            ))}
-                        </div>
+                    <div className={styles.CountryOptions}>
+                        {categories.map((x, i) => (
+                            <label key={i}>
+                                <button
+                                    className={activeCategories.includes(x.categoria) ? styles.activeButton : ''}
+                                    onClick={() => handleCategoryClick(x.categoria)}
+                                >
+                                    {x.categoria}
+                                </button>
+                            </label>
+                        ))}
+                    </div>
                 </div>
                 <div className={styles.FiltersCountryContainer}>
                     <div className={styles.FiltersCountryContainerInfo}>
-                        <GrAlarm fontSize={'1.5rem'} />
-                        <h2>Time</h2>
+                        <TbAlarm fontSize={'1.5rem'} />
+                        <h2>Duration</h2>
                     </div>
-                    {filterCategory(TimeList)}
+                    {filterCategoryBuilder(TimeList)}
                 </div>
             </div>
 
             <div className={styles.ResultsContainer}>
-                <h1>We've found xx results for "{search}"</h1>
+                <h1>We've found {searchResults ? searchResults.length : 'no'} results for "{search}"</h1>
                 <div className={styles.ResultListContainer}>
-                    <SearchResultsList />
+                    <SearchResultsList data={searchResults ? filteredResults : []}/>
                 </div>
             </div>
           </div>
