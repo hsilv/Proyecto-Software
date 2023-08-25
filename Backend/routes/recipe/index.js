@@ -86,17 +86,17 @@ router.get('/ByCategory', async (req, res) => {
             categoria_id!inner(categoria)
           )
       `,
-      )
-      
-      let filtered = []
+      );
 
-      result.data.map((recipe) => {
-        recipe.receta_categoria.map((categoria) => {
-          if(categoria.categoria_id.categoria === req.query.categoria) {
-            filtered.push(recipe)
-          }
-        })
-      })
+    const filtered = [];
+
+    result.data.map((recipe) => {
+      recipe.receta_categoria.map((categoria) => {
+        if (categoria.categoria_id.categoria === req.query.categoria) {
+          filtered.push(recipe);
+        }
+      });
+    });
 
     res.status(200).json(filtered);
   } catch (error) {

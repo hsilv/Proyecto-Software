@@ -33,6 +33,12 @@ function Login() {
     }
   };
 
+  const subtmitWithKey = (e) => {
+    if(e.key === "Enter"){
+      handleLogin();
+    }
+  }
+
   useEffect(() => {
     if(logged){
       navigate("/Home");
@@ -63,6 +69,7 @@ function Login() {
             <Input
               value={form.values.username}
               onChange={form.onChange("username")}
+              onKeyDown={subtmitWithKey}
               name="username"
               label="Username"
               type="text"
@@ -71,6 +78,7 @@ function Login() {
             <Input
               value={form.values.password}
               onChange={form.onChange("password")}
+              onKeyDown={subtmitWithKey}
               name="password"
               placeholder=""
               label="Password"

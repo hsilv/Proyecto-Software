@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const { data, error } = await database.rpc('search', { name: req.query.text });
+    const { data } = await database.rpc('search', { name: req.query.text });
 
     res.status(200).json(data);
   } catch (error) {

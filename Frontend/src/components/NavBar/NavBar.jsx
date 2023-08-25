@@ -19,7 +19,9 @@ const NavBar = () => {
 
   const handleSearch = () => {
     console.log("Search triggered:", searchKeyword);
-    navigate("/SearchPage/" + searchKeyword);
+    if(searchKeyword){
+      navigate("/SearchPage/" + searchKeyword);
+    }
   };
 
   useEffect(() => {

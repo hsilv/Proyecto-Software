@@ -8,7 +8,8 @@ const Input = ({
   onChange,
   type,
   required,
-  placeholder
+  placeholder,
+  onKeyDown
 }) => {
   return (
     <div className= 'inputContainer'>
@@ -21,6 +22,7 @@ const Input = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
+          onKeyDown={onKeyDown}
         />
       </label>
     </div>
