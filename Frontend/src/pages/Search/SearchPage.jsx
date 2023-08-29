@@ -1,28 +1,28 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styles from './SearchPage.module.css';
 import NavBar from "../../components/NavBar/NavBar";
 import { TbMap2, TbLayoutList, TbAlarm} from "react-icons/tb";
 import { useState } from "react";
 import SearchResultsList from "../../components/SearchResult/SearchResult";
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useAPI } from "../../hooks/useAPI";
 
 
 // Backend logic
-const CountryList = [
+/* const CountryList = [
     {value: "Italia", label:"Italia"},
     {value: "Argentina", label:"Argentina"},
     {value: "Tailandia", label:"Tailandia"},
     {value: "Cuba", label:"Cuba"},
 ]
-
-const CategoryList = [
+ */
+/* const CategoryList = [
     {value: "Postres", label:"Postres"},
     {value: "Ensaladas", label:"Ensaladas"},
     {value: "Bebidas", label:"Bebidas"},
     {value: "Aperitivos", label:"Aperitivos"},
 ]
-
+ */
 // Esta es fija
 const TimeList = [
     {value: "Short", label:"< 0-5min"},
@@ -198,6 +198,6 @@ function SearchPage() {
           </div>
         </>
     );
-};
+}
 
 export default SearchPage;

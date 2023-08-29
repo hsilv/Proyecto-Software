@@ -17,7 +17,7 @@ function Login() {
   const form = useForm(schema, { username: "", password: "" });
   const [errState, setErrState] = useState(false);
   const [errMessage, setErrMessage] = useState();
-  const {login, logged, loading, loginError} = useContext(SessionContext);
+  const {login, logged, loading, loginError, error} = useContext(SessionContext);
   const navigate = useNavigate();
 
   const postLogin = async (username, password) => {
@@ -54,6 +54,15 @@ function Login() {
       }
     }
   }, [loginError])
+
+  useEffect(() => {
+    if(error){
+      if(error.status){
+        setErrState(true);
+        setErrMessage(error.message);
+      }
+    }
+  }, [error])
 
   return (
     <div className="loginPage">

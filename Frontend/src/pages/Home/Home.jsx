@@ -74,7 +74,7 @@ function Home() {
             modules={[EffectCoverflow, Pagination]}
           >
             {popularRecipes.map((recipe) => (
-              <SwiperSlide key={recipe.id}>
+              <SwiperSlide key={recipe.id} className={styles.slide}>
                 <RecipeCard recipe={recipe} />
               </SwiperSlide>
             ))}

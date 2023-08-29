@@ -70,3 +70,8 @@
     padding: 30px 0px;
     justify-content: space-evenly;
 }
+
+.slide{
+    cursor:grab;
+}
+

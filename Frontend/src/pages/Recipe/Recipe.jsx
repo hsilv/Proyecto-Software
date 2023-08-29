@@ -9,6 +9,8 @@ import Ratings from "../../components/Ratings/Ratings";
 import { TbFolderPlus, TbHeartPlus } from "react-icons/tb";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import Comment from "../../components/Comment/Comment";
+import CommentBlock from "../../components/CommentBlock/CommentBlock";
 
 function Recipe() {
   const { fetchAPI } = useAPI();
@@ -130,6 +132,7 @@ function Recipe() {
           <div className={styles.RecipeInstructions}>
             {renderIngredients('Ingredients', detailsRecipe.ingredientes)}
             {renderSteps('Steps', detailsRecipe.paso)}
+            <CommentBlock />
           </div>
         </div>
       </div>

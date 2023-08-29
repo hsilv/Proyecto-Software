@@ -5,7 +5,7 @@ import Joi from "joi";
 import useForm from "../../hooks/useForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { SessionContext } from "../../context/sessionContext";
 import { useSignUp } from "../../hooks/useSignUp";
 
@@ -85,6 +85,7 @@ function SignUp() {
           >
             SignUp
           </Button>
+          <NavLink className="signReturn" to={'/'}>Already have an account?</NavLink>
         </div>
       </div>
     </div>
