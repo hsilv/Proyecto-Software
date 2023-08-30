@@ -31,7 +31,6 @@ router.post('/login', async (req, res) => {
       });
     }
   } else if (error || !result) {
-    console.log(res2);
     res
       .status(500)
       .json({ error: true, message: 'Error interno en el servidor' });
