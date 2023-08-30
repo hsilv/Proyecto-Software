@@ -1,24 +1,23 @@
 import { createContext } from "react";
+import useNav from "../hooks/useNav";
 
-const SessionContext = createContext();
+const NavContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 function NavProvider({ children }) {
 
-    return (
-        <SessionContext.Provider value={{
-            login,
-            logOut,
-            logged,
-            loading,
-            loginError,
-            error,
-            checkSession,
-            userInfo,
-        }}>
-            {children}
-        </SessionContext.Provider>
-    );
+  const {show, setShow} = useNav();
+
+  return (
+    <NavContext.Provider
+      value={{
+        show,
+        setShow,
+      }}
+    >
+      {children}
+    </NavContext.Provider>
+  );
 }
 
-export {SessionProvider, SessionContext};
+export { NavProvider, NavContext };

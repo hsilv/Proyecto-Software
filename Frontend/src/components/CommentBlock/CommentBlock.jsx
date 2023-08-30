@@ -1,13 +1,19 @@
-import Comment from '../Comment/Comment';
-import styles from './CommentBlock.module.scss'
+import Comment from "../Comment/Comment";
+import styles from "./CommentBlock.module.scss";
 
 function CommentBlock() {
-    return(
-        <div className={styles.commentBlock}>
-            <h1 className={styles.title}>Comentarios</h1>
-            <Comment />
-        </div>
-    );
+  return (
+    <>
+      <div className={styles.title}>
+        <h1>Comentarios</h1>
+      </div>
+      <div className={styles.commentBlock}>
+        <Comment />
+        <Comment />
+        <Comment />
+      </div>
+    </>
+  );
 }
 
 export default CommentBlock;

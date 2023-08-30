@@ -1,4 +1,14 @@
+$blockColor: #FAE0D4;
+
 .commentBlock{
+    display: flex;
+    flex-direction: column;
+    background-color: $blockColor;
+    border-radius: 10px;
+    padding: 2%;
+}
+
+.title{
     h1{
         font-size: 1.63rem;
     }
