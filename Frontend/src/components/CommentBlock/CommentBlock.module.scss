@@ -1,11 +1,14 @@
 $blockColor: #FAE0D4;
+$darker: #BF3545;
+
 
 .commentBlock{
     display: flex;
     flex-direction: column;
-    background-color: $blockColor;
+    background-color: white;
     border-radius: 10px;
-    padding: 2%;
+    padding-inline: 2.5%;
+    padding-block: 1.25%;
 }
 
 .title{

@@ -1,8 +1,55 @@
 /* eslint-disable no-undef */
 import request from 'supertest';
 import app from '../bin/index.js';
+import storage from '../config/storage.cjs';
 
 const server = app;
+
+describe('Strings from an ENV', () => {
+  test('The item of .env should convert into JSON', async () => {
+    expect(typeof process.env.STORAGE_CONFIG).toBe('string');
+    console.log(process.env.STORAGE_CONFIG);
+  });
+});
+
+describe('JSON from an ENV', () => {
+  test('The item of .env should convert into JSON', async () => {
+    const strJSON = JSON.parse(process.env.STORAGE_CONFIG);
+    expect(typeof strJSON).toBe('object');
+  });
+});
+
+describe('initStorage', () => {
+  test('The LocalStorage should init propperly', async () => {
+    const options = JSON.parse(process.env.STORAGE_CONFIG);
+    if (options.stringify) {
+      options.stringify = options.stringify === 'JSON.stringify' ? JSON.stringify : undefined;
+    }
+    if (options.parse) {
+      options.parse = options.parse === 'JSON.parse' ? JSON.parse : undefined;
+    }
+    // eslint-disable-next-line new-cap
+    const store = new storage().initStorage(options);
+    expect(typeof store).toBe('object');
+  });
+});
+
+describe('set and get in LocalStorage', () => {
+  test('The LocalStorage should save a item', async () => {
+    const options = JSON.parse(process.env.STORAGE_CONFIG);
+    if (options.stringify) {
+      options.stringify = options.stringify === 'JSON.stringify' ? JSON.stringify : undefined;
+    }
+    if (options.parse) {
+      options.parse = options.parse === 'JSON.parse' ? JSON.parse : undefined;
+    }
+    // eslint-disable-next-line new-cap
+    const store = new storage(options);
+    store.setItem('ITEM', '12345');
+    const x = store.getItem('ITEM');
+    expect(x).toBe('12345');
+  });
+});
 
 describe('GET /auth/login', () => {
   // Test de ruta inexistente para /auth/login con GET
@@ -74,7 +121,10 @@ describe('POST /auth/check with valid token', () => {
       Authorization: login.body.token,
       'Content-Type': 'serverlication/json',
     };
-    const response = await request(server).post('/auth/check').send().set(headers);
+    const response = await request(server)
+      .post('/auth/check')
+      .send()
+      .set(headers);
     expect(response.statusCode).toBe(200);
   });
 });
@@ -84,16 +134,6 @@ describe('POST /auth/check without Authorization header', () => {
   test('test should respond with a 200 status code', async () => {
     const response = await request(server).post('/auth/check').send();
     expect(response.statusCode).toBe(400);
-  });
-});
-
-describe('GET /recipe/?id=546545121354', () => {
-  // Test de receta inexistente
-  test('test should respond with a 404 status code', async () => {
-    const response = await request(server).get('/auth/login').query({
-      id: 546545121354,
-    });
-    expect(response.statusCode).toBe(404);
   });
 });
 

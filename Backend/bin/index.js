@@ -11,8 +11,7 @@ const port = process.env.DEPLOY_PORT;
 
 app.listen(port, async () => {
   console.log(`Server running on ${port}`);
-  getAllUsers();
-  getAllRecipes();
+  console.log(process.env.STORAGE_CONFIG);
 });
 
 app.use('/auth/', auth);

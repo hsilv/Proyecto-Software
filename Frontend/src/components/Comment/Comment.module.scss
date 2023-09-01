@@ -1,14 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
 $blockColor: #FAE0D4;
+$darker: #BF3545;
 
 .container{
-    width: 100%;
     margin-block: 1%;
     display: flex;
+    border-radius: 10px;
     flex-direction: column;
+    background-color: $blockColor;
+    padding-inline: 2%;
+    padding-block: 1.5%;
+    width: 96%;
+    font-family: 'League Spartan', sans-serif;
+    color: $darker;
 }
 
 .pfp{
-    height: 50%;
+    height: 100%;
     border-radius: 50%;
     border: 0px solid black;
     cursor: pointer;
@@ -30,4 +38,20 @@ a:visited{
 
 .nameSpan{
     cursor: pointer;
+    font-weight: bold;
+}
+
+.userData{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    column-gap: 5%;
 }

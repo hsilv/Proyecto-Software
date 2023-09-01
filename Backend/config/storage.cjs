@@ -3,23 +3,23 @@ const { init, getItem, setItem } = require('node-persist');
 require('dotenv').config();
 
 class ExpressStorage {
-  constructor() {
+  constructor(options) {
     // eslint-disable-next-line global-require
     this.storage = require('node-persist'); // Crear instancia de node-persist
-    this.initStorage(); // Inicializar la instancia
+    this.initStorage(options); // Inicializar la instancia
   }
 
-  async initStorage() {
-    await init(process.env.STORAGE_CONFIG); // Uso directo de la función de node-persist
+  async initStorage(options) {
+    await this.storage.init(options); // Uso directo de la función de node-persist
   }
 
-  async getItem(key) {
-    const value = await getItem(key); // Uso directo de la función de node-persist
+  getItem(key) {
+    const value = this.storage.getItemSync(key); // Uso directo de la función de node-persist
     return value;
   }
 
-  async setItem(key, value) {
-    await setItem(key, value); // Uso directo de la función de node-persist
+  setItem(key, value) {
+    this.storage.setItemSync(key, value); // Uso directo de la función de node-persist
   }
 }
 
