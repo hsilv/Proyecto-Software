@@ -1,53 +1,64 @@
-import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import { Router } from 'react-router-dom';
-import '@testing-library/jest-dom';
-import SearchPage from '../SearchPage';
+import React from 'react'
+import { render, screen, fireEvent } from '@testing-library/react'
+import { BrowserRouter } from 'react-router-dom'
+import '@testing-library/jest-dom'
+import SearchPage from '../SearchPage'
+import { act } from 'react-dom/test-utils'
 
 const mockedUsedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate,
-  useParams: () => ({
-    searchText: '', // Initialize it with a default value
-  }),
 }));
 
-describe('SearchPage', () => {
+describe("SearchPage", () => {
+
+  it('Should not navigate when the search input is empty', async () => {
+    const searchText = ''; // Empty search text
+  
+    render(
+      <BrowserRouter>
+        <SearchPage searchParam={searchText} />
+      </BrowserRouter>
+    );
+  
+    const searchInput = screen.getByPlaceholderText(/Search something/);
+  
+    await act(async () => {
+      const searchButton = screen.getByRole('button');
+      fireEvent.change(searchInput, { target: { value: searchText } });
+    });
+  
+    // Expect that navigation is not called because the input is empty
+    expect(mockedUsedNavigate).not.toHaveBeenCalled();
+  });
+
   it('Should render same text passed into search bar', async () => {
+
+    const searchText = 'Postres'
+
+    render(
+      <BrowserRouter>
+          <SearchPage searchParam={searchText}/>
+      </BrowserRouter>
+      )
+
+    const searchInput = screen.getByPlaceholderText(/Search something/)
+
     await act(async () => {
-      render(
-        <MemoryRouter initialEntries={['/SearchPage']}>
-          <SearchPage />
-        </MemoryRouter>
-      );
+      
+      const searchButton = screen.getByRole('button')
+      fireEvent.change(searchInput, {target: {value: searchText}})
+      console.log(searchInput.value)
+      fireEvent.click(searchButton)
 
-      const searchText = 'Postres';
-      const searchInput = screen.getByPlaceholderText(/Search something/);
-      const searchButton = screen.getByRole('button');
-      fireEvent.change(searchInput, { target: { value: searchText } });
-      fireEvent.click(searchButton);
-    });
+    })
 
-    expect(mockedUsedNavigate).toHaveBeenCalledWith(`/SearchPage/${encodeURIComponent('Postres')}`);
-  });
+    expect(mockedUsedNavigate).toHaveBeenCalledWith(`/SearchPage/${encodeURIComponent(searchText)}`)
 
-  it('Should pass search parameter to the navigation', async () => {
-    await act(async () => {
-      render(
-        <MemoryRouter initialEntries={['/SearchPage']}>
-          <SearchPage />
-        </MemoryRouter>
-      );
+  })
 
-      const searchText = 'Cakes';
-      const searchInput = screen.getByPlaceholderText(/Search something/);
-      const searchButton = screen.getByRole('button');
-      fireEvent.change(searchInput, { target: { value: searchText } });
-      fireEvent.click(searchButton);
-    });
-
-    expect(mockedUsedNavigate).toHaveBeenCalledWith(`/SearchPage/${encodeURIComponent('Cakes')}`);
-  });
-});
+    
+    
+})

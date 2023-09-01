@@ -14,7 +14,6 @@ function Recipe() {
   const { checkSession } = useContext(SessionContext);
   const { fetchAPI } = useAPI();
   let { id } = useParams();
-  const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
   const [detailsRecipe, setDetailsRecipe] = useState([
     {

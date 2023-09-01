@@ -5,9 +5,6 @@ import { useAPI } from "../../hooks/useAPI";
 import { SessionContext } from "../../context/sessionContext";
 import { TbSeeding, TbCake, TbCoffee, TbAlarm } from "react-icons/tb";
 import { BiParty } from "react-icons/bi";
-
-
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';

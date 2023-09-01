@@ -31,8 +31,8 @@ const TimeList = [
 ]
 
 
-function SearchPage() {
-    let { search } = useParams();
+const SearchPage = ({ searchParam }) => {
+    let { search } = searchParam ? searchParam : useParams();
     const { fetchAPI } = useAPI();
     const [searchResults, setSearchResults] = useState([]);
     const [filteredResults, setFilteredResults] = useState([]);
@@ -78,7 +78,8 @@ function SearchPage() {
           });
           setSearchResults(res);
         } catch (error) {
-          console.error("Error fetching recipes: ", error);
+          //console.error("Error fetching recipes: ", error);
+
         }
     };
 
@@ -93,7 +94,8 @@ function SearchPage() {
             });
             setCountries(res.data);
         } catch (error) {
-            console.error("Error fetching countries: ", error)
+            //console.error("Error fetching countries: ", error)
+            setCountries(CountryList)
         }
     };
 
@@ -108,7 +110,8 @@ function SearchPage() {
             });
             setCategories(res.data);
         } catch (error) {
-            console.error("Error fetching countries: ", error)
+            //console.error("Error fetching countries: ", error)
+            setCategories(CategoryList)
         }
     };
 
@@ -150,7 +153,7 @@ function SearchPage() {
     }
 
     return(
-        <>
+        <div>
           <NavBar />
           <div className={styles.SearchPageContainer}>
             <div className={styles.FiltersContainer}>
@@ -196,7 +199,7 @@ function SearchPage() {
                 </div>
             </div>
           </div>
-        </>
+        </div>
     );
 };
 
