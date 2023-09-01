@@ -6,12 +6,11 @@ import SearchBar from "../SearchBar/Searchbar";
 import styles from "./NavBar.module.css";
 
 const NavBar = () => {
-  const { logOut, logged, checkSession, loading } = useContext(SessionContext);
+  //const { logOut, logged, checkSession, loading } = useContext(SessionContext);
   const navigate = useNavigate();
   const [checked, setChecked] = useState(0);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
 
   const handleSearchChange = (value) => {
     setSearchKeyword(value);
@@ -21,7 +20,7 @@ const NavBar = () => {
     console.log("Search triggered:", searchKeyword);
     navigate("/SearchPage/" + searchKeyword);
   };
-
+/*
   useEffect(() => {
     checkSession();
   }, []);
@@ -32,15 +31,15 @@ const NavBar = () => {
         navigate("/");
       }
     }
-  }, [logged, checked]);
+  }, [logged, checked]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     setChecked(checked + 1);
-  }, [loading]);
+  }, [loading]);*/
 
-  const handleLogOut = useCallback(() => {
+  /*const handleLogOut = useCallback(() => {
     logOut();
-  }, [logOut]);
+  }, [logOut]);*/
 
     const toggleDropdown = () => {
       setIsDropdownOpen(!isDropdownOpen);

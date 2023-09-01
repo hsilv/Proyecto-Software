@@ -19,7 +19,7 @@ const SearchBar = ({ keyword, onChange, onSearch }) => {
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyPress}
       />
-      <button onClick={onSearch}>
+      <button onClick={onSearch} role="button" id="searchButton">
         <BiSearch color="white" fontSize={'1.2rem'} />
       </button>
     </div>
