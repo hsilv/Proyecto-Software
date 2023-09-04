@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
 $blockColor: #FAE0D4;
 $darker: #BF3545;
+$backgColor: #C1C1C1;
 
 .container{
     margin-block: 1%;
@@ -45,6 +46,7 @@ a:visited{
     display: flex;
     flex-direction: row;
     align-items: center;
+    height: fit-content;
     justify-content: space-between;
 }
 
@@ -54,4 +56,39 @@ a:visited{
     align-items: center;
     width: auto;
     column-gap: 5%;
+}
+
+.date{
+    width: 7.5rem;
+}
+
+.utils{
+    height: 100%;
+    column-gap: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+}
+
+.qualification{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    padding-bottom: 5%;
+
+    svg{
+        height: 1.35rem;
+        width: 1.35rem;
+    }
+}
+
+.report{
+    svg{
+        cursor: pointer;
+        height: 1.5rem;
+        width: 1.5rem; 
+    }
 }

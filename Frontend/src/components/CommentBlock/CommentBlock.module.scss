@@ -1,11 +1,12 @@
 $blockColor: #FAE0D4;
 $darker: #BF3545;
+$backgColor: #C1C1C1;
 
 
 .commentBlock{
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: $darker;
     border-radius: 10px;
     padding-inline: 2.5%;
     padding-block: 1.25%;

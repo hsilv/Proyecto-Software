@@ -1,8 +1,26 @@
 import PropTypes from "prop-types";
 import styles from "./Comment.module.scss";
 import { NavLink } from "react-router-dom";
+import {FiFlag} from 'react-icons/fi';
+import { TbCherryFilled, TbFlag, TbFlagFilled } from "react-icons/tb";
+import { useEffect, useState } from "react";
 
 function Comment() {
+
+  const [flagIcon, setFlagIcon] = useState(true);
+
+  const mouseIn = () => {
+    setTimeout(() => setFlagIcon(false), 100);
+  }
+
+  const mouseOut = () => {
+    setTimeout(() => setFlagIcon(true), 100);
+  }
+
+  useEffect(() => {
+    setFlagIcon(true);
+  }, [])
+
   return (
     <div className={styles.container}>
       <div className={styles.userData}>
@@ -15,10 +33,11 @@ function Comment() {
             />
           </NavLink>
           <span className={styles.nameSpan}>@theBlodingTrain25</span>
+          <span className={styles.date}>23 de Agosto de 2023</span>
         </div>
         <div className={styles.utils}>
-          <span>Alguna calificación</span>
-          <span>Flag</span>
+          <div className={styles.qualification}><TbCherryFilled/><TbCherryFilled/><TbCherryFilled/><TbCherryFilled/><TbCherryFilled/></div>
+          <div className={styles.report} onMouseEnter={mouseIn} onMouseLeave={mouseOut}>{flagIcon? <TbFlag/> : <TbFlagFilled/>}</div>
         </div>
       </div>
       <span>
