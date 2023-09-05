@@ -5,6 +5,7 @@ import {FiFlag} from 'react-icons/fi';
 import { TbCherryFilled, TbFlag, TbFlagFilled } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
+import {CgClose} from 'react-icons/cg';
 
 function Comment() {
   const navigate = useNavigate();
@@ -34,6 +35,11 @@ function Comment() {
 
   const onFlagClick = () => {
     setShowModal(true);
+  }
+
+  const closeModal = () => {
+    setShowModal(false);
+    setTransStyles(false);
   }
 
   useEffect(() => {
@@ -72,7 +78,12 @@ function Comment() {
       </span>
       <Modal show={showModal}>
         <div className={styles.repModal + ' ' + (transStyles? styles.repShowed : undefined)}>
-          Hola
+          <div className={styles.reportBody + ' ' + (transStyles? styles.repBodyShowed : undefined)}>
+            <div className={styles.modalHeader}>
+              <h3>Reporte un Abuso</h3>
+              <CgClose onClick={closeModal} className={styles.closeIcon}/>
+            </div>
+          </div>
         </div>
       </Modal>
     </div>
