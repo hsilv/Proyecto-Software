@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './CollectionRecipe.module.scss'
 import {FaRegClock} from 'react-icons/fa'
 
-export default function CollectionRecipe({recipe}) {
+export default function CollectionRecipe({recipe, onClick}) {
 
     const [time, setTime] = useState('');
 
@@ -21,7 +21,7 @@ export default function CollectionRecipe({recipe}) {
     })
 
   return (
-    <div className={styles.recipeContainer}>
+    <div className={styles.recipeContainer} onClick={() => onClick(recipe.id)}>
         <div className={styles.recipeMiniContainer}>
             <img src={recipe.miniatura? recipe.miniatura[0].url : 'https://fakeimg.pl/1920x1080/35356e'} alt="Recipe Mini" className={styles.recipeMini}/>
         </div>
