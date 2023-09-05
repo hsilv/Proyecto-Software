@@ -83,6 +83,10 @@ function Comment() {
               <h3>Reporte un Abuso</h3>
               <CgClose onClick={closeModal} className={styles.closeIcon}/>
             </div>
+            <div className={styles.modalBody}>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat aliquid suscipit eveniet sed, reiciendis facilis omnis voluptatem impedit cupiditate praesentium voluptatum repellendus numquam nihil, doloremque quae, unde laborum est magnam.
+              Minima quam, tempora laudantium dolorem deserunt recusandae autem totam veniam provident iure doloremque tenetur similique nisi? Veniam optio natus quaerat, vitae, saepe illum mollitia repellendus possimus itaque hic molestiae odio.
+            </div>
           </div>
         </div>
       </Modal>
