@@ -6,12 +6,14 @@ import style from "./Profile.module.css";
 import { SessionContext } from "../../context/sessionContext";
 import { useParams, useNavigate } from "react-router-dom"
 import { useAPI } from '../../hooks/useAPI'
+import Collection from "../../components/Collection/Collection";
 
 function Profile() {
   const [ selected, setSelected ] = useState(1);
   const { checkSession } = useContext(SessionContext);
   const [ userInfo, setUserInfo ] = useState([]);
   const [ userRecipes, setUserRecipes ] = useState([]);
+  const [userCollections, setUserCollections] = useState([]);
   const { fetchAPI } = useAPI();
   let { username } = useParams();
   const navigate = useNavigate();
@@ -42,9 +44,19 @@ function Profile() {
         <span className={style.noData}>Favoritos</span>
       )
     } else {
-      return (
-        <span className={style.noData}>Colecciones</span>
-      )
+      if (userCollections && !userCollections.message) {
+        return userCollections.map((collection, index) => {
+          return (
+            <Collection key={index+collection} name={collection.nombre} className={style.collectionPreview}/>
+          )
+        })
+      } else {
+        return (
+          <span className={style.noData}>
+            {userInfo.username} no tiene colecciones
+          </span>
+        );
+      }
     }
   };
 
@@ -60,8 +72,8 @@ function Profile() {
                     method: 'GET',
                     route: `user?id=${username}`,
                     body: null,
-                    log: true,
-                    showReply: true,
+                    log: false,
+                    showReply: false,
                 });
                 setUserInfo(res.data[0]);
             } catch (error) {
@@ -74,8 +86,8 @@ function Profile() {
               method: 'GET',
               route: `recipe/byUser?username=${username}`,
               body: null,
-              log: true,
-              showReply: true,
+              log: false,
+              showReply: false,
             });
             setUserRecipes(res.data);
           } catch ( error ) {
@@ -84,9 +96,28 @@ function Profile() {
         }
         fetchUserData();
         fetchUserRecipes();
-        console.log(userRecipes);
     }
   }, []);
+
+  useEffect(() => {
+    if(userInfo.id){
+      const fetchCollections = async () => {
+        try {
+          const res = await fetchAPI({
+            method: "GET",
+            route: `collections/ByUser?id=${userInfo.id}`,
+            body: null,
+            log: false,
+            showReply: false,
+          });
+          setUserCollections(res);
+        } catch (error) {
+          console.error("Error fetching user collections: ", error);
+        }
+      };
+      fetchCollections();
+    }
+  },[userInfo]);
 
   const loadInfo = () => {
       return (

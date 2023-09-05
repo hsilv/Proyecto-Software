@@ -1,12 +1,9 @@
-import PropTypes from "prop-types";
 import styles from "./Comment.module.scss";
 import { NavLink, useNavigate } from "react-router-dom";
-import {FiFlag} from 'react-icons/fi';
 import { TbCherryFilled, TbFlag, TbFlagFilled } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import {CgClose} from 'react-icons/cg';
-import Button from "../Button/Button";
 import AnyButton from "../AnyButton/AnyButton";
 
 const reportTypes = ["Mal vocabulario", "Comentario Irrespetuoso", "Opinión fuera de contexto"]

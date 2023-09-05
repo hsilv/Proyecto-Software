@@ -9,6 +9,8 @@ import RecipePreview from "../../components/RecipePreview/RecipePreview";
 import { useNavigate } from "react-router-dom";
 import { useAPI } from "../../hooks/useAPI";
 import Collection from "../../components/Collection/Collection";
+import Modal from "../../components/Modal/Modal";
+import CollectionModal from "../../components/Collection/CollectionModal";
 
 function Profile() {
   const [selected, setSelected] = useState(1);
@@ -17,12 +19,26 @@ function Profile() {
   const { userInfo } = useContext(SessionContext);
   const [userRecipes, setUserRecipes] = useState([]);
   const [userCollections, setUserCollections] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCollection, setSelectedCollection] = useState();
+  const [transStyles, setTransStyles] = useState(false);
   const { fetchAPI } = useAPI();
   const navigate = useNavigate();
 
   const recipeClickHandler = (recipeID) => {
     navigate("/Recipe/" + recipeID);
   };
+
+  const collectionClickHandler = (id) => {
+    setShowModal(true);
+    setSelectedCollection(id);
+  }
+
+  useEffect(() => {
+    if(showModal){
+      setTimeout(() => setTransStyles(true), 50)
+    }
+  }, [showModal])
 
   const showCurrent = () => {
     if (selected === 1) {
@@ -49,7 +65,7 @@ function Profile() {
       if (userCollections && !userCollections.message) {
         return userCollections.map((collection, index) => {
           return (
-            <Collection key={index+collection} name={collection.nombre} className={style.collectionPreview}/>
+            <Collection key={index+collection} name={collection.nombre} className={style.collectionPreview} onClick={() => collectionClickHandler(collection.id)}/>
           )
         })
       } else {
@@ -214,6 +230,9 @@ function Profile() {
           <div className={style.recipeViewer}>{showCurrent()}</div>
         </div>
       </div>
+      <Modal show={showModal}>
+        <CollectionModal id={selectedCollection} showModal={showModal} closer={setShowModal}/>
+      </Modal>
     </>
   );
 }
