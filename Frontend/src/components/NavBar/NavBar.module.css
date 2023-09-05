@@ -63,9 +63,18 @@
     font-weight: 300;
     font-size: 1rem;
     border: none;
+    cursor: pointer;
+}
+
+.dropdownContent button {
+    width: 100%;
 }
 
 .dropdownContent a:hover,
 .dropdownContent button:hover {
     background-color: #d8d7d7;
+}
+
+.dropdownContent a:visited{
+    color: black;
 }
