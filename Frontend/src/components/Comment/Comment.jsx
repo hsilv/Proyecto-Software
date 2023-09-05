@@ -1,11 +1,12 @@
-import PropTypes from "prop-types";
 import styles from "./Comment.module.scss";
 import { NavLink, useNavigate } from "react-router-dom";
-import {FiFlag} from 'react-icons/fi';
 import { TbCherryFilled, TbFlag, TbFlagFilled } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import {CgClose} from 'react-icons/cg';
+import AnyButton from "../AnyButton/AnyButton";
+
+const reportTypes = ["Mal vocabulario", "Comentario Irrespetuoso", "Opinión fuera de contexto"]
 
 function Comment() {
   const navigate = useNavigate();
@@ -40,6 +41,10 @@ function Comment() {
   const closeModal = () => {
     setShowModal(false);
     setTransStyles(false);
+  }
+
+  const sendReport = () => {
+    console.log("This should send a report");
   }
 
   useEffect(() => {
@@ -84,8 +89,23 @@ function Comment() {
               <CgClose onClick={closeModal} className={styles.closeIcon}/>
             </div>
             <div className={styles.modalBody}>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat aliquid suscipit eveniet sed, reiciendis facilis omnis voluptatem impedit cupiditate praesentium voluptatum repellendus numquam nihil, doloremque quae, unde laborum est magnam.
-              Minima quam, tempora laudantium dolorem deserunt recusandae autem totam veniam provident iure doloremque tenetur similique nisi? Veniam optio natus quaerat, vitae, saepe illum mollitia repellendus possimus itaque hic molestiae odio.
+              <div className={styles.caseList}>
+                {reportTypes.map((value) => {
+                  return ( 
+                  <div className={styles.caseItem} key={value+'reportDiv'}>
+                    <input type="checkbox" key={value+'report'} className={styles.reportInput}/>
+                    {value}
+                  </div>
+                  )
+                })}
+              </div>
+              <span>¿Deseas dejar alguna observación?</span>
+              <textarea name="Observation" id="obsrecipe" cols="30" rows="10" className={styles.observation}></textarea>
+            </div>
+            <div className={styles.modalFooter}>
+              <AnyButton classes={[styles.sendReportButton]} onClick={sendReport}>
+                Enviar
+              </AnyButton>
             </div>
           </div>
         </div>

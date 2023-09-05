@@ -5,68 +5,114 @@ import style from "./Profile.module.css";
 import Edit from "/assets/edit-btn.svg";
 import Button from "../../components/Button/Button";
 import { SessionContext } from "../../context/sessionContext";
-import RecipePreview from "../../components/RecipePreview/RecipePreview"
-import { useNavigate } from "react-router-dom"
-import { useAPI } from '../../hooks/useAPI'
+import RecipePreview from "../../components/RecipePreview/RecipePreview";
+import { useNavigate } from "react-router-dom";
+import { useAPI } from "../../hooks/useAPI";
+import Collection from "../../components/Collection/Collection";
+import Modal from "../../components/Modal/Modal";
+import CollectionModal from "../../components/Collection/CollectionModal";
 
 function Profile() {
   const [selected, setSelected] = useState(1);
   const [editMode, setEditMode] = useState(false);
   const [editedValues, setEditedValues] = useState(["", ""]);
   const { userInfo } = useContext(SessionContext);
-  const [ userRecipes, setUserRecipes ] = useState([]);
+  const [userRecipes, setUserRecipes] = useState([]);
+  const [userCollections, setUserCollections] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCollection, setSelectedCollection] = useState();
+  const [transStyles, setTransStyles] = useState(false);
   const { fetchAPI } = useAPI();
   const navigate = useNavigate();
 
   const recipeClickHandler = (recipeID) => {
-    navigate('/Recipe/'+recipeID)
+    navigate("/Recipe/" + recipeID);
+  };
+
+  const collectionClickHandler = (id) => {
+    setShowModal(true);
+    setSelectedCollection(id);
   }
+
+  useEffect(() => {
+    if(showModal){
+      setTimeout(() => setTransStyles(true), 50)
+    }
+  }, [showModal])
 
   const showCurrent = () => {
     if (selected === 1) {
-      if(userRecipes.length > 0){
-        return (
-          userRecipes.map((recipe, x) => {
-            return (
-              <RecipePreview recipe={recipe} callback={recipeClickHandler} key={x}/>
-            ) 
-          }
-        )
-        )
+      if (userRecipes.length > 0) {
+        return userRecipes.map((recipe, x) => {
+          return (
+            <RecipePreview
+              recipe={recipe}
+              callback={recipeClickHandler}
+              key={x}
+            />
+          );
+        });
       } else {
         return (
-          <span className={style.noData}>{userInfo.username} no ha publicado recetas</span>
-        )
+          <span className={style.noData}>
+            {userInfo.username} no ha publicado recetas
+          </span>
+        );
       }
-      
     } else if (selected === 2) {
-      return (
-        <span className={style.noData}>Favoritos</span>
-      )
+      return <span className={style.noData}>Favoritos</span>;
     } else {
-      return (
-        <span className={style.noData}>Colecciones</span>
-      )
+      if (userCollections && !userCollections.message) {
+        return userCollections.map((collection, index) => {
+          return (
+            <Collection key={index+collection} name={collection.nombre} className={style.collectionPreview} onClick={() => collectionClickHandler(collection.id)}/>
+          )
+        })
+      } else {
+        return (
+          <span className={style.noData}>
+            {userInfo.username} no tiene colecciones
+          </span>
+        );
+      }
     }
   };
 
   useEffect(() => {
-    if(userInfo.username){
-        const fetchUserRecipes = async () => {
-          try {
-            const res = await fetchAPI({
-              method: 'GET',
-              route: `recipe/byUser?username=${userInfo.username}`,
-              body: null,
-              log: true,
-              showReply: true,
-            });
-            setUserRecipes(res.data);
-          } catch ( error ) {
-            console.error("Error fetching user recipes: ", error);
-          }
+    if (userInfo.username) {
+      const fetchUserRecipes = async () => {
+        try {
+          const res = await fetchAPI({
+            method: "GET",
+            route: `recipe/byUser?username=${userInfo.username}`,
+            body: null,
+            log: true,
+            showReply: true,
+          });
+          setUserRecipes(res.data);
+        } catch (error) {
+          console.error("Error fetching user recipes: ", error);
         }
-        fetchUserRecipes();
+      };
+      fetchUserRecipes();
+    }
+
+    if (userInfo.idUser) {
+      const fetchCollections = async () => {
+        try {
+          const res = await fetchAPI({
+            method: "GET",
+            route: `collections/ByUser?id=${userInfo.idUser}`,
+            body: null,
+            log: true,
+            showReply: true,
+          });
+          setUserCollections(res);
+        } catch (error) {
+          console.error("Error fetching user collections: ", error);
+        }
+      };
+      fetchCollections();
     }
   }, []);
 
@@ -111,9 +157,15 @@ function Profile() {
           <button className={style.editBtn} onClick={() => setEditMode(true)}>
             <img src={Edit} />
           </button>
-          <span className={style.realName}>{userInfo ? userInfo.username : 'Nombre'}</span>
-          <span className={style.username}>@{userInfo ? userInfo.username : ''}</span>
-          <span className={style.username}>Followers: {userInfo ? userInfo.followers : '0'}</span>
+          <span className={style.realName}>
+            {userInfo ? userInfo.username : "Nombre"}
+          </span>
+          <span className={style.username}>
+            @{userInfo ? userInfo.username : ""}
+          </span>
+          <span className={style.username}>
+            Followers: {userInfo ? userInfo.followers : "0"}
+          </span>
           <p className={style.desc}>descripcion</p>
         </>
       );
@@ -122,18 +174,22 @@ function Profile() {
         <>
           <input
             type="text"
-            defaultValue={userInfo ? userInfo.username : ''}
+            defaultValue={userInfo ? userInfo.username : ""}
             placeholder="Nombre"
             maxLength={50}
             className="editInput"
             onChange={handleNameChange}
           />
-          <span className={style.username}>@{userInfo ? userInfo.username : ''}</span>
-          <span className={style.username}>Followers: {userInfo ? userInfo.followers : '0'}</span>
+          <span className={style.username}>
+            @{userInfo ? userInfo.username : ""}
+          </span>
+          <span className={style.username}>
+            Followers: {userInfo ? userInfo.followers : "0"}
+          </span>
           <textarea
             rows={6}
             type="text"
-            defaultValue={''} 
+            defaultValue={""}
             placeholder="Descripción"
             maxLength={200}
             className="editInput Desc"
@@ -174,6 +230,9 @@ function Profile() {
           <div className={style.recipeViewer}>{showCurrent()}</div>
         </div>
       </div>
+      <Modal show={showModal}>
+        <CollectionModal id={selectedCollection} showModal={showModal} closer={setShowModal}/>
+      </Modal>
     </>
   );
 }
