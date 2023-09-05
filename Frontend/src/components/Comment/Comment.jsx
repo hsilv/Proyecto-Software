@@ -4,10 +4,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import {FiFlag} from 'react-icons/fi';
 import { TbCherryFilled, TbFlag, TbFlagFilled } from "react-icons/tb";
 import { useEffect, useState } from "react";
+import Modal from "../Modal/Modal";
 
 function Comment() {
   const navigate = useNavigate();
   const [flagIcon, setFlagIcon] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [transStyles, setTransStyles] = useState(false);
 
   const quali = 4.7;
 
@@ -29,6 +32,16 @@ function Comment() {
     navigate('/Profile/silva')
   }
 
+  const onFlagClick = () => {
+    setShowModal(true);
+  }
+
+  useEffect(() => {
+    if(showModal){
+      setTimeout(() => setTransStyles(true), 50)
+    }
+  }, [showModal])
+
   return (
     <div className={styles.container}>
       <div className={styles.userData}>
@@ -45,7 +58,7 @@ function Comment() {
         </div>
         <div className={styles.utils}>
           <div className={styles.qualification}><TbCherryFilled/><TbCherryFilled/><TbCherryFilled/><TbCherryFilled/><TbCherryFilled/></div>
-          <div className={styles.report} onMouseEnter={mouseIn} onMouseLeave={mouseOut}>{flagIcon? <TbFlag/> : <TbFlagFilled/>}</div>
+          <div className={styles.report} onMouseEnter={mouseIn} onMouseLeave={mouseOut} onClick={onFlagClick}>{flagIcon? <TbFlag/> : <TbFlagFilled/>}</div>
         </div>
       </div>
       <span>
@@ -57,6 +70,11 @@ function Comment() {
         sit incidunt quasi vel. Optio quibusdam aliquam rem vero atque ratione
         maxime adipisci?
       </span>
+      <Modal show={showModal}>
+        <div className={styles.repModal + ' ' + (transStyles? styles.repShowed : undefined)}>
+          Hola
+        </div>
+      </Modal>
     </div>
   );
 }

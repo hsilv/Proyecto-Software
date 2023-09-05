@@ -92,3 +92,22 @@ a:visited{
         width: 1.5rem; 
     }
 }
+
+.repModal{
+    transition: background 0.5s ease;
+    font-family: 'League Spartan', sans-serif;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.repShowed{
+    background-color: #c1c1c192;
+}
