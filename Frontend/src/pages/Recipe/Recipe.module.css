@@ -136,3 +136,17 @@
   margin-right: 10px;
   color: #ffa179;
 }
+
+.SimilarRecipesImageContainer {
+  height: 10rem;
+  border: 2px solid rebeccapurple;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.SimilarRecipesImageContainer img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}

@@ -11,7 +11,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Comment from "../../components/Comment/Comment";
 import CommentBlock from "../../components/CommentBlock/CommentBlock";
-
 function Recipe() {
   const { fetchAPI } = useAPI();
   let { id } = useParams();
@@ -74,13 +73,34 @@ function Recipe() {
         });
         setDetailsRecipe(res.data[0]);
       } catch (error) {
-        console.error("Error fetching recipes: ", error);
+        console.error("Error fetching recipe details: ", error);
       }
     };
 
     fetchDetailsRecipe();
-  }, []);
+  }, [id]); 
 
+  useEffect(() => {
+    const fetchSimilarRecipes = async () => {
+      if (detailsRecipe.pais) {
+        try {
+          const res = await fetchAPI({
+            method: "GET",
+            route: `search?text=${detailsRecipe.pais}`,
+            body: null,
+            log: true,
+            showReply: true,
+          });
+          setSearchResults(res.data);
+        } catch (error) {
+          console.error("Error fetching similar recipes: ", error);
+        }
+      }
+    };
+
+    fetchSimilarRecipes();
+  }, [detailsRecipe.pais]);
+  
   return (
     <>
       <NavBar />
@@ -123,9 +143,14 @@ function Recipe() {
             </p>
             <div className={styles.SimilarRecipesCards}>
               <Swiper
-                centeredSlides={true}
-                slidesPerView={3}
+                slidesPerView="3"
               >
+                {searchResults?.map((recipe) => (
+                  <SwiperSlide key={recipe.id}>
+                    <div className={styles.SimilarRecipesImageContainer}>Swiper</div>
+                  </SwiperSlide>
+                ))}
+                
               </Swiper>
             </div>
           </div>

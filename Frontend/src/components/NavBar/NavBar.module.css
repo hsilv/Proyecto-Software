@@ -55,19 +55,14 @@
 
 .dropdownContent a,
 .dropdownContent button {
-    display: block;
+    width: inherit;
     padding: 10px;
     text-decoration: none;
     color: black;
     font-family: 'League Spartan', sans-serif;
     font-weight: 300;
     font-size: 1rem;
-}
-
-.dropdownContent button {
-    border-color: transparent;
-    cursor: pointer;
-    width: 100%;
+    border: none;
 }
 
 .dropdownContent a:hover,

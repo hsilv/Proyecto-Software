@@ -9,7 +9,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-import { EffectCoverflow, Pagination } from 'swiper/modules';
+import 'swiper/css/navigation';
+import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 
@@ -65,16 +66,17 @@ function Home() {
             centeredSlides={true}
             slidesPerView={3}
             pagination={true}
+            navigation={true}
             coverflowEffect={{
               rotate: 0,
               stretch: 0,
               depth: 100,
               modifier: 2.5,
             }}
-            modules={[EffectCoverflow, Pagination]}
+            modules={[EffectCoverflow, Pagination, Navigation]}
           >
             {popularRecipes.map((recipe) => (
-              <SwiperSlide key={recipe.id} className={styles.slide}>
+              <SwiperSlide key={recipe.id}>
                 <RecipeCard recipe={recipe} />
               </SwiperSlide>
             ))}
