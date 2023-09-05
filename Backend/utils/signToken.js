@@ -15,7 +15,6 @@ function verifyToken(token) {
     delete verified.iat;
     delete verified.exp;
     delete verified.email;
-    delete verified.idUser;
   } catch (e) {
     if (e instanceof jwt.TokenExpiredError) {
       verified = { status: 203, message: 'Sesión expirada' };

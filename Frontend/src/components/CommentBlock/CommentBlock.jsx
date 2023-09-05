@@ -9,8 +9,6 @@ function CommentBlock() {
       </div>
       <div className={styles.commentBlock}>
         <Comment />
-        <Comment />
-        <Comment />
       </div>
     </>
   );
