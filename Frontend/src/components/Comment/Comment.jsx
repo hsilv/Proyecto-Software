@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
 import styles from "./Comment.module.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {FiFlag} from 'react-icons/fi';
 import { TbCherryFilled, TbFlag, TbFlagFilled } from "react-icons/tb";
 import { useEffect, useState } from "react";
 
 function Comment() {
-
+  const navigate = useNavigate();
   const [flagIcon, setFlagIcon] = useState(true);
+
+  const quali = 4.7;
 
   const mouseIn = () => {
     setTimeout(() => setFlagIcon(false), 100);
@@ -19,20 +21,26 @@ function Comment() {
 
   useEffect(() => {
     setFlagIcon(true);
+    console.log((Math.round(quali * 2) / 2));
+    console.log(Math.floor(4.5));
   }, [])
+
+  const onUserClick = () => {
+    navigate('/Profile/silva')
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.userData}>
         <div className={styles.profile}>
-          <NavLink to={"/"}>
+          <NavLink to={"/Profile/silva"}>
             <img
               src="https://fakeimg.pl/50x50/ffffff"
               alt="Imagen de muestra"
               className={styles.pfp}
             />
           </NavLink>
-          <span className={styles.nameSpan}>@theBlodingTrain25</span>
+          <span className={styles.nameSpan} onClick={onUserClick}>@theBlodingTrain25</span>
           <span className={styles.date}>23 de Agosto de 2023</span>
         </div>
         <div className={styles.utils}>
