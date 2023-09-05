@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "./CollectionModal.module.scss";
 import { CgClose } from "react-icons/cg";
 import { useAPI } from "../../hooks/useAPI";
+import RecipePreview from "../RecipePreview/RecipePreview";
+import CollectionRecipe from "./CollectionRecipe";
 
 export default function CollectionModal({ id, showModal, closer }) {
   const [transStyles, setTransStyles] = useState(false);
@@ -70,8 +72,8 @@ export default function CollectionModal({ id, showModal, closer }) {
           <h2>{collectionName}</h2>
           <CgClose onClick={closeModal} className={styles.closeIcon} />
         </div>
-        {recipes.status? <span className={styles.errorMessage}>{errorMessage}</span> : recipes.map((value) => {
-            return value.receta.nombre
+        {recipes.status? <span className={styles.errorMessage}>{errorMessage}</span> : recipes.map((value, index) => {
+            return <CollectionRecipe key={value+index} recipe={value.receta}/>
         })}
       </div>
     </div>
