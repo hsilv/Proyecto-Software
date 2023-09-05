@@ -91,7 +91,7 @@ function Recipe() {
             log: true,
             showReply: true,
           });
-          setSearchResults(res.data);
+          setSearchResults(res);
         } catch (error) {
           console.error("Error fetching similar recipes: ", error);
         }
@@ -100,7 +100,7 @@ function Recipe() {
 
     fetchSimilarRecipes();
   }, [detailsRecipe.pais]);
-  
+
   return (
     <>
       <NavBar />
@@ -147,7 +147,7 @@ function Recipe() {
               >
                 {searchResults?.map((recipe) => (
                   <SwiperSlide key={recipe.id}>
-                    <div className={styles.SimilarRecipesImageContainer}>Swiper</div>
+                    <div className={styles.SimilarRecipesImageContainer} onClick={() => {navigate(`/recipe/${recipe.id}`)}}><img src={recipe.miniatura[0].url}/></div>
                   </SwiperSlide>
                 ))}
                 

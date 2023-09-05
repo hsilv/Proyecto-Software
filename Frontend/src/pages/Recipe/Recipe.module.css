@@ -104,7 +104,6 @@
 
 .SimilarRecipesCards {
   height: inherit;
-  border: 1px solid red;
   width: 88%;
 }
 
@@ -139,10 +138,10 @@
 
 .SimilarRecipesImageContainer {
   height: 10rem;
-  border: 2px solid rebeccapurple;
   justify-content: center;
   display: flex;
   align-items: center;
+  margin: 0 2% 0 0;
 }
 
 .SimilarRecipesImageContainer img {
