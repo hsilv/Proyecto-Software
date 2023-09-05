@@ -9,10 +9,11 @@ import Ratings from "../../components/Ratings/Ratings";
 import { TbFolderPlus, TbHeartPlus } from "react-icons/tb";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import Comment from "../../components/Comment/Comment";
 import CommentBlock from "../../components/CommentBlock/CommentBlock";
+
+
 function Recipe() {
-  const { fetchAPI } = useAPI();
+  const { fetchAPI, loading } = useAPI();
   let { id } = useParams();
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
@@ -22,6 +23,7 @@ function Recipe() {
       ingredientes: ["", ""],
     },
   ]);
+  const [comments, setComments] = useState();
 
   const renderBlock = (title, subtitle) => (
     <div className={styles.Block}>
@@ -68,8 +70,8 @@ function Recipe() {
           method: "GET",
           route: `recipe?id=${id}`,
           body: null,
-          log: true,
-          showReply: true,
+          log: false,
+          showReply: false,
         });
         setDetailsRecipe(res.data[0]);
       } catch (error) {
@@ -77,7 +79,22 @@ function Recipe() {
       }
     };
 
+    const fetchComments = async () => {
+      try {
+        const res = await fetchAPI({
+          method: "GET",
+          route: `recipe/comments?id=${id}`,
+          body: null,
+          log: true,
+          showReply: true,
+        });
+        setComments(res);
+      } catch (error) {
+        console.error("Error fetching recipe comments: ", error);
+      }
+    }
     fetchDetailsRecipe();
+    fetchComments();
   }, [id]); 
 
   useEffect(() => {
@@ -88,8 +105,8 @@ function Recipe() {
             method: "GET",
             route: `search?text=${detailsRecipe.pais}`,
             body: null,
-            log: true,
-            showReply: true,
+            log: false,
+            showReply: false,
           });
           setSearchResults(res);
         } catch (error) {
@@ -100,6 +117,11 @@ function Recipe() {
 
     fetchSimilarRecipes();
   }, [detailsRecipe.pais]);
+
+
+  useEffect(() => {
+    console.log(comments);
+  }, [comments]);
 
   return (
     <>
@@ -157,7 +179,7 @@ function Recipe() {
           <div className={styles.RecipeInstructions}>
             {renderIngredients('Ingredients', detailsRecipe.ingredientes)}
             {renderSteps('Steps', detailsRecipe.paso)}
-            <CommentBlock />
+            <CommentBlock comments={comments? (comments.status? undefined: comments) : comments} loading={loading}/>
           </div>
         </div>
       </div>

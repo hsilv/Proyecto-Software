@@ -6,13 +6,15 @@ import Modal from "../Modal/Modal";
 import {CgClose} from 'react-icons/cg';
 import AnyButton from "../AnyButton/AnyButton";
 
-const reportTypes = ["Mal vocabulario", "Comentario Irrespetuoso", "Opinión fuera de contexto"]
+const reportTypes = ["Mal vocabulario", "Comentario Irrespetuoso", "Opinión fuera de contexto"];
+const months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 
-function Comment() {
+function Comment({comment}) {
   const navigate = useNavigate();
   const [flagIcon, setFlagIcon] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [transStyles, setTransStyles] = useState(false);
+  const [date, setDate] = useState('');
 
   const quali = 4.7;
 
@@ -26,12 +28,10 @@ function Comment() {
 
   useEffect(() => {
     setFlagIcon(true);
-    console.log((Math.round(quali * 2) / 2));
-    console.log(Math.floor(4.5));
   }, [])
 
   const onUserClick = () => {
-    navigate('/Profile/silva')
+    navigate(comment? (comment.usuario? `/Profile/${comment.usuario.username}`: '/'): '/');
   }
 
   const onFlagClick = () => {
@@ -53,19 +53,31 @@ function Comment() {
     }
   }, [showModal])
 
+  useEffect(() => {
+    if(comment.fecha){
+      let date = comment.fecha.slice(0,10).split('-');
+
+      const year = date[0];
+      const month = months[parseInt(date[1] - 1)];
+      const day = date[2];
+
+      setDate(`${day} de ${month} de ${year}`);
+    }
+  }, [comment])
+
   return (
     <div className={styles.container}>
       <div className={styles.userData}>
         <div className={styles.profile}>
-          <NavLink to={"/Profile/silva"}>
+          <NavLink to={comment? (comment.usuario? `/Profile/${comment.usuario.username}`: '/'): '/'}>
             <img
               src="https://fakeimg.pl/50x50/ffffff"
               alt="Imagen de muestra"
               className={styles.pfp}
             />
           </NavLink>
-          <span className={styles.nameSpan} onClick={onUserClick}>@theBlodingTrain25</span>
-          <span className={styles.date}>23 de Agosto de 2023</span>
+          <span className={styles.nameSpan} onClick={onUserClick}>{comment? (comment.usuario? `@${comment.usuario.username}`: undefined): undefined}</span>
+          <span className={styles.date}>{date}</span>
         </div>
         <div className={styles.utils}>
           <div className={styles.qualification}><TbCherryFilled/><TbCherryFilled/><TbCherryFilled/><TbCherryFilled/><TbCherryFilled/></div>
@@ -73,13 +85,7 @@ function Comment() {
         </div>
       </div>
       <span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-        excepturi ex esse ad! Nam eius quaerat modi! Illo tempora maxime dolor
-        repellat officia, eos vitae rerum tenetur saepe necessitatibus
-        temporibus! Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-        Nostrum odit cupiditate numquam repudiandae possimus vitae! Quis dolorem
-        sit incidunt quasi vel. Optio quibusdam aliquam rem vero atque ratione
-        maxime adipisci?
+        {comment? comment.comentario: undefined}
       </span>
       <Modal show={showModal}>
         <div className={styles.repModal + ' ' + (transStyles? styles.repShowed : undefined)}>

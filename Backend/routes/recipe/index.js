@@ -67,10 +67,8 @@ router.get('/', async (req, res) => {
 router.get('/ByCategory', async (req, res) => {
   let result;
   try {
-    result = await database
-      .from('receta')
-      .select(
-        `
+    result = await database.from('receta').select(
+      `
           id,
           nombre,
           tiempo,
@@ -86,7 +84,7 @@ router.get('/ByCategory', async (req, res) => {
             categoria_id!inner(categoria)
           )
       `,
-      );
+    );
 
     const filtered = [];
 
@@ -124,6 +122,37 @@ router.get('/byUser', async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener datos de recetas' });
+  }
+});
+
+router.get('/comments', async (req, res) => {
+  try {
+    const { error, data } = await database
+      .from('comentario')
+      .select('*, usuario (username)')
+      .eq('receta_id', req.query.id);
+    if (error) {
+      res
+        .status(500)
+        .json({ error: 'Error al obtener comentarios de la receta' });
+    } else if (data) {
+      if (data.length === 0) {
+        res
+          .status(200)
+          .json({ status: 404, message: 'La receta no tiene comentarios' });
+      } else {
+        res.status(200).json(data);
+      }
+    } else {
+      res
+        .status(404)
+        .json({ status: 404, message: 'La receta no existe' });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: 'Error al obtener comentarios de la receta' });
   }
 });
 

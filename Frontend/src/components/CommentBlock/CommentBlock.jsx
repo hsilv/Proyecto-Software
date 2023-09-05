@@ -1,14 +1,16 @@
 import Comment from "../Comment/Comment";
 import styles from "./CommentBlock.module.scss";
 
-function CommentBlock() {
+function CommentBlock({comments, loading}) {
   return (
     <>
       <div className={styles.title}>
         <h1>Comentarios</h1>
       </div>
       <div className={styles.commentBlock}>
-        <Comment />
+        {comments? comments.map((value, index) => {
+          return <Comment key={value+index} comment={value}/>
+        }): (loading ? '...' : <span>Vaya! Parece que nadie ha agregado un comentario aún</span>)}
       </div>
     </>
   );

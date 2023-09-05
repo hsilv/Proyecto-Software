@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
 
 .button {
-    background-color: #7F77EA;
+    background-color: #BF3545;
     color: #F5F5F5;
     border-radius: 5px;
     padding: 10px 20px;
@@ -15,7 +15,7 @@
   }
 
   .button:hover {
-    background-color: #756ed8;
+    background-color: #BF3545;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 5px -6px;
   }
   
