@@ -169,7 +169,7 @@ function Recipe() {
               >
                 {searchResults?.map((recipe) => (
                   <SwiperSlide key={recipe.id}>
-                    <div className={styles.SimilarRecipesImageContainer} onClick={() => {navigate(`/recipe/${recipe.id}`)}}><img src={recipe.miniatura[0].url}/></div>
+                    <div className={styles.SimilarRecipesImageContainer} onClick={() => {navigate(`/recipe/${recipe.id}`)}}><img src={recipe.miniatura[0]}/></div>
                   </SwiperSlide>
                 ))}
                 
