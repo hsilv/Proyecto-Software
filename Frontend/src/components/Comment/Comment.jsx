@@ -45,6 +45,7 @@ function Comment({comment}) {
 
   const sendReport = () => {
     console.log("This should send a report");
+    closeModal();
   }
 
   useEffect(() => {

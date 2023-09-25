@@ -7,6 +7,8 @@ import { SessionContext } from "../../context/sessionContext";
 import { useParams, useNavigate } from "react-router-dom"
 import { useAPI } from '../../hooks/useAPI'
 import Collection from "../../components/Collection/Collection";
+import Modal from "../../components/Modal/Modal";
+import CollectionModal from "../../components/Collection/CollectionModal";
 
 function Profile() {
   const [ selected, setSelected ] = useState(1);
@@ -14,12 +16,19 @@ function Profile() {
   const [ userInfo, setUserInfo ] = useState([]);
   const [ userRecipes, setUserRecipes ] = useState([]);
   const [userCollections, setUserCollections] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCollection, setSelectedCollection] = useState();
   const { fetchAPI } = useAPI();
   let { username } = useParams();
   const navigate = useNavigate();
 
   const recipeClickHandler = (recipeID) => {
     navigate('/Recipe/'+recipeID)
+  }
+
+  const collectionClickHandler = (id) => {
+    setShowModal(true);
+    setSelectedCollection(id);
   }
 
   const showCurrent = () => {
@@ -47,7 +56,7 @@ function Profile() {
       if (userCollections && !userCollections.message) {
         return userCollections.map((collection, index) => {
           return (
-            <Collection key={index+collection} name={collection.nombre} className={style.collectionPreview}/>
+            <Collection key={index+collection} name={collection.nombre} className={style.collectionPreview} onClick={() => collectionClickHandler(collection.id)}/>
           )
         })
       } else {
@@ -146,6 +155,9 @@ function Profile() {
           <div className={style.recipeViewer}>{showCurrent()}</div>
         </div>
       </div>
+      <Modal show={showModal}>
+        <CollectionModal id={selectedCollection} showModal={showModal} closer={setShowModal}/>
+      </Modal>
     </>
   );
 }

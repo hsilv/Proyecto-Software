@@ -21,7 +21,7 @@ function SignUp() {
   const form = useForm(schema, { username: "", password: "", email: "" });
   const {logged} = useContext(SessionContext);
   const navigate = useNavigate();
-  const {signUp, signUpError, loading} = useSignUp();
+  const {signUp, loading} = useSignUp();
 
   useEffect(() => {
     if(logged){

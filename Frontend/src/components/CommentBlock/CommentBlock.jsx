@@ -10,7 +10,7 @@ function CommentBlock({comments, loading}) {
       <div className={styles.commentBlock}>
         {comments? comments.map((value, index) => {
           return <Comment key={value+index} comment={value}/>
-        }): (loading ? '...' : <span>Vaya! Parece que nadie ha agregado un comentario aún</span>)}
+        }): (loading ? <div className={styles.loadingHolder}>...</div> : <div className={styles.emptyBlock}>Vaya! Parece que nadie ha agregado un comentario aún...</div>)}
       </div>
     </>
   );

@@ -21,7 +21,6 @@ function Profile() {
   const [userCollections, setUserCollections] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedCollection, setSelectedCollection] = useState();
-  const [transStyles, setTransStyles] = useState(false);
   const { fetchAPI } = useAPI();
   const navigate = useNavigate();
 
@@ -33,12 +32,6 @@ function Profile() {
     setShowModal(true);
     setSelectedCollection(id);
   }
-
-  useEffect(() => {
-    if(showModal){
-      setTimeout(() => setTransStyles(true), 50)
-    }
-  }, [showModal])
 
   const showCurrent = () => {
     if (selected === 1) {
