@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import ProfileNav from "../../components/ProfileNav/ProfileNav";
@@ -5,22 +6,23 @@ import RecipePreview from "../../components/RecipePreview/RecipePreview"
 import style from "./Profile.module.css";
 import { SessionContext } from "../../context/sessionContext";
 import { useParams, useNavigate } from "react-router-dom"
-import { useAPI } from '../../hooks/useAPI'
 import Collection from "../../components/Collection/Collection";
 import Modal from "../../components/Modal/Modal";
 import CollectionModal from "../../components/Collection/CollectionModal";
+import { useUserByID } from "../../hooks/api/useUserByID";
+import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
+import { useRecipesByUser } from "../../hooks/api/useRecipesByUser";
 
 function Profile() {
   const [ selected, setSelected ] = useState(1);
   const { checkSession } = useContext(SessionContext);
-  const [ userInfo, setUserInfo ] = useState([]);
-  const [ userRecipes, setUserRecipes ] = useState([]);
-  const [userCollections, setUserCollections] = useState([]);
+  const {getRecipesByUser, resultRecipesByUser: userRecipes} = useRecipesByUser();
   const [showModal, setShowModal] = useState(false);
   const [selectedCollection, setSelectedCollection] = useState();
-  const { fetchAPI } = useAPI();
   let { username } = useParams();
   const navigate = useNavigate();
+  const {resultUserByID: userInfo, getUserByID} = useUserByID();
+  const {getCollectionsByUser, resultCollectionsByUser: userCollections} = useCollectionsByUser();
 
   const recipeClickHandler = (recipeID) => {
     navigate('/Recipe/'+recipeID)
@@ -75,57 +77,13 @@ function Profile() {
 
   useEffect(() => {
     if(username){
-        const fetchUserData = async () => {
-            try {
-                const res = await fetchAPI({
-                    method: 'GET',
-                    route: `user?id=${username}`,
-                    body: null,
-                    log: false,
-                    showReply: false,
-                });
-                setUserInfo(res.data[0]);
-            } catch (error) {
-                console.error("Error fetching user: ", error);
-            }
-        }
-        const fetchUserRecipes = async () => {
-          try {
-            const res = await fetchAPI({
-              method: 'GET',
-              route: `recipe/byUser?username=${username}`,
-              body: null,
-              log: false,
-              showReply: false,
-            });
-            setUserRecipes(res.data);
-          } catch ( error ) {
-            console.error("Error fetching user recipes: ", error);
-          }
-        }
-        fetchUserData();
-        fetchUserRecipes();
+        getUserByID(username)
+        getRecipesByUser(username)
     }
   }, []);
 
   useEffect(() => {
-    if(userInfo.id){
-      const fetchCollections = async () => {
-        try {
-          const res = await fetchAPI({
-            method: "GET",
-            route: `collections/ByUser?id=${userInfo.id}`,
-            body: null,
-            log: false,
-            showReply: false,
-          });
-          setUserCollections(res);
-        } catch (error) {
-          console.error("Error fetching user collections: ", error);
-        }
-      };
-      fetchCollections();
-    }
+    if (userInfo.id) getCollectionsByUser(userInfo.id);
   },[userInfo]);
 
   const loadInfo = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import styles from "./SearchPage.module.css";
 import NavBar from "../../components/NavBar/NavBar";
