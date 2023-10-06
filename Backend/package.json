@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/hsilv/CookAppAPI#readme",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules pnpx jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpx jest --detectOpenHandles --forceExit",
     "start": "cross-env NODE_ENV= node ./bin/index.js",
     "inspect": "cross-env NODE_ENV= node --inspect ./bin/index.js",
     "dev": "cross-env NODE_ENV= nodemon --exec node ./bin/index.js",
