@@ -5,15 +5,14 @@
   display: flex;
   justify-content: center;
   background-color:#d16270;
-
 }
 
 .loginContainer {
   display: flex;
   justify-content: center;
-  height: 80vh;
+  height: 89vh;
   width: 60%;
-  background-color: white;
+  background-color: #f6e0d3;
   margin-top: 5%;
   border-radius: 25px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.5);
@@ -27,6 +26,7 @@
   border-top-left-radius: inherit;
   border-bottom-left-radius: inherit;
   padding-left: 25px;
+  padding-top: 50px;
 }
 
 .bakerSVG{
@@ -34,6 +34,7 @@
 }
 
 .formContainer{
+  padding-top: 50px;
   display:flex;
   flex-direction:column;
   justify-content: center;
@@ -42,14 +43,15 @@
   width: 50%;
   border-top-right-radius: inherit;
   border-bottom-right-radius: inherit;
-  
 }
+
+
 
 .loginTitle {
   font-size: 40px;
   font-family: Raleway, sans-serif;
   font-weight: 800;
-  color: #f19c7d;
+  color: #c95268;
 }
 
 .inputContainer {
@@ -77,11 +79,24 @@
   display: none;
 }
 
-p, a {
+.main-paragraph {
   padding: 10px 0px;
   font-family: Raleway, sans-serif;
-  color:#b13f63;
-  font-weight: bold;
-
+  color: #b13f63;
+  text-align: center;
 }
 
+
+.p1{
+  padding: 0px 10px 0 20px;
+  font-size: 120%;
+  font-family: Raleway, sans-serif;
+  color: #dc686b;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: text-shadow 0.3s; /* Agrega una transición suave para la sombra de texto */
+}
+
+.p1:hover {
+  text-shadow: 2px 2px 4px rgba(170, 41, 41, 0.3); /* Define la sombra de texto en hover */
+}
