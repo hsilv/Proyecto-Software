@@ -4,6 +4,8 @@
 .loginPage{
   display: flex;
   justify-content: center;
+  background-color:#d16270;
+
 }
 
 .loginContainer {
@@ -40,13 +42,14 @@
   width: 50%;
   border-top-right-radius: inherit;
   border-bottom-right-radius: inherit;
+  
 }
 
 .loginTitle {
   font-size: 40px;
   font-family: Raleway, sans-serif;
-  font-weight: 700;
-  color: #35356E;
+  font-weight: 800;
+  color: #f19c7d;
 }
 
 .inputContainer {
@@ -55,12 +58,19 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+  
+}
+
+.inputContainer label input{
+  background-color: #f9dbb7;
 }
 
 .errorMsg {
   font-family: Raleway, sans-serif;
   margin-bottom: 10px;
   transition: 0.1s;
+  color: rgb(243, 87, 87);
+  font-weight: bold;
 }
 
 .errorMsg.gone {
@@ -69,9 +79,9 @@
 
 p, a {
   padding: 10px 0px;
-  font-family: Raleway, sans-serif;;
+  font-family: Raleway, sans-serif;
+  color:#b13f63;
+  font-weight: bold;
+
 }
 
-.loginContainer h1 {
-  margin-left: 0;
-}

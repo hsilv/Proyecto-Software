@@ -73,7 +73,7 @@ function Login() {
           </object>
         </div>
         <div className="formContainer">
-          <h1 className="loginTitle">Welcome Back!</h1>
+          <h1 className="loginTitle">Bienvenido!</h1>
           <div className="inputContainer">
             <Input
               value={form.values.username}
