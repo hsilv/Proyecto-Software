@@ -4,7 +4,7 @@ import useForm from "../../hooks/useForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import "./Login.css";
-import BakerSVG from "/assets/baker-animate.svg";
+import BakerSVG from "/assets/poke-bowl-animate.svg";
 import { SessionContext } from "../../context/sessionContext";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -73,7 +73,7 @@ function Login() {
           </object>
         </div>
         <div className="formContainer">
-          <h1 className="loginTitle">Welcome Back!</h1>
+          <h1 className="loginTitle">Bienvenido!</h1>
           <div className="inputContainer">
             <Input
               value={form.values.username}
@@ -107,9 +107,11 @@ function Login() {
             Login
           </Button>
 
-          <p>
-            Don t have an account yet?{" "}
-            <NavLink to="/SignUp">Register here!</NavLink>
+          <p className="main-paragraph">
+            No tienes cuenta aún?
+            <p className="p1">
+              <NavLink to="/SignUp">Registrate aquí</NavLink>
+            </p>
           </p>
         </div>
       </div>

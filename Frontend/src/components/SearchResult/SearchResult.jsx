@@ -30,7 +30,7 @@ const SearchResult = ({ data, onClick }) => {
   return (
     <div className={styles.resultContainer} onClick={onClick}>
       <div className={styles.resultContainerImage}>
-        <img src={data.miniatura[0]?.url || ""} alt="Thumbnail" />
+        <img src={data.miniatura[0] || ""} alt="Thumbnail" />
       </div>
       <div className={styles.resultContainerInfo}>
         <div className={styles.resultContainerTitle}>
