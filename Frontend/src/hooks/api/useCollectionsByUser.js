@@ -29,11 +29,25 @@ function useCollectionsByUser() {
     });
   };
 
+  const postRecipeToColl = async (id_coll, id_recipe) => {
+    await fetchAPI({
+      method: "POST",
+      route: `collections/addRecipe`,
+      body: JSON.stringify({
+        id_recipe,
+        id_coll,
+      }),
+      log: true,
+      showReply: true,
+    });
+  };
+
   return {
     resultCollectionsByUser,
     errorCollectionsByUser: error,
     loadingCollectionsByUser: loading,
-    getCollectionsByUser
+    getCollectionsByUser,
+    postRecipeToColl,
   };
 }
 

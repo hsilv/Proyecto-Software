@@ -269,4 +269,54 @@
   transform: scale(1.2);
 }
 
+.collPlaceholder{
+  display: block;
+  text-align: center;
+  padding-block: 10px;
+}
+
+.collList{
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.collItem{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  padding-block-start: 15px;
+}
+
+.collItem:not(:last-child){
+  border-bottom: 1px solid rgb(163, 163, 163);
+  padding-block: 15px;
+}
+
+.collItemButton{
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+}
+
+.collItemButton svg{
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  fill: #26b664;
+  transition: transform 0.4s ease;
+}
+
+.collItemButton svg:hover{
+  transform: scale(1.2);
+}
 

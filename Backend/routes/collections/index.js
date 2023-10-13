@@ -45,6 +45,31 @@ router.get('/ByUser', async (req, res) => {
   }
 });
 
+router.post('/addRecipe', async (req, res) => {
+  try {
+    if (!req.body || !req.body.id_recipe || !req.body.id_coll) {
+      res.status(400).json({ error: 'Datos insuficientes' });
+    } else {
+      const { error } = await database
+        .from('receta_guardada')
+        .insert({
+          receta_id: req.body.id_recipe,
+          coleccion_id: req.body.id_coll,
+        });
+
+      if (error) {
+        throw new Error(error);
+      }
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('\x1b[1;31m%s\x1b[0m', error);
+    res
+      .status(500)
+      .json({ error: 'Error al obtener comentarios de la receta' });
+  }
+});
+
 router.get('/allRecipes', async (req, res) => {
   const { error, data } = await database
     .from('receta_guardada')
