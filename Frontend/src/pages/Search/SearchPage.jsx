@@ -7,26 +7,9 @@ import SearchResultsList from "../../components/SearchResult/SearchResult";
 import { useParams } from "react-router-dom"
 import { useAPI } from "../../hooks/useAPI";
 
-
-// Backend logic
-/* const CountryList = [
-    {value: "Italia", label:"Italia"},
-    {value: "Argentina", label:"Argentina"},
-    {value: "Tailandia", label:"Tailandia"},
-    {value: "Cuba", label:"Cuba"},
-]
- */
-/* const CategoryList = [
-    {value: "Postres", label:"Postres"},
-    {value: "Ensaladas", label:"Ensaladas"},
-    {value: "Bebidas", label:"Bebidas"},
-    {value: "Aperitivos", label:"Aperitivos"},
-]
- */
-// Esta es fija
 const TimeList = [
-    {value: "Short", label:"< 0-5min"},
-    {value: "Medium", label:"5-30min"},
+    {value: "Short", label:"< 0-30min"},
+    {value: "Medium", label:"30-60min"},
     {value: "Long", label:"> 1hrs"},
 ]
 
@@ -42,7 +25,6 @@ function SearchPage() {
     const [activeCountries, setActiveCountries] = useState([]);
     const [activeDuration, setActiveDuration] = useState([]);
 
-    //cosa fea horrible pero no tengo las ganas para unir las 3 funciones en una en este momento
     const handleCategoryClick = (value) => {
         if (activeCategories.includes(value)) {
             setActiveCategories(activeCategories.filter(category => category !== value));
@@ -112,14 +94,30 @@ function SearchPage() {
         }
     };
 
-    const applyFilters = () => {
-        if(activeCountries.length > 0 || activeCategories.length > 0 || activeDuration.length > 0){
-            setFilteredResults(searchResults.filter((receta) => activeCountries.includes(receta.pais) /*revisar tiempo y categoria*/ || activeCategories.includes(receta.categoria)))
+    const getDurationValue = (duration) => {
+        if (duration < 30) {
+            return "Short";
+        } else if (duration >= 30 && duration <= 60) {
+            return "Medium";
         } else {
-            setFilteredResults(searchResults)
+            return "Long";
         }
     }
 
+    const applyFilters = () => {
+        if (activeCountries.length > 0 || activeCategories.length > 0 || activeDuration.length > 0) {
+            setFilteredResults(searchResults.filter((receta) => {
+                const countryMatch = activeCountries.length === 0 || activeCountries.includes(receta.pais);
+                const categoryMatch = activeCategories.length === 0 || receta.categoria.some(category => activeCategories.includes(category));
+                const durationMatch = activeDuration.length === 0 || activeDuration.includes(getDurationValue(receta.tiempo));
+    
+                return countryMatch && categoryMatch && durationMatch;
+            }));
+        } else {
+            setFilteredResults(searchResults);
+        }
+    }
+    
     useEffect(() => {
         getSearchResults();
         setFilteredResults(searchResults);
