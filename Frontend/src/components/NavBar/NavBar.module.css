@@ -3,6 +3,7 @@
 
 
 .NavbarContainer {
+    box-sizing: border-box;
     background-color: #BF3545;
     color: #F2F2F2;
     font-weight: 600;
@@ -34,6 +35,11 @@
     margin-right: 20px;
 }
 
+.item{
+    box-sizing: border-box;
+    width: 100%;
+}
+
 .userIcon {
     position: relative;
     cursor: pointer;
@@ -49,6 +55,7 @@
     min-width: 150px;
     text-align: center;
     display: block;
+    width: 100%;
 }
 
 .item:not(:last-child) {
@@ -57,6 +64,7 @@
 
 .dropdownContent a,
 .dropdownContent button {
+    display: inline-block;
     width: inherit;
     padding: 10px;
     text-decoration: none;
