@@ -13,17 +13,23 @@ const MainRoutes = () => {
 
     const{ show } = useContext(NavContext);
 
-    let routes = useRoutes([
-        {path: '/', element: <Login />},
-        {path: '/Home', element: <Home />},
-        {path: '/Recipe/:id', element: <Recipe />},
-        {path: '/SignUp', element: <SignUp />},
-        {path: '/Profile', element: <Profile />},
-        {path: '/SearchPage/:search', element: <SearchPage />},
-        {path: '/Profile/:username', element: <ProfileView />}
-    ]);
+    
+    const contentStyle = {
+        marginTop: show ? "80px" : "0", // Margen igual a la altura del Navbar si se muestra, 0 si está oculto
+    };
 
-    return routes;
-}
+    let routes = useRoutes([
+        { path: "/", element: <Login style={contentStyle} /> },
+        { path: "/Home", element: <Home style={contentStyle} /> },
+        { path: "/Recipe/:id", element: <Recipe style={contentStyle} /> },
+        { path: "/SignUp", element: <SignUp style={contentStyle} /> },
+        { path: "/Profile", element: <Profile style={contentStyle} /> },
+        { path: "/SearchPage/:search", element: <SearchPage style={contentStyle} /> },
+        { path: "/Profile/:username", element: <ProfileView style={contentStyle} /> },
+      ]);
+    
+      return routes;
+    };
+
 
 export {MainRoutes};

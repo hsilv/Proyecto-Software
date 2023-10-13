@@ -94,7 +94,7 @@
   color: #dc686b;
   font-weight: bold;
   text-decoration: underline;
-  transition: text-shadow 0.3s; /* Agrega una transición suave para la sombra de texto */
+  transition: text-shadow 0.3s; 
 }
 
 .p1:hover {
