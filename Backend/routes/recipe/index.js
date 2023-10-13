@@ -194,6 +194,8 @@ router.post('/comments/check', async (req, res) => {
 });
 
 router.post('/comments', async (req, res) => {
+  let date = new Date();
+  date = date.toUTCString();
   try {
     if (!req.body || !req.body.id_recipe || !req.body.id_user) {
       res
@@ -203,11 +205,12 @@ router.post('/comments', async (req, res) => {
       const { error } = await database.from('comentario').insert({
         autor_id: req.body.id_user,
         receta_id: req.body.id_recipe,
-        fecha: Date(),
+        fecha: date,
         comentario: req.body.comment ? req.body.comment : '',
         calificacion: req.body.qualification,
       });
       if (error) {
+        console.log(error);
         throw new Error(error);
       } else {
         res.status(201).json({ message: 'Comentario hecho' });
@@ -215,7 +218,7 @@ router.post('/comments', async (req, res) => {
     }
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('\x1b[1;31m%s\x1b[0m', error);
+    console.error(error);
     res.status(500).json({ error: 'Error al publicar comentario en receta' });
   }
 });

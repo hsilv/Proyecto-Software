@@ -4,7 +4,6 @@ import { SessionContext } from "../../context/sessionContext";
 import { useRecipeComments } from "../../hooks/api/useComments";
 import styles from "./NewComment.module.scss";
 import { Rating } from "@smastrom/react-rating";
-import { TbCherry } from "react-icons/tb";
 
 /* return GenIcon({
   tag: "svg",
@@ -38,7 +37,7 @@ const cherryDrawing = (
   <>
     <path d="M0 0h24v24H0z" stroke="none" fill="none" strokeWidth={2} />
     <path
-      d="M7.5 16.5m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0"
+      d="M7.5 16.5m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0 "
       stroke="#BF3545"
       strokeWidth={1.5}
     />
@@ -71,9 +70,10 @@ const customCherry = {
   inactiveFillColor: "transparent",
 };
 
-function NewComment({ idRecipe }) {
+function NewComment({ idRecipe, refreshTrigger }) {
   const { userInfo } = useContext(SessionContext);
-  const [rating, setRating] = useState(3);
+  const [rating, setRating] = useState(1);
+  const [posted, setPosted] = useState(false);
   const [globalError, setGlobalError] = useState(false);
   const [show, setShow] = useState(false);
   const {
@@ -81,6 +81,7 @@ function NewComment({ idRecipe }) {
     errorRecipeComments: error,
     resultRecipeComments: result,
     checkUserComment,
+    postRecipeComment,
   } = useRecipeComments();
 
   useEffect(() => {
@@ -122,10 +123,30 @@ function NewComment({ idRecipe }) {
     console.log(userInfo);
   }, [userInfo]);
 
-  const handleForm = (ev) => {
+  const handleForm = async (ev) => {
     ev.preventDefault();
     console.log(ev.target.commentInput.value);
+    await postRecipeComment({
+        id_recipe: idRecipe,
+        id_user: userInfo.idUser,
+        comment: ev.target.commentInput.value,
+        qualification: rating,
+    });
+    await checkUserComment({
+        id_user: userInfo.idUser,
+        id_recipe: idRecipe,
+    });
+    setPosted(true)
   };
+
+  useEffect(() => {
+    if(result){
+        if(result.found){
+            refreshTrigger(1)
+        }
+    }
+  }, [posted, result])
+
 
   return show ? (
     <div className={styles.newComment}>
@@ -140,10 +161,11 @@ function NewComment({ idRecipe }) {
         </div>
         <div className={styles.qualification}>
           <Rating
-            value={4.52}
+            value={rating}
             itemStyles={customCherry}
             className={styles.rating}
-            readOnly
+            onChange={setRating}
+            isRequired
           />
         </div>
       </div>
@@ -161,6 +183,7 @@ function NewComment({ idRecipe }) {
           className={styles.commentInput}
           maxLength={400}
         />
+        <input type="number" name="rating" id="rating" value={rating} className={styles.numberRating} readOnly/>
         <button type="submit" className={styles.sendButton}>
           Comentar
         </button>
@@ -173,6 +196,7 @@ function NewComment({ idRecipe }) {
 
 NewComment.propTypes = {
   idRecipe: PropTypes.number.isRequired,
+  refreshTrigger: PropTypes.func.isRequired,
 };
 
 export default NewComment;

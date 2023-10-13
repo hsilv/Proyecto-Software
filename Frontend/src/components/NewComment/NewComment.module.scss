@@ -97,7 +97,7 @@ $blockColor: #fae0d4;
     transition: padding-left 0.7s ease, transform 0.2s ease;
 
     &::before{
-        content: url('/public/assets/comment.svg');
+        content: url('/assets/comment.svg');
         display: inline-block;
         object-fit: contain;
         height: 50px;
@@ -132,4 +132,8 @@ $blockColor: #fae0d4;
         width: 1.5em;
         height: 1.5em;
     }
+}
+
+.numberRating{
+    display: none;
 }

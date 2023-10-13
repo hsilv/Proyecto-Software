@@ -17,6 +17,7 @@ import { useRecipeComments } from "../../hooks/api/useComments";
 function Recipe() {
   let { id } = useParams();
   const navigate = useNavigate();
+  const [refreshComments, setRefreshComments] = useState(0);
   const [recipeCountry, setRecipeCountry] = useState("");
   const {getRecipeDetails, resultRecipeDetails: detailsRecipe} = useRecipeDetails(id);
   const {resultSimilarRecipes: similarRecipes, getSimilarRecipes} = useSimilarRecipes();
@@ -64,6 +65,12 @@ function Recipe() {
     getRecipeDetails();
     getRecipeComments(id);
   }, [id]); 
+
+  useEffect(() => {
+    if(refreshComments === 1){
+      getRecipeComments(id)
+    }
+  }, [refreshComments])
 
   useEffect(() => {
     if (detailsRecipe.pais) setRecipeCountry(detailsRecipe.pais);
@@ -129,7 +136,7 @@ function Recipe() {
           <div className={styles.RecipeInstructions}>
             {renderIngredients('Ingredients', detailsRecipe ? detailsRecipe.ingredientes : ["", ""])}
             {renderSteps('Steps', detailsRecipe.paso)}
-            <CommentBlock comments={comments? (comments.status? undefined: comments) : comments} loading={loadingRecipeComments} idRecipe={parseInt(id)}/>
+            <CommentBlock comments={comments? (comments.status? undefined: comments) : comments} loading={loadingRecipeComments} idRecipe={parseInt(id)} refreshTrigger={setRefreshComments}/>
           </div>
         </div>
       </div>

@@ -39,12 +39,12 @@ function useRecipeComments() {
     await fetchAPI({
       method: "POST",
       route: `recipe/comments`,
-      body: {
+      body: JSON.stringify({
         id_user: parseInt(id_user),
         id_recipe: parseInt(id_recipe),
         comment,
         qualification: parseFloat(qualification),
-      },
+      }),
       log: false,
       showReply: true,
     });
