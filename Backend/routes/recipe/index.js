@@ -156,7 +156,6 @@ router.get('/comments', async (req, res) => {
 });
 
 router.post('/comments/check', async (req, res) => {
-  console.log(req.body);
   try {
     if (!req.body || !req.body.id_recipe || !req.body.id_user) {
       res

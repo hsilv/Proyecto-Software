@@ -1,11 +1,12 @@
 import styles from "./Comment.module.scss";
 import { NavLink, useNavigate } from "react-router-dom";
-import { TbCherry, TbFlag } from "react-icons/tb";
+import { TbFlag } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import { CgClose } from "react-icons/cg";
 import AnyButton from "../AnyButton/AnyButton";
 import PropTypes from "prop-types";
+import CherryRating from "../CherryRating/CherryRating";
 
 const reportTypes = [
   "Mal vocabulario",
@@ -73,6 +74,7 @@ function Comment({ comment }) {
 
       setDate(`${day} de ${month} de ${year}`);
     }
+    console.log(comment);
   }, [comment]);
 
   return (
@@ -105,11 +107,7 @@ function Comment({ comment }) {
         </div>
         <div className={styles.utils}>
           <div className={styles.qualification}>
-            <TbCherry className={styles.cherry}/>
-            <TbCherry className={styles.cherry}/>
-            <TbCherry className={styles.cherry}/>
-            <TbCherry className={styles.cherry}/>
-            <TbCherry className={styles.cherry}/>
+            <CherryRating value={comment ? comment.calificacion : 0} readOnly={true} className={styles.cherries}/>
           </div>
           <div
             className={styles.report}
