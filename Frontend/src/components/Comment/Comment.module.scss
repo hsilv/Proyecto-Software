@@ -74,14 +74,13 @@ $backgColor: #c1c1c1;
   svg {
     height: 1.5rem;
     width: 1.5rem;
+    cursor: pointer;
+    fill: $darker;
+    fill-opacity: 0;
+    transition: fill-opacity 0.4s ease;
 
-    path:not(:first-child) {
-      cursor: pointer;
-      fill: none;
-      transition: fill 1s ease;
-      &:hover {
-        fill: $darker;
-      }
+    &:hover{
+      fill-opacity: 1;
     }
   }
 }
@@ -94,6 +93,7 @@ $backgColor: #c1c1c1;
 }
 
 .repModal {
+  z-index: 5000;
   transition: background 0.5s ease;
   font-family: "League Spartan", sans-serif;
   position: absolute;
@@ -106,6 +106,7 @@ $backgColor: #c1c1c1;
   justify-content: center;
   align-items: center;
   background-color: transparent;
+  overflow: hidden;
 }
 
 .repShowed {

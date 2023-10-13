@@ -74,7 +74,6 @@ function Comment({ comment }) {
 
       setDate(`${day} de ${month} de ${year}`);
     }
-    console.log(comment);
   }, [comment]);
 
   return (

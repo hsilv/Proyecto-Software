@@ -94,7 +94,7 @@ $blockColor: #fae0d4;
     position: relative;
     padding-inline: 15px;
     cursor: pointer;
-    transition: padding-left 0.7s ease, transform 0.2s ease;
+    transition: padding-left 0.7s ease;
 
     &::before{
         content: url('/assets/comment.svg');
@@ -111,7 +111,6 @@ $blockColor: #fae0d4;
 
     &:hover{
         padding-left: 50px;
-        transform: scale(1.05);
 
         &::before{
             opacity: 1;
