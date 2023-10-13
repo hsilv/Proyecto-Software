@@ -6,13 +6,13 @@ import user from '../routes/user/index.js';
 import search from '../routes/search/index.js';
 import misc from '../routes/misc/index.js';
 import collections from '../routes/collections/index.js';
-import { getAllCollections, getAllComments, getAllRecipes, getAllSavedRecipes, getAllUsers } from '../utils/getAllTables.js';
+import { getAllCollections, getAllComments, getAllSavedRecipes } from '../utils/getAllTables.js';
 
 const port = process.env.DEPLOY_PORT;
 
 app.listen(port, async () => {
+  // eslint-disable-next-line no-console
   console.log(`Server running on ${port}`);
-  console.log(process.env.STORAGE_CONFIG);
   getAllComments();
   getAllCollections();
   getAllSavedRecipes();

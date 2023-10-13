@@ -4,16 +4,19 @@
 .loginPage{
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color:#d16270;
+  height: 100%;
 }
 
 .loginContainer {
+  box-sizing: border-box;
+  margin-block: 10vh;
   display: flex;
   justify-content: center;
-  height: 89vh;
+  align-items: center;
   width: 60%;
   background-color: #f6e0d3;
-  margin-top: 5%;
   border-radius: 25px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.5);
 }
@@ -26,7 +29,6 @@
   border-top-left-radius: inherit;
   border-bottom-left-radius: inherit;
   padding-left: 25px;
-  padding-top: 50px;
 }
 
 .bakerSVG{
@@ -34,7 +36,6 @@
 }
 
 .formContainer{
-  padding-top: 50px;
   display:flex;
   flex-direction:column;
   justify-content: center;

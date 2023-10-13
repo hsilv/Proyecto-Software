@@ -21,14 +21,14 @@ const truncateDescription = (description, maxWords) => {
   return description;
 };
 
-const SearchResult = ({ data }) => {
+const SearchResult = ({ data, onClick }) => {
   const truncatedDescription = truncateDescription(
     data.descripcion || "No description available",
     30
   );
 
   return (
-    <div className={styles.resultContainer}>
+    <div className={styles.resultContainer} onClick={onClick}>
       <div className={styles.resultContainerImage}>
         <img src={data.miniatura[0] || ""} alt="Thumbnail" />
       </div>
@@ -46,11 +46,11 @@ const SearchResult = ({ data }) => {
   );
 };
 
-const SearchResultsList = ({ data }) => {
+const SearchResultsList = ({ data, onClick }) => {
   return (
     <div>
       {data.map((item) => (
-        <SearchResult key={item.id} data={item} />
+        <SearchResult key={item.id} data={item} onClick={() => onClick(item.id)}/>
       ))}
     </div>
   );

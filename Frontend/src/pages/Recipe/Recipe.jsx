@@ -1,8 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import styles from "./Recipe.module.css";
-import { useAPI } from "../../hooks/useAPI";
-import { SessionContext } from "../../context/sessionContext";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Ratings from "../../components/Ratings/Ratings";
@@ -10,20 +9,19 @@ import { TbFolderPlus, TbHeartPlus } from "react-icons/tb";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import CommentBlock from "../../components/CommentBlock/CommentBlock";
+import { useRecipeDetails } from "../../hooks/api/useRecipe";
+import { useSimilarRecipes } from "../../hooks/api/useSimilarRecipes";
+import { useRecipeComments } from "../../hooks/api/useComments";
 
 
 function Recipe() {
-  const { fetchAPI, loading } = useAPI();
   let { id } = useParams();
   const navigate = useNavigate();
-  const [searchResults, setSearchResults] = useState([]);
-  const [detailsRecipe, setDetailsRecipe] = useState([
-    {
-      nombre: "Placeholder",
-      ingredientes: ["", ""],
-    },
-  ]);
-  const [comments, setComments] = useState();
+  const [refreshComments, setRefreshComments] = useState(0);
+  const [recipeCountry, setRecipeCountry] = useState("");
+  const {getRecipeDetails, resultRecipeDetails: detailsRecipe} = useRecipeDetails(id);
+  const {resultSimilarRecipes: similarRecipes, getSimilarRecipes} = useSimilarRecipes();
+  const {getRecipeComments, resultRecipeComments: comments, loadingRecipeComments} = useRecipeComments();
 
   const renderBlock = (title, subtitle) => (
     <div className={styles.Block}>
@@ -64,64 +62,23 @@ function Recipe() {
   }
 
   useEffect(() => {
-    const fetchDetailsRecipe = async () => {
-      try {
-        const res = await fetchAPI({
-          method: "GET",
-          route: `recipe?id=${id}`,
-          body: null,
-          log: false,
-          showReply: false,
-        });
-        setDetailsRecipe(res.data[0]);
-      } catch (error) {
-        console.error("Error fetching recipe details: ", error);
-      }
-    };
-
-    const fetchComments = async () => {
-      try {
-        const res = await fetchAPI({
-          method: "GET",
-          route: `recipe/comments?id=${id}`,
-          body: null,
-          log: true,
-          showReply: true,
-        });
-        setComments(res);
-      } catch (error) {
-        console.error("Error fetching recipe comments: ", error);
-      }
-    }
-    fetchDetailsRecipe();
-    fetchComments();
+    getRecipeDetails();
+    getRecipeComments(id);
   }, [id]); 
 
   useEffect(() => {
-    const fetchSimilarRecipes = async () => {
-      if (detailsRecipe.pais) {
-        try {
-          const res = await fetchAPI({
-            method: "GET",
-            route: `search?text=${detailsRecipe.pais}`,
-            body: null,
-            log: false,
-            showReply: false,
-          });
-          setSearchResults(res);
-        } catch (error) {
-          console.error("Error fetching similar recipes: ", error);
-        }
-      }
-    };
-
-    fetchSimilarRecipes();
-  }, [detailsRecipe.pais]);
-
+    if(refreshComments === 1){
+      getRecipeComments(id)
+    }
+  }, [refreshComments])
 
   useEffect(() => {
-    console.log(comments);
-  }, [comments]);
+    if (detailsRecipe.pais) setRecipeCountry(detailsRecipe.pais);
+  }, [detailsRecipe.pais]);
+
+  useEffect(() => {
+    getSimilarRecipes(recipeCountry);
+  }, [recipeCountry])
 
   return (
     <>
@@ -144,12 +101,12 @@ function Recipe() {
             <TbFolderPlus fontSize={'24px'} />
             <TbHeartPlus fontSize={'24px'} />
           </div>
-          <h1>{detailsRecipe.nombre}</h1>
+          <h1>{detailsRecipe ? detailsRecipe.nombre : 'Placeholder'}</h1>
           <Ratings value={detailsRecipe.avg_calificacion} color={'#434343'} />
           <p>{detailsRecipe.descripcion}</p>
           <div className={styles.DetailsContainer}>
             {renderBlock(detailsRecipe.tiempo, 'minutes')}
-            {renderBlock(detailsRecipe.ingredientes?.length, 'ingredients')}
+            {renderBlock(detailsRecipe ? detailsRecipe.ingredientes?.length : 0, 'ingredients')}
             {renderBlock(detailsRecipe.porciones, 'portion(s)')}
             {renderBlock(detailsRecipe.calorias, 'calories/portion')}
           </div>
@@ -167,7 +124,7 @@ function Recipe() {
               <Swiper
                 slidesPerView="3"
               >
-                {searchResults?.map((recipe) => (
+                {similarRecipes?.map((recipe) => (
                   <SwiperSlide key={recipe.id}>
                     <div className={styles.SimilarRecipesImageContainer} onClick={() => {navigate(`/recipe/${recipe.id}`)}}><img src={recipe.miniatura[0]}/></div>
                   </SwiperSlide>
@@ -177,9 +134,9 @@ function Recipe() {
             </div>
           </div>
           <div className={styles.RecipeInstructions}>
-            {renderIngredients('Ingredients', detailsRecipe.ingredientes)}
+            {renderIngredients('Ingredients', detailsRecipe ? detailsRecipe.ingredientes : ["", ""])}
             {renderSteps('Steps', detailsRecipe.paso)}
-            <CommentBlock comments={comments? (comments.status? undefined: comments) : comments} loading={loading}/>
+            <CommentBlock comments={comments? (comments.status? undefined: comments) : comments} loading={loadingRecipeComments} idRecipe={parseInt(id)} refreshTrigger={setRefreshComments}/>
           </div>
         </div>
       </div>

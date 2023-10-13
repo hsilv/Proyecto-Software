@@ -88,8 +88,8 @@ router.get('/ByCategory', async (req, res) => {
 
     const filtered = [];
 
-    result.data.map((recipe) => {
-      recipe.receta_categoria.map((categoria) => {
+    result.data.forEach((recipe) => {
+      recipe.receta_categoria.forEach((categoria) => {
         if (categoria.categoria_id.categoria === req.query.categoria) {
           filtered.push(recipe);
         }
@@ -144,15 +144,81 @@ router.get('/comments', async (req, res) => {
         res.status(200).json(data);
       }
     } else {
-      res
-        .status(404)
-        .json({ status: 404, message: 'La receta no existe' });
+      res.status(404).json({ status: 404, message: 'La receta no existe' });
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     res
       .status(500)
       .json({ error: 'Error al obtener comentarios de la receta' });
+  }
+});
+
+router.post('/comments/check', async (req, res) => {
+  try {
+    if (!req.body || !req.body.id_recipe || !req.body.id_user) {
+      res
+        .status(400)
+        .json({ error: 'Datos insuficientes' });
+    } else {
+      const { error, data } = await database
+        .from('comentario')
+        .select('*')
+        .eq('receta_id', req.body.id_recipe)
+        .eq('autor_id', req.body.id_user);
+      if (error) {
+        res
+          .status(500)
+          .json({ error: 'Error al obtener comentarios de la receta' });
+      } else if (data) {
+        if (data.length === 0) {
+          res
+            .status(200)
+            .json({ found: false });
+        } else {
+          res.status(200).json({ found: true });
+        }
+      } else {
+        res.status(404).json({ status: 404, message: 'La receta no existe' });
+      }
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('\x1b[1;31m%s\x1b[0m', error);
+    res
+      .status(500)
+      .json({ error: 'Error al obtener comentarios de la receta' });
+  }
+});
+
+router.post('/comments', async (req, res) => {
+  let date = new Date();
+  date = date.toUTCString();
+  try {
+    if (!req.body || !req.body.id_recipe || !req.body.id_user) {
+      res
+        .status(400)
+        .json({ error: 'Datos insuficientes para publicar la receta' });
+    } else {
+      const { error } = await database.from('comentario').insert({
+        autor_id: req.body.id_user,
+        receta_id: req.body.id_recipe,
+        fecha: date,
+        comentario: req.body.comment ? req.body.comment : '',
+        calificacion: req.body.qualification,
+      });
+      if (error) {
+        console.log(error);
+        throw new Error(error);
+      } else {
+        res.status(201).json({ message: 'Comentario hecho' });
+      }
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    res.status(500).json({ error: 'Error al publicar comentario en receta' });
   }
 });
 

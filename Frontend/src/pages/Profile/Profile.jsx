@@ -3,26 +3,24 @@ import NavBar from "../../components/NavBar/NavBar";
 import ProfileNav from "../../components/ProfileNav/ProfileNav";
 import style from "./Profile.module.css";
 import Edit from "/assets/edit-btn.svg";
-import Button from "../../components/Button/Button";
 import { SessionContext } from "../../context/sessionContext";
 import RecipePreview from "../../components/RecipePreview/RecipePreview";
 import { useNavigate } from "react-router-dom";
-import { useAPI } from "../../hooks/useAPI";
 import Collection from "../../components/Collection/Collection";
 import Modal from "../../components/Modal/Modal";
 import CollectionModal from "../../components/Collection/CollectionModal";
+import { useRecipesByUser } from "../../hooks/api/useRecipesByUser";
+import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
 
 function Profile() {
   const [selected, setSelected] = useState(1);
   const [editMode, setEditMode] = useState(false);
   const [editedValues, setEditedValues] = useState(["", ""]);
   const { userInfo } = useContext(SessionContext);
-  const [userRecipes, setUserRecipes] = useState([]);
-  const [userCollections, setUserCollections] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedCollection, setSelectedCollection] = useState();
-  const [transStyles, setTransStyles] = useState(false);
-  const { fetchAPI } = useAPI();
+  const {getRecipesByUser, resultRecipesByUser: userRecipes} = useRecipesByUser();
+  const {getCollectionsByUser, resultCollectionsByUser: userCollections} = useCollectionsByUser();
   const navigate = useNavigate();
 
   const recipeClickHandler = (recipeID) => {
@@ -33,12 +31,6 @@ function Profile() {
     setShowModal(true);
     setSelectedCollection(id);
   }
-
-  useEffect(() => {
-    if(showModal){
-      setTimeout(() => setTransStyles(true), 50)
-    }
-  }, [showModal])
 
   const showCurrent = () => {
     if (selected === 1) {
@@ -79,41 +71,8 @@ function Profile() {
   };
 
   useEffect(() => {
-    if (userInfo.username) {
-      const fetchUserRecipes = async () => {
-        try {
-          const res = await fetchAPI({
-            method: "GET",
-            route: `recipe/byUser?username=${userInfo.username}`,
-            body: null,
-            log: true,
-            showReply: true,
-          });
-          setUserRecipes(res.data);
-        } catch (error) {
-          console.error("Error fetching user recipes: ", error);
-        }
-      };
-      fetchUserRecipes();
-    }
-
-    if (userInfo.idUser) {
-      const fetchCollections = async () => {
-        try {
-          const res = await fetchAPI({
-            method: "GET",
-            route: `collections/ByUser?id=${userInfo.idUser}`,
-            body: null,
-            log: true,
-            showReply: true,
-          });
-          setUserCollections(res);
-        } catch (error) {
-          console.error("Error fetching user collections: ", error);
-        }
-      };
-      fetchCollections();
-    }
+    getRecipesByUser(userInfo.username);
+    getCollectionsByUser(userInfo.idUser);
   }, []);
 
   const handleNameChange = (event) => {

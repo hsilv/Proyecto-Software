@@ -33,7 +33,7 @@ function Login() {
     }
   };
 
-  const subtmitWithKey = (e) => {
+  const submitWithKey = (e) => {
     if(e.key === "Enter"){
       handleLogin();
     }
@@ -78,7 +78,7 @@ function Login() {
             <Input
               value={form.values.username}
               onChange={form.onChange("username")}
-              onKeyDown={subtmitWithKey}
+              onKeyDown={submitWithKey}
               name="username"
               label="Username"
               type="text"
@@ -87,7 +87,7 @@ function Login() {
             <Input
               value={form.values.password}
               onChange={form.onChange("password")}
-              onKeyDown={subtmitWithKey}
+              onKeyDown={submitWithKey}
               name="password"
               placeholder=""
               label="Password"
