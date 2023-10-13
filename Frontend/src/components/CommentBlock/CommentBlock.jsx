@@ -1,8 +1,9 @@
 import Comment from "../Comment/Comment";
+import NewComment from "../NewComment/NewComment";
 import styles from "./CommentBlock.module.scss";
 import PropTypes from "prop-types";
 
-function CommentBlock({ comments, loading }) {
+function CommentBlock({ comments, loading, idRecipe }) {
   return (
     <>
       <div className={styles.title}>
@@ -21,6 +22,7 @@ function CommentBlock({ comments, loading }) {
           </div>
         )}
       </div>
+      {loading ? '' : <NewComment idRecipe={idRecipe}/>}
     </>
   );
 }
@@ -38,8 +40,9 @@ CommentBlock.propTypes = {
         username: PropTypes.string,
       }),
     })
-  ).isRequired,
+  ),
   loading: PropTypes.bool.isRequired,
+  idRecipe: PropTypes.number.isRequired,
 };
 
 export default CommentBlock;

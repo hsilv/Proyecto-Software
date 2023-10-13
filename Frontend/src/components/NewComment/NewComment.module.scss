@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap");
+$darker: #bf3545;
+$darker2: #e65364;
+$blockColor: #fae0d4;
+
+.newComment {
+  font-family: "League Spartan", sans-serif;
+  background-color: $darker;
+  padding-inline: 20px;
+  padding-block: 13px;
+  border-radius: 10px;
+  margin-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 13px;
+}
+
+.pfp {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1/1;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  column-gap: 20px;
+  flex-wrap: wrap;
+  background-color: $blockColor;
+  border-radius: 10px;
+  padding-inline: 20px;
+  padding-block: 15px;
+  flex-grow: 1;
+}
+
+.username {
+  font-weight: bold;
+  font-size: large;
+  color: $darker;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  column-gap: 20px;
+}
+
+.qualification {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: $blockColor;
+  padding-inline: 20px;
+  padding-block: 15px;
+  border-radius: 10px;
+
+  svg{
+    width: 1em;
+    height: 1em;
+  }
+}
+
+.commentForm {
+    display: flex;
+    flex-direction: column;
+    row-gap: inherit;
+}
+
+.commentInput{
+    resize: none;
+}
+
+.sendButton{
+    box-sizing: border-box;
+    border-radius: 10px;
+    min-height: 50px;
+    max-height: 50px;
+    max-width: 200px;
+    justify-self: center;
+    align-self: end;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    font-size: 1em;
+    background-color: $darker2;
+    color: $blockColor;
+    position: relative;
+    padding-inline: 15px;
+    cursor: pointer;
+    transition: padding-left 0.7s ease, transform 0.2s ease;
+
+    &::before{
+        content: url('/public/assets/comment.svg');
+        display: inline-block;
+        object-fit: contain;
+        height: 50px;
+        width: 50px;
+        position: absolute;
+        left: 0.5ch;
+        top: 13px;
+        opacity: 0;
+        transition: opacity 0.7s ease;
+    }
+
+    &:hover{
+        padding-left: 50px;
+        transform: scale(1.05);
+
+        &::before{
+            opacity: 1;
+        }
+    }
+}
+
+.commentInput {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  border-radius: 10px;
+  padding-inline: 15px;
+}
+
+.rating{
+    svg{
+        width: 1.5em;
+        height: 1.5em;
+    }
+}

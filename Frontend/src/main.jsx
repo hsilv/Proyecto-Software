@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import '@smastrom/react-rating/style.css'
 import App from './App'
 import './index.css'
 

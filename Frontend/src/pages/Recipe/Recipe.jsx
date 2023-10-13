@@ -129,7 +129,7 @@ function Recipe() {
           <div className={styles.RecipeInstructions}>
             {renderIngredients('Ingredients', detailsRecipe ? detailsRecipe.ingredientes : ["", ""])}
             {renderSteps('Steps', detailsRecipe.paso)}
-            <CommentBlock comments={comments? (comments.status? undefined: comments) : comments} loading={loadingRecipeComments}/>
+            <CommentBlock comments={comments? (comments.status? undefined: comments) : comments} loading={loadingRecipeComments} idRecipe={parseInt(id)}/>
           </div>
         </div>
       </div>

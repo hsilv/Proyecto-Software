@@ -12,6 +12,7 @@ function useRecipeComments() {
   useEffect(() => {
     if (error) {
       console.error(`Error fetching recipe comments : `, error.status, error.message);
+      console.log(error);
     }
   }, [error]);
 
@@ -29,11 +30,49 @@ function useRecipeComments() {
     });
   };
 
+  const postRecipeComment = async ({
+    id_user,
+    id_recipe,
+    comment,
+    qualification,
+  }) => {
+    await fetchAPI({
+      method: "POST",
+      route: `recipe/comments`,
+      body: {
+        id_user: parseInt(id_user),
+        id_recipe: parseInt(id_recipe),
+        comment,
+        qualification: parseFloat(qualification),
+      },
+      log: false,
+      showReply: true,
+    });
+  }
+
+  const checkUserComment = async ({
+    id_user,
+    id_recipe,
+  }) => {
+    await fetchAPI({
+      method: "POST",
+      route: `recipe/comments/check`,
+      body: JSON.stringify({
+        id_user: parseInt(id_user),
+        id_recipe: parseInt(id_recipe),
+      }),
+      log: false,
+      showReply: false,
+    });
+  }
+
   return {
     resultRecipeComments,
     errorRecipeComments: error,
     loadingRecipeComments: loading,
-    getRecipeComments
+    getRecipeComments,
+    postRecipeComment,
+    checkUserComment,
   };
 }
 
