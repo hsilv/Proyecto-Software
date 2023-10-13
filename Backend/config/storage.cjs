@@ -1,5 +1,4 @@
 /* eslint-disable class-methods-use-this */
-const { init, getItem, setItem } = require('node-persist');
 require('dotenv').config();
 
 class ExpressStorage {

@@ -40,6 +40,7 @@ const options = {
 
 class DatabaseInstance {
   constructor() {
+    // eslint-disable-next-line no-console
     console.log('Incializando Storage...');
     initStorage();
     this.database = createClient(
@@ -47,6 +48,7 @@ class DatabaseInstance {
       process.env.SUPABASE_KEY,
       options,
     );
+    // eslint-disable-next-line no-console
     console.log('Conexión a base de datos satisfactoria');
   }
 }

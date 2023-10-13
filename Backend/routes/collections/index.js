@@ -65,7 +65,8 @@ router.get('/allRecipes', async (req, res) => {
         .select('*')
         .eq('id', req.query.id);
       if (collError) {
-        console.log(collError);
+        // eslint-disable-next-line no-console
+        console.error('\x1b[1;31m%s\x1b[0m', collError);
         res
           .status(500)
           .json({ error: true, message: 'Error interno en el servidor' });
@@ -85,7 +86,8 @@ router.get('/allRecipes', async (req, res) => {
       res.status(200).json(data);
     }
   } else if (error || !data) {
-    console.error(error);
+    // eslint-disable-next-line no-console
+    console.error('\x1b[1;31m%s\x1b[0m', error);
     res
       .status(500)
       .json({ error: true, message: 'Error interno en el servidor' });

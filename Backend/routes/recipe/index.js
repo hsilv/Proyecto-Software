@@ -88,8 +88,8 @@ router.get('/ByCategory', async (req, res) => {
 
     const filtered = [];
 
-    result.data.map((recipe) => {
-      recipe.receta_categoria.map((categoria) => {
+    result.data.forEach((recipe) => {
+      recipe.receta_categoria.forEach((categoria) => {
         if (categoria.categoria_id.categoria === req.query.categoria) {
           filtered.push(recipe);
         }
@@ -149,6 +149,7 @@ router.get('/comments', async (req, res) => {
         .json({ status: 404, message: 'La receta no existe' });
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     res
       .status(500)
