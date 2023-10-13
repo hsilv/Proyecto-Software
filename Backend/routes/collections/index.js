@@ -59,6 +59,8 @@ router.post('/addRecipe', async (req, res) => {
 
       if (error) {
         throw new Error(error);
+      } else {
+        res.status(201).json({ message: 'Receta añadida a colección' });
       }
     }
   } catch (error) {

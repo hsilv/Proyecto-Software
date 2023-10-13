@@ -7,11 +7,13 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: transparent;
+  overflow: hidden;
 }
 
 .collShowed {
@@ -30,6 +32,8 @@
   box-shadow: 2px 2px 5px 1px rgb(123, 123, 123);
   min-width: 20vw;
   max-width: 35vw;
+  max-height: 70vh;
+  overflow: auto;
 }
 
 .modalHeader{
