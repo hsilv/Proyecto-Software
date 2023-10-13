@@ -9,14 +9,15 @@ const CategoryCard = ({ icon, name, value }) => {
         navigate("/SearchPage/" + value);
     };
 
-    return(
+    return (
         <>
             <div className={styles.CategoryCardContainer} onClick={handleCardClick}>
-                {icon}
+                <div className={styles.IconContainer}>
+                    {icon}
+                </div>
                 <h3>{name}</h3>
             </div>
         </>
-
     );
 }
 

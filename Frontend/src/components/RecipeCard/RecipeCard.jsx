@@ -41,6 +41,8 @@ const RecipeCard = ({ recipe }) => {
           <TbCherryFilled color="#BF3545" fontSize={'1.7rem'} />
           <Ratings style={{ marginLeft: '10px' }} value={recipe.avg_calificacion} color={'#F2F2F2'}/>
         </div>
+
+
       </div>
     </div>
   );

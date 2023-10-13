@@ -18,6 +18,9 @@ function Home() {
   const { fetchAPI } = useAPI();
   const [popularRecipes, setPopularRecipes] = useState([]);
   const { checkSession, userInfo } = useContext(SessionContext);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+
+
 
   useEffect(() => {
     const fetchPopularRecipes = async () => {
@@ -54,7 +57,7 @@ function Home() {
       <div className={styles.homeElementsContainer}>
         <div className={styles.welcomeBackContainer}>
           <div className={styles.welcomeBackInfo}>
-            <h1 style={{ fontSize: '1.7rem' }}>Hey there {userInfo.name}!</h1>
+            <h1 style={{ fontSize: '3rem' }}>Hey there {userInfo.name}!</h1>
             <p>Are you feeling hungry for some delicious inspiration? Get ready to explore a world of amazing recipes!</p>
           </div>
           <img src="assets/pancakes.png" alt="Pancakes" />
