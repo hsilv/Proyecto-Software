@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, /* useState  */} from "react";
 import styles from "./Home.module.css";
 import NavBar from "../../components/NavBar/NavBar";
 import { SessionContext } from "../../context/sessionContext";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import 'swiper/swiper.css';
+import 'swiper/modules/effect-coverflow.css';
+import 'swiper/modules/pagination.css';
+import 'swiper/modules/navigation.css';
 import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
@@ -15,12 +15,13 @@ import { usePopularRecipes } from "../../hooks/api/usePopularRecipes";
 
 function Home() {
   const { checkSession, userInfo } = useContext(SessionContext);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
+  /* const [imagesLoaded, setImagesLoaded] = useState(0); */
   const {resultPopularRecipes: popularRecipes, getPopularRecipes} = usePopularRecipes();
 
   useEffect(() => {
     getPopularRecipes();
     checkSession();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
