@@ -1,7 +1,20 @@
 /* eslint-disable no-undef */
+import dotenv from 'dotenv';
 import request from 'supertest';
 import app from '../bin/index.js';
 import storage from '../config/storage.cjs';
+
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'development';
+}
+
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else if (process.env.NODE_ENV === 'development') {
+  dotenv.config({ path: '.env.development' });
+} else if (process.env.NODE_ENV === 'testing') {
+  dotenv.config({ path: '.env.test' });
+}
 
 const server = app;
 

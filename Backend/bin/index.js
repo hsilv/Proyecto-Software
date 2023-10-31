@@ -11,11 +11,13 @@ import { getAllCollections, getAllComments, getAllSavedRecipes } from '../utils/
 const port = process.env.DEPLOY_PORT;
 
 app.listen(port, async () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server running on ${port}`);
-  getAllComments();
-  getAllCollections();
-  getAllSavedRecipes();
+  if (process.env.NODE_ENV !== 'testing') {
+    // eslint-disable-next-line no-console
+    console.log(`Server running on ${port}`);
+    getAllComments();
+    getAllCollections();
+    getAllSavedRecipes();
+  }
 });
 
 app.use('/auth/', auth);

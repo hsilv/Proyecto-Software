@@ -1,5 +1,6 @@
 const storage = require('node-persist');
 require('dotenv').config();
+const dotenv = require('dotenv');
 const { createClient } = require('@supabase/supabase-js');
 
 async function initStorage() {
@@ -40,6 +41,17 @@ const options = {
 
 class DatabaseInstance {
   constructor() {
+    if (!process.env.NODE_ENV) {
+      process.env.NODE_ENV = 'development';
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      dotenv.config({ path: '.env.production' });
+    } else if (process.env.NODE_ENV === 'development') {
+      dotenv.config({ path: '.env.development' });
+    } else if (process.env.NODE_ENV === 'testing') {
+      dotenv.config({ path: '.env.testing' });
+    }
     // eslint-disable-next-line no-console
     console.log('Incializando Storage...');
     initStorage();
