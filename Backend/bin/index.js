@@ -10,15 +10,18 @@ import { getAllCollections, getAllComments, getAllSavedRecipes } from '../utils/
 
 const port = process.env.DEPLOY_PORT;
 
-app.listen(port, async () => {
-  if (process.env.NODE_ENV !== 'testing') {
+// eslint-disable-next-line import/no-mutable-exports
+if (process.env.NODE_ENV !== 'testing') {
+  app.listen(port, async () => {
+    if (process.env.NODE_ENV !== 'testing') {
     // eslint-disable-next-line no-console
-    console.log(`Server running on ${port}`);
-    getAllComments();
-    getAllCollections();
-    getAllSavedRecipes();
-  }
-});
+      console.log(`Server running on ${port}`);
+      getAllComments();
+      getAllCollections();
+      getAllSavedRecipes();
+    }
+  });
+}
 
 app.use('/auth/', auth);
 app.use('/recipe/', recipe);
