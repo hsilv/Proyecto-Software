@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const app = express();
 app.use(cors({
-  origin: ['http://165.227.240.90', 'http://localhost'],
+  origin: ['http://165.227.240.90', 'http://localhost:5173'],
 }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
