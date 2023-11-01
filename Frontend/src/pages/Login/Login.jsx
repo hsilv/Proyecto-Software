@@ -109,10 +109,10 @@ function Login() {
 
           <p className="main-paragraph">
             No tienes cuenta aún?
-            <span className="p1">
-              <NavLink to="/SignUp">Registrate aquí</NavLink>
-            </span>
           </p>
+          <span className="p1">
+            <NavLink to="/SignUp">Registrate aquí</NavLink>
+          </span>
         </div>
       </div>
     </div>

@@ -4,19 +4,15 @@
 .loginPage{
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color:#d16270;
-  height: 100%;
 }
 
 .loginContainer {
-  box-sizing: border-box;
-  margin-block: 10vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  height: 80vh;
   width: 60%;
   background-color: white;
+  margin-top: 5%;
   border-radius: 25px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.5);
 }
@@ -46,13 +42,11 @@
   border-bottom-right-radius: inherit;
 }
 
-
-
 .loginTitle {
   font-size: 40px;
   font-family: Raleway, sans-serif;
-  font-weight: 800;
-  color: #f19c7d;
+  font-weight: 700;
+  color: #35356E;
 }
 
 .inputContainer {
@@ -61,54 +55,23 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
-  
-}
-
-.inputContainer label input{
-  background-color: #f9f6f2;
 }
 
 .errorMsg {
   font-family: Raleway, sans-serif;
   margin-bottom: 10px;
   transition: 0.1s;
-  color: rgb(243, 87, 87);
-  font-weight: bold;
 }
 
 .errorMsg.gone {
   display: none;
 }
 
-.main-paragraph {
+p, a {
   padding: 10px 0px;
   font-family: Raleway, sans-serif;
-  color: #b13f63;
-  text-align: center;
 }
 
-
-.p1{
-  display: block;
-  margin-block: 10px;
-  padding: 0px 10px 0 20px;
-  font-size: 120%;
-  font-family: Raleway, sans-serif;
-  color: #dc686b;
-  font-weight: bold;
-  text-decoration: underline;
-  transition: text-shadow 0.3s; 
-}
-
-.p1 a:visited{
-  color: inherit;
-  text-decoration: none;
-}
-
-.p1 a{
-  text-decoration: none;
-}
-
-.p1:hover {
-  text-shadow: 2px 2px 4px rgba(170, 41, 41, 0.3); /* Define la sombra de texto en hover */
+.loginContainer h1 {
+  margin-left: 0;
 }
