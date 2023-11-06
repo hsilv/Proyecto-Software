@@ -43,7 +43,7 @@
   max-width: 70%;
   font-size: 1.3rem;
   font-weight: 400;
-  margin-bottom: 7%;
+  margin-bottom: 4%;
 }
 
 .desc {
@@ -185,4 +185,23 @@ textarea:focus {
 
 .collectionPreview:hover{
   transform: scale(1.1);
+}
+
+.followBtn {
+  font-size: 1.05rem;
+  margin-bottom: 4%;
+  background-color: transparent;
+  color: #BF3545;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #BF3545;
+  width: 50%;
+  font-family: 'Raleway', sans-serif;
+  transition: 0.2s;
+}
+
+.followBtn:hover {
+  background-color: #BF3545;
+  color: #fff;
 }

@@ -12,21 +12,82 @@ import CollectionModal from "../../components/Collection/CollectionModal";
 import { useUserByID } from "../../hooks/api/useUserByID";
 import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
 import { useRecipesByUser } from "../../hooks/api/useRecipesByUser";
+import { useAPI } from "../../hooks/useAPI";
 
 function Profile() {
+  const {loading: loadingAPI, error, fetchAPI} = useAPI();
   const [ selected, setSelected ] = useState(1);
-  const { checkSession } = useContext(SessionContext);
+  const [ isUserFollowing, setIsUserFollowing ] = useState(false);
+  const { checkSession, userInfo} = useContext(SessionContext);
   const {getRecipesByUser, resultRecipesByUser: userRecipes} = useRecipesByUser();
   const [showModal, setShowModal] = useState(false);
   const [selectedCollection, setSelectedCollection] = useState();
   let { username } = useParams();
   const navigate = useNavigate();
-  const {resultUserByID: userInfo, getUserByID} = useUserByID();
+  const {resultUserByID: userVInfo, getUserByID} = useUserByID();
   const {getCollectionsByUser, resultCollectionsByUser: userCollections} = useCollectionsByUser();
 
   const recipeClickHandler = (recipeID) => {
-    navigate('/Recipe/'+recipeID)
+    navigate('/Recipe/' + recipeID);
   }
+
+  const isFollowing = async () => {
+    const res = await fetchAPI({
+      method: 'GET',
+      route: `user/isFollowing?uID=${userInfo.idUser}&fID=${userVInfo.id}`,
+      body: null,
+      log: true,
+      showReply: true,
+    });
+
+    setIsUserFollowing(res.length);
+  }
+
+  const toggleFollow = async () => {
+
+    if(!isUserFollowing) {
+      const res = await fetchAPI({
+        method: 'POST',
+        route: 'user/follow',
+        body: JSON.stringify({
+            uID: userInfo.idUser,
+            fID: userVInfo.id,
+        }),
+        log: false,
+        showReply: false,
+      });
+  
+      if(res) {
+          if(res.error){
+            console.log(res);
+          } else {
+            setIsUserFollowing(!isUserFollowing);
+          }
+      }
+
+    } else {
+      const res = await fetchAPI({
+        method: 'DELETE',
+        route: 'user/unfollow',
+        body: JSON.stringify({
+          uID: userInfo.idUser,
+          fID: userVInfo.id,
+        }),
+        log: false,
+        showReply: false,
+      });
+
+      if(res) {
+        if(res.error){
+          console.log(res);
+        } else {
+          setIsUserFollowing(!isUserFollowing);
+        }
+      }
+
+    }
+
+  } 
 
   const collectionClickHandler = (id) => {
     setShowModal(true);
@@ -46,7 +107,7 @@ function Profile() {
         )
       } else {
         return (
-          <span className={style.noData}>{userInfo.username} no ha publicado recetas</span>
+          <span className={style.noData}>{userVInfo.username} no ha publicado recetas</span>
         )
       }
       
@@ -64,7 +125,7 @@ function Profile() {
       } else {
         return (
           <span className={style.noData}>
-            {userInfo.username} no tiene colecciones
+            {userVInfo.username} no tiene colecciones
           </span>
         );
       }
@@ -83,15 +144,20 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    if (userInfo.id) getCollectionsByUser(userInfo.id);
+    if (userVInfo.id) getCollectionsByUser(userVInfo.id);
   },[userInfo]);
+
+  useEffect(() => {
+    if(userInfo.idUser && userVInfo.id) isFollowing();
+  }, [userInfo, userVInfo]);
 
   const loadInfo = () => {
       return (
         <>
-          <span className={style.realName}>{userInfo ? userInfo?.nombre : 'Nombre'}</span>
-          <span className={style.username}>@{userInfo ? userInfo?.username : ''}</span>
-          <span className={style.username}>Followers: {userInfo ? userInfo?.followers : '0'}</span>
+          <span className={style.realName}>{userVInfo ? userVInfo?.nombre : 'Nombre'}</span>
+          <span className={style.username}>@{userVInfo ? userVInfo?.username : ''}</span>
+          <button className={style.followBtn} onClick={toggleFollow}>{isUserFollowing ? 'Unfollow' : 'Follow'}</button>
+          <span className={style.username}>Followers: {userVInfo ? userVInfo?.followers : '0'}</span>
           <p className={style.desc}>descripcion</p>
         </>
       );
@@ -104,7 +170,7 @@ function Profile() {
         <div className={style.infoContainer}>
           <img
             className={style.pfp}
-            src={`https://fakeimg.pl/400x400/f26fb7/ffffff?text=${userInfo.username}`}
+            src={`https://fakeimg.pl/400x400/f26fb7/ffffff?text=${userVInfo.username}`}
           />
           {loadInfo()}
         </div>
