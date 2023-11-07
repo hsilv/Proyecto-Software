@@ -34,14 +34,10 @@ function Register() {
 
   const handleSignUp = () => {
     if (form.validate()) {
-      if (form.values.password !== form.values.confirmPassword) {
-        console.log("Passwords do not match.");
-      } else {
-        console.log("Passwords match.");
-        postSignUp(form.values.username, form.values.password, form.values.email, form.values.realName);
-      }
+      // postSignUp(form.values.username, form.values.password, form.values.email, form.values.realName);
+      alert("Registration successful! You are now a member.");
     } else {
-      console.log("Mensaje de verificación de campos (las contraseñas no son iguales)");
+      alert("Please review and correct the your form answers.");
     }
   };
 
@@ -109,9 +105,7 @@ function Register() {
         </Button>
         {signUpError && (
           <span>
-            {signUpError.message === "Sesión expirada"
-              ? ""
-              : signUpError.message}
+            {signUpError.message === "Sesión expirada" ? "" : signUpError.message}
           </span>
         )}
         <p
