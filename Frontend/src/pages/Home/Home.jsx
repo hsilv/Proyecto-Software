@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import styles from "./Home.module.css";
 import NavBar from "../../components/NavBar/NavBar";
-import { useAPI } from "../../hooks/useAPI";
 import { SessionContext } from "../../context/sessionContext";
 import { TbSeeding, TbCake, TbCoffee, TbAlarm } from "react-icons/tb";
 import { BiParty } from "react-icons/bi";
@@ -13,30 +12,16 @@ import 'swiper/css/navigation';
 import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
+import { usePopularRecipes } from '../../hooks/api/usePopularRecipes';
 
 function Home() {
-  const { fetchAPI } = useAPI();
-  const [popularRecipes, setPopularRecipes] = useState([]);
+  const {getPopularRecipes, resultPopularRecipes: popularRecipes} = usePopularRecipes();
   const { checkSession, userInfo } = useContext(SessionContext);
 
   useEffect(() => {
-    const fetchPopularRecipes = async () => {
-      try {
-        const res = await fetchAPI({
-          method: 'GET',
-          route: 'recipe/',
-          body: null,
-          log: true,
-          showReply: true,
-        });
-        setPopularRecipes(res.data);
-      } catch (error) {
-        console.error("Error fetching popular recipes: ", error);
-      }
-    };
-
-    fetchPopularRecipes();
+    getPopularRecipes();
     checkSession();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Categorias Fijas

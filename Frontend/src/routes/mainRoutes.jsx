@@ -1,5 +1,4 @@
 import { useRoutes } from "react-router-dom"
-import Login from "../pages/Login/Login"
 import Home from "../pages/Home/Home"
 import Recipe from "../pages/Recipe/Recipe"
 import SignUp from "../pages/SignUp/SignUp"

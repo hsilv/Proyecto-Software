@@ -1,4 +1,5 @@
-import './AnyButton.css'
+/* eslint-disable react/prop-types */
+import styles from './AnyButton.module.css'
 
 const AnyButton = ({
   children,
@@ -10,7 +11,7 @@ const AnyButton = ({
 }) => {
     const classNames = classes.join(' ');
     return(<button
-      className={`${'AnyButton'} ${type === 'primary' ? 'primary' : 'secondary'} ${classNames}`}
+      className={`${styles.AnyButton} ${type === 'primary' ? 'primary' : 'secondary'} ${classNames}`}
       type='button'
       onClick={() => {
         if (!loading && !disabled) {

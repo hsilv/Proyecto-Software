@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
-import './Button.css'
+import styles from './Button.module.css'
 
 const Button = ({
   children,
@@ -11,7 +11,7 @@ const Button = ({
   loading = false,
 }) => (
     <button
-      className={`${'button'} ${type === 'primary' ? 'primary' : 'secondary'}`}
+      className={`${styles.button} ${type === 'primary' ? 'primary' : 'secondary'}`}
       type='button'
       role='button'
       onClick={() => {

@@ -1,4 +1,5 @@
-import './IconButton.css'
+/* eslint-disable react/prop-types */
+import styles from './IconButton.module.css'
 
 const IconButton = ({
   children,
@@ -10,7 +11,7 @@ const IconButton = ({
 }) => {
     const classNames = classes.join(' ');
     return(<button
-      className={`${'IconButton'} ${type === 'primary' ? 'primary' : 'secondary'} ${classNames}`}
+      className={`${styles.IconButton} ${type === 'primary' ? 'primary' : 'secondary'} ${classNames}`}
       type='button'
       onClick={() => {
         if (!loading && !disabled) {

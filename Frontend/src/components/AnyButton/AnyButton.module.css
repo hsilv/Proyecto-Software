@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
+
+.AnyButton {
+    background-color: #BF3545;
+    color: #F5F5F5;
+    border-radius: 10px;
+    padding: 13px;
+    cursor: pointer;
+    border: none;
+    font-family: Raleway, sans-serif;
+    font-weight: 600;
+  }
+  
+  .button[disabled] {
+    background-color: #DDD;
+    color: #333;
+    cursor: not-allowed;
+  }
+  
+  .button.secondary {
+    background-color: white;
+    color: #333;
+    border: 1px solid #333;
+  }
+
+  .right{
+    text-align: right;
+  }
+
+  .left{
+    text-align: left;
+  }
+  
