@@ -20,7 +20,7 @@ function useSignUp(){
         else setLoading(false);
     }, [loadingSession, loadingAPI]);
 
-    const signUp = async (username, password, email) => {
+    const signUp = async (username, password, email, name) => {
         const res = await fetchAPI({
             method: 'POST',
             route: 'auth/register',
@@ -28,6 +28,7 @@ function useSignUp(){
                 username: username,
                 password: password,
                 email: email,
+                name,
             }),
             log: true,
             showReply: true,

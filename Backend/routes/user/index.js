@@ -26,9 +26,9 @@ router.get('/', async (req, res) => {
 
 router.post('/follow', async (req, res) => {
   const { error } = await database.from('follow').insert({
-      seguidor: req.body.uID,
-      seguido: req.body.fID,
-    });
+    seguidor: req.body.uID,
+    seguido: req.body.fID,
+  });
   if (error) {
     res.status(500).json({ error: true, message: 'Error de servidor' });
   }
@@ -54,18 +54,19 @@ router.delete('/unfollow', async (req, res) => {
       .delete()
       .eq('seguidor', req.body.uID)
       .eq('seguido', req.body.fID);
-      
+
     if (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
       res.status(500).json({ error: true, message: 'Error de servidor' });
     } else {
       res.status(200).json({ error: false, message: 'Entry deleted successfully' });
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     res.status(500).json({ error: true, message: 'Error de servidor' });
   }
 });
-
 
 export default router;

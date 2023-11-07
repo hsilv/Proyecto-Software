@@ -68,6 +68,7 @@ router.post('/register', async (req, res) => {
         password: req.body.password,
         rol: 'user',
         correo: req.body.email,
+        nombre: req.body.name,
       });
       if (error) {
         res.status(500).json({ error: true, message: 'Error de servidor' });

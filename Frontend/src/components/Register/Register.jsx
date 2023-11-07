@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Register.module.css';
 import Input from '../../components/Input/Input';
 import Joi from 'joi';
@@ -20,6 +19,9 @@ const schema = Joi.object({
 });
 
 function Register() {
+
+  const {signUp, loading, signUpError} = useSignUp();
+
   const form = useForm(schema, {
     realName: '',
     username: '',
@@ -27,8 +29,10 @@ function Register() {
     password: '',
     confirmPassword: '',
   });
-  
-  const loading = false; 
+
+   const postSignUp = async (username, password, email, name) => {
+    signUp(username, password, email, name);
+  }
   
   const handleSignUp = () => {
     if (form.validate()) {
@@ -36,6 +40,7 @@ function Register() {
         console.log("Passwords do not match.");
       } else {
         console.log("Passwords match.");
+        postSignUp(form.values.username, form.values.password, form.values.email, form.values.realName);
       }
     }
   };
@@ -97,6 +102,7 @@ function Register() {
         >
           Sign Up
         </Button>
+        {signUpError && <span>{signUpError.message === 'Sesión expirada' ? '' : signUpError.message}</span>}
         <p style={{ fontFamily: 'League Spartan, sans-serif', fontSize: '14px' }}>
           Already have an account?{' '}
           <NavLink to={'/'} style={{ fontFamily: 'League Spartan, sans-serif', fontSize: '14px' }}>
