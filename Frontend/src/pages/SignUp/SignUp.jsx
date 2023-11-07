@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
-import "./SignUp.css";
-import CookSVG from "/assets/recipe-book-animated.svg";
+import styles from "./SignUp.module.css";
+import Register from "../../components/Register/Register";
+
+
 import Joi from "joi";
 import useForm from "../../hooks/useForm";
-import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { SessionContext } from "../../context/sessionContext";
@@ -40,54 +41,8 @@ function SignUp() {
   };
 
   return (
-    <div className="SignUpPage">
-      <div className="SignUpContainer">
-      <div className="imageContainerSignUp">
-          <object className="bakerSVGSignUp" type="image/svg+xml" data={CookSVG}>
-            svg-animation
-          </object>
-        </div>
-        <div className="formContainer">
-          <h1 className="SignUpTitle">SignUp</h1>
-          <div className="inputContainer">
-            <Input
-              value={form.values.username}
-              onChange={form.onChange("username")}
-              name="username"
-              label="Username"
-              type="text"
-              required
-            />
-            <Input
-              value={form.values.password}
-              onChange={form.onChange("password")}
-              name="password"
-              placeholder=""
-              label="Password"
-              type="password"
-              required
-            />
-            <Input
-              value={form.values.email}
-              onChange={form.onChange("email")}
-              name="email"
-              label="Email"
-              type="email"
-              required
-            />
-          </div>
-
-          <Button
-            type="primary"
-            onClick={handleSignUp}
-            disabled={!form.values.username || !form.values.password || !form.values.email}
-            loading={loading}
-          >
-            SignUp
-          </Button>
-          <NavLink className="signReturn" to={'/'}>Already have an account?</NavLink>
-        </div>
-      </div>
+    <div className={styles.mainContainer}>
+      <Register />
     </div>
   );
 }
