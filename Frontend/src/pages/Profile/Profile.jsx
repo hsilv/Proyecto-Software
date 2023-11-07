@@ -85,9 +85,9 @@ function Profile() {
     setEditedValues([editedValues[0], event.target.value]);
   };
 
-  useEffect(() => {
+/*   useEffect(() => {
     console.table(userInfo);
-  }, [userInfo]);
+  }, [userInfo]); */
 
   /* const handleConfirm = async (name, desc) => {
     if (name === '' && data[3] !== '') {

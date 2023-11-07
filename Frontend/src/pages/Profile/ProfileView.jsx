@@ -150,6 +150,7 @@ function Profile() {
   }, []);
 
   useEffect(() => {
+    if (userInfo.username === username) navigate('/profile');
     if (userVInfo.id) getCollectionsByUser(userVInfo.id);
   },[userInfo]);
 

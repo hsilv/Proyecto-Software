@@ -21,7 +21,6 @@ const MainRoutes = () => {
         { path: "/", element: <SignUp style={contentStyle} /> },
         { path: "/Home", element: <Home style={contentStyle} /> },
         { path: "/Recipe/:id", element: <Recipe style={contentStyle} /> },
-       /*  { path: "/SignUp", element: <SignUp style={contentStyle} /> }, */
         { path: "/Profile", element: <Profile style={contentStyle} /> },
         { path: "/SearchPage/:search", element: <SearchPage style={contentStyle} /> },
         { path: "/Profile/:username", element: <ProfileView style={contentStyle} /> },

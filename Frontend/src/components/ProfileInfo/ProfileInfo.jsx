@@ -45,7 +45,7 @@ function ProfileInfo() {
       </div>
       <div className={styles.bioInformation}>
         <p><b>{userInfo ? userInfo.followers : '0'} Followers</b></p>
-        <p>"{userInfo ? userInfo.desc : 'User description goes here.'}User description goes here."</p>
+        <p>&quot;{userInfo ? userInfo.desc : 'User description goes here.'}User description goes here.&quot;</p>
       </div>
     </div>
   );
