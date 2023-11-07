@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const app = express();
 app.use(cors({
-  origin: ['http://165.227.240.90', 'http://localhost:5173'],
+  origin: ['http://165.227.240.90', 'http://localhost:5173', 'https://cookapp.app', 'https://www.cookapp.app'],
 }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
