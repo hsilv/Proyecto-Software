@@ -16,7 +16,7 @@ import { useAPI } from "../../hooks/useAPI";
 import { useNotifications } from "../../hooks/api/useNotifications";
 
 function Profile() {
-  const {loading: loadingAPI, error, fetchAPI} = useAPI();
+  const { fetchAPI } = useAPI();
   const [ selected, setSelected ] = useState(1);
   const [ isUserFollowing, setIsUserFollowing ] = useState(false);
   const { checkSession, userInfo} = useContext(SessionContext);
@@ -150,7 +150,7 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    if (userInfo.username === username) navigate('/profile');
+    if (userInfo.username === username) navigate('/profile', { replace: true });
     if (userVInfo.id) getCollectionsByUser(userVInfo.id);
   },[userInfo]);
 

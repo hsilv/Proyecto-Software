@@ -1,11 +1,12 @@
 import styles from "./Comment.module.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { TbFlag } from "react-icons/tb";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Modal from "../Modal/Modal";
 import { CgClose } from "react-icons/cg";
 import AnyButton from "../AnyButton/AnyButton";
 import PropTypes from "prop-types";
+import { SessionContext } from "../../context/sessionContext";
 import CherryRating from "../CherryRating/CherryRating";
 
 const reportTypes = [
@@ -30,7 +31,9 @@ const months = [
 
 function Comment({ comment }) {
   const navigate = useNavigate();
+  const { userInfo } = useContext(SessionContext);
   const [showModal, setShowModal] = useState(false);
+  const [isOwned, setOwned] = useState(false);
   const [transStyles, setTransStyles] = useState(false);
   const [date, setDate] = useState("");
 
@@ -65,16 +68,21 @@ function Comment({ comment }) {
   }, [showModal]);
 
   useEffect(() => {
-    if (comment.fecha) {
-      let date = comment.fecha.slice(0, 10).split("-");
+    if (comment) {
+      if (comment.fecha) {
+        let date = comment.fecha.slice(0, 10).split("-");
 
-      const year = date[0];
-      const month = months[parseInt(date[1] - 1)];
-      const day = date[2];
+        const year = date[0];
+        const month = months[parseInt(date[1] - 1)];
+        const day = date[2];
 
-      setDate(`${day} de ${month} de ${year}`);
+        setDate(`${day} de ${month} de ${year}`);
+      }
+      if (comment.usuario.username === userInfo.username) {
+        setOwned(true);
+      }
     }
-  }, [comment]);
+  }, [comment, userInfo]);
 
   return (
     <div className={styles.container}>
@@ -95,7 +103,7 @@ function Comment({ comment }) {
               className={styles.pfp}
             />
           </NavLink>
-          <span className={styles.nameSpan} onClick={onUserClick} >
+          <span className={styles.nameSpan} onClick={onUserClick}>
             {comment
               ? comment.usuario
                 ? `@${comment.usuario.username}`
@@ -106,17 +114,22 @@ function Comment({ comment }) {
         </div>
         <div className={styles.utils}>
           <div className={styles.qualification}>
-            <CherryRating value={comment ? comment.calificacion : 0} readOnly={true} className={styles.cherries}/>
+            <CherryRating
+              value={comment ? comment.calificacion : 0}
+              readOnly={true}
+              className={styles.cherries}
+            />
           </div>
-          <div
-            className={styles.report}
-            onClick={onFlagClick}
-          >
-            <TbFlag />
-          </div>
+          {!isOwned && (
+            <div className={styles.report} onClick={onFlagClick}>
+              <TbFlag />
+            </div>
+          )}
         </div>
       </div>
-      <span className={styles.commentSpan}>{comment ? comment.comentario : '...'}</span>
+      <span className={styles.commentSpan}>
+        {comment ? comment.comentario : "..."}
+      </span>
       <Modal show={showModal}>
         <div
           className={
