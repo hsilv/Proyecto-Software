@@ -50,7 +50,7 @@ const NavBar = () => {
 
 
   return (
-<div className={styles.NavbarContainer} style={{ position: "fixed", top: 0, width: "100%", zIndex: 1000 }}>
+    <div className={styles.NavbarContainer}>
       <NavLink className={styles.LeftAlignedContent} to={"/Home"}>
         <TbChefHat style={{marginRight:'5px'}} fontSize={'24px'} />
         CookApp

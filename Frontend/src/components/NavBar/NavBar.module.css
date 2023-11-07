@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Press+Start+2P&display=swap');
-
 
 .NavbarContainer {
-    box-sizing: border-box;
     background-color: #BF3545;
     color: #F2F2F2;
     font-weight: 600;
-    height: 90px;
+    height: 56px;
+    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.4));
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +20,6 @@
     align-items: center;
     cursor: pointer;
     text-decoration: none;
-    font-family: Raleway, sans-serif;
 }
 
 .icons {
@@ -33,11 +30,6 @@
 
 .icons > *:not(:last-child) {
     margin-right: 20px;
-}
-
-.item{
-    box-sizing: border-box;
-    width: 100%;
 }
 
 .userIcon {
@@ -54,8 +46,8 @@
     z-index: 1;
     min-width: 150px;
     text-align: center;
-    display: block;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .item:not(:last-child) {
@@ -64,7 +56,6 @@
 
 .dropdownContent a,
 .dropdownContent button {
-    display: inline-block;
     width: inherit;
     padding: 10px;
     text-decoration: none;
@@ -73,18 +64,10 @@
     font-weight: 300;
     font-size: 1rem;
     border: none;
-    cursor: pointer;
-}
-
-.dropdownContent button {
-    width: 100%;
 }
 
 .dropdownContent a:hover,
 .dropdownContent button:hover {
     background-color: #d8d7d7;
-}
-
-.dropdownContent a:visited{
-    color: black;
+    cursor: pointer;
 }

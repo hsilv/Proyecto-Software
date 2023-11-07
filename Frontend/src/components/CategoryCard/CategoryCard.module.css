@@ -2,24 +2,19 @@
 
 .CategoryCardContainer {
   height: 8em;
-  width: 16em;
-  background-color: #eb8171;
-  border-radius: 16px;
+  width: 17em;
+  background-color: #dedede;
+  border-radius: 10px;
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   cursor: pointer; 
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
-.IconContainer {
-  color: white;
-}
-
-
 .CategoryCardContainer:hover {
-  background-color: #f5b78e;
+  background-color: #c0c0c0;
   transform: scale(1.05); 
 }
 
@@ -27,11 +22,10 @@
   font-family: 'Aclonica', sans-serif;
   font-size: 1.2rem;
   transition: color 0.2s ease-in-out; 
-  color: white;
 }
 
 .CategoryCardContainer:hover h3 {
-  color: #7c0404;
+  color: #333;
 }
 
 .CategoryCardContainer > *:not(:last-child) {
