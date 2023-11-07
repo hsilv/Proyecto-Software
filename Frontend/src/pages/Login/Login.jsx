@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import "./Login.css";
+import "./Login.module.css";
 import BakerSVG from "/assets/poke-bowl-animate.svg";
 import { SessionContext } from "../../context/sessionContext";
 import { NavLink, useNavigate } from "react-router-dom";

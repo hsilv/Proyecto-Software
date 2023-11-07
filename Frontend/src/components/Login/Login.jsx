@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Joi from "joi";
 import styles from "./Login.module.css";
 import Input from "../../components/Input/Input";
@@ -5,7 +6,7 @@ import useForm from "../../hooks/useForm";
 import Button from "../../components/Button/Button";
 import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "../../context/sessionContext";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import loginImage from "/assets/login.jpg";
 
 const schema = Joi.object({
@@ -105,7 +106,7 @@ function LoginComponent({ pageCallback }) {
           <p
             style={{ fontFamily: "League Spartan, sans-serif", fontSize: "14px" }}
           >
-            Don't have an account yet?{" "}
+            Don&apos;t have an account yet?{" "}
             <button className={styles.linkButton}
               onClick={() => pageCallback(false)}
             >
