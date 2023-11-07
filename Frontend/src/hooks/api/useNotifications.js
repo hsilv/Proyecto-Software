@@ -12,7 +12,7 @@ function useNotifications() {
   }, [error]);
 
   useEffect(() => {
-    if (result) setResultNotifications(result);
+    if (result) setResultNotifications(result.reverse());
   }, [result])
 
   const getNotifications = async (userID) => {
@@ -40,12 +40,25 @@ function useNotifications() {
     });
   };
 
+  const deleteNotification = async ( id ) => {
+    await fetchAPI({
+      method: 'DELETE',
+      route: `user/deleteNotification`,
+      body: JSON.stringify({
+        id: id,
+      }),
+      log: false,
+      showReply: false,
+    });
+  };
+
   return {
     resultNotifications,
     errorNotifications: error,
     loadingNotifications: loading,
     getNotifications,
-    postNotification
+    postNotification,
+    deleteNotification,
   };
 }
 

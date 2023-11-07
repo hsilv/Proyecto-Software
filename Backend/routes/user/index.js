@@ -74,8 +74,9 @@ router.get('/notifications', async (req, res) => {
   try {
     result = await database.from('notifications')
       .select(`
+        id,
         description,
-        recipeid,
+        receta!notifications_recipeid_fkey(id, nombre),
         usuario!notifications_senderid_fkey(id, username)
       `)
       .eq('recipientid', req.query.recipientID);
@@ -110,6 +111,26 @@ router.post('/postNotification', async (req, res) => {
     res.status(500).json({ error: true, message: 'Error de servidor' });
   }
   res.status(200).json({ error: false, message: 'Notificación creada exitosamente' });
+});
+
+router.delete('/deleteNotification', async (req, res) => {
+  try {
+    const { error } = await database.from('notifications')
+      .delete()
+      .eq('id', req.body.id)
+
+    if (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+      res.status(500).json({ error: true, message: 'Error de servidor' });
+    } else {
+      res.status(200).json({ error: false, message: 'Entry deleted successfully' });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    res.status(500).json({ error: true, message: 'Error de servidor' });
+  }
 });
 
 

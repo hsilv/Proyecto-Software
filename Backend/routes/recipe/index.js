@@ -129,7 +129,7 @@ router.get('/comments', async (req, res) => {
   try {
     const { error, data } = await database
       .from('comentario')
-      .select('*, usuario (username)')
+      .select('*, usuario (id, username)')
       .eq('receta_id', req.query.id);
     if (error) {
       res

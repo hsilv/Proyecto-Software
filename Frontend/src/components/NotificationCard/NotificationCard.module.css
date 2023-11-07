@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+
+.notificationCard {
+    height: fit-content;
+    padding: 1rem 5%;
+    font-size: 1rem;
+    color: #434343;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    background-color: #FFF;
+    margin-top: 10px;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+}
+
+.notificationCard:first-child {
+    margin: 0;
+}
+
+.notificationHeader {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    align-items: flex-start;
+}
+
+.recipeTitle {
+    font-family: 'Raleway', sans-serif;
+    padding: 0;
+    padding-top: 10px;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.notificationSenderName {
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+}
+
+.notificationDescription {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    font-weight: lighter;
+}
+
+.dot {
+    height: 0.6rem;
+    width: 0.6rem;
+    background-color: #bf3545;
+    border-radius: 50%;
+    align-self: center;
+    
+}
+
+.notificationCardContent {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}

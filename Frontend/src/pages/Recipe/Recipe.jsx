@@ -236,7 +236,7 @@ function Recipe() {
             <div className={styles.cardModalBody}>
               <ul className={styles.collList}>
                 {resultCollectionsByUser ? (
-                  resultCollectionsByUser.map((value) => {
+                  resultCollectionsByUser.length > 0 && resultCollectionsByUser.map((value) => {
                     return (
                       <li
                         key={`${value.id} ${value.nombre} ${value.user_id}`}
