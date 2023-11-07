@@ -3,7 +3,6 @@ import Input from "../../components/Input/Input";
 import Joi from "joi";
 import useForm from "../../hooks/useForm";
 import Button from "../../components/Button/Button";
-import { NavLink } from "react-router-dom";
 import { useSignUp } from "../../hooks/useSignUp";
 import registerImage from "/assets/register.jpg";
 
@@ -17,6 +16,7 @@ const schema = Joi.object({
   confirmPassword: Joi.ref("password"),
 });
 
+// eslint-disable-next-line react/prop-types
 function Register({ pageCallback }) {
   const { signUp, loading, signUpError } = useSignUp();
 
@@ -28,6 +28,7 @@ function Register({ pageCallback }) {
     confirmPassword: "",
   });
 
+  // eslint-disable-next-line no-unused-vars
   const postSignUp = async (username, password, email, name) => {
     signUp(username, password, email, name);
   };

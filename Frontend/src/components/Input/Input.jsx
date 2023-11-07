@@ -1,5 +1,5 @@
-import React from 'react'
-import './Input.css'
+/* eslint-disable react/prop-types */
+import style from './Input.module.css'
 
 const Input = ({
   label,
@@ -12,7 +12,7 @@ const Input = ({
   onKeyDown
 }) => {
   return (
-    <div className= 'inputContainer'>
+    <div className= {style.inputContainer}>
       <label htmlFor={name}>
         <span>{label || name}{required ? '*' : ''}</span>
         <input
