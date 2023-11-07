@@ -6,6 +6,7 @@ import SignUp from "../pages/SignUp/SignUp"
 import Profile from "../pages/Profile/Profile"
 import ProfileView from '../pages/Profile/ProfileView'
 import SearchPage from "../pages/Search/SearchPage"
+import CreateRecipe from "../pages/CreateRecipe/CreateRecipe"
 import { useContext } from "react"
 import { NavContext } from "../context/navContext"
 
@@ -25,6 +26,7 @@ const MainRoutes = () => {
         { path: "/Profile", element: <Profile style={contentStyle} /> },
         { path: "/SearchPage/:search", element: <SearchPage style={contentStyle} /> },
         { path: "/Profile/:username", element: <ProfileView style={contentStyle} /> },
+        { path: "/CreateRecipe", element: <CreateRecipe style={contentStyle} />},
       ]);
     
       return routes;

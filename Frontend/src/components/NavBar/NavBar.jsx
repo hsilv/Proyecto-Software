@@ -80,7 +80,7 @@ const NavBar = ({  }) => {
               )}
             </div>
             
-            <div className={styles.userIcon}>
+            <div className={styles.userIcon} onClick={() => navigate('/CreateRecipe')}>
               <TbSquareRoundedPlus />
             </div>
 
