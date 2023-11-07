@@ -12,16 +12,26 @@ import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import { categories } from "../../data/home";
 import { usePopularRecipes } from "../../hooks/api/usePopularRecipes";
+import { useNotifications } from "../../hooks/api/useNotifications";
 
 function Home() {
   const { checkSession, userInfo } = useContext(SessionContext);
   const {resultPopularRecipes: popularRecipes, getPopularRecipes} = usePopularRecipes();
+  const {resultNotifications: notifications, getNotifications} = useNotifications();
 
   useEffect(() => {
     getPopularRecipes();
     checkSession();
   }, []);
 
+  useEffect(() => {
+    getNotifications(userInfo.idUser);
+  }, [userInfo]);
+
+  // vvvvv Borrar cuando se implemente el front vvvvv
+  useEffect(() => {
+    console.log(notifications);
+  }, [notifications]);
 
   return (
     <>

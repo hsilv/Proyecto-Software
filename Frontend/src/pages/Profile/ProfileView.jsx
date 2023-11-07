@@ -13,6 +13,7 @@ import { useUserByID } from "../../hooks/api/useUserByID";
 import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
 import { useRecipesByUser } from "../../hooks/api/useRecipesByUser";
 import { useAPI } from "../../hooks/useAPI";
+import { useNotifications } from "../../hooks/api/useNotifications";
 
 function Profile() {
   const {loading: loadingAPI, error, fetchAPI} = useAPI();
@@ -26,6 +27,7 @@ function Profile() {
   const navigate = useNavigate();
   const {resultUserByID: userVInfo, getUserByID} = useUserByID();
   const {getCollectionsByUser, resultCollectionsByUser: userCollections} = useCollectionsByUser();
+  const {postNotification} = useNotifications();
 
   const recipeClickHandler = (recipeID) => {
     navigate('/Recipe/' + recipeID);
@@ -64,6 +66,10 @@ function Profile() {
             setIsUserFollowing(!isUserFollowing);
           }
       }
+
+      // TODO: Actualmente, se pueden spammear estas notificaciones modo insano.
+      // Se debe revisar si ya existe una notificacion igual antes de llamar esto (o evitar entradas repetidas en la mera base de datos)
+      postNotification(`${userInfo.username} is now following you <3`, userVInfo.id, userInfo.idUser, null);
 
     } else {
       const res = await fetchAPI({

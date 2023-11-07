@@ -215,6 +215,7 @@ function Recipe() {
               loading={loadingRecipeComments}
               idRecipe={parseInt(id)}
               refreshTrigger={setRefreshComments}
+              idOP={detailsRecipe.usuario?.id}
             />
           </div>
         </div>

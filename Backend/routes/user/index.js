@@ -69,4 +69,48 @@ router.delete('/unfollow', async (req, res) => {
   }
 });
 
+router.get('/notifications', async (req, res) => {
+  let result;
+  try {
+    result = await database.from('notifications')
+      .select(`
+        description,
+        recipeid,
+        usuario!notifications_senderid_fkey(id, username)
+      `)
+      .eq('recipientid', req.query.recipientID);
+    res.status(200).json(result.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener información' });
+  }
+});
+
+router.get('/getFollowers', async (req, res) => {
+  let result;
+  try {
+    result = await database.from('follow')
+      .select(`
+        usuario!fk_follower(id, username)
+      `)
+      .eq('seguido', req.query.id);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener información' });
+  }
+});
+
+router.post('/postNotification', async (req, res) => {
+  const { error } = await database.from('notifications').insert({
+      description: req.body.description,
+      recipientid: req.body.recipientID,
+      senderid: req.body.senderID,
+      recipeid: req.body.recipeID,
+    });
+  if (error) {
+    res.status(500).json({ error: true, message: 'Error de servidor' });
+  }
+  res.status(200).json({ error: false, message: 'Notificación creada exitosamente' });
+});
+
+
 export default router;

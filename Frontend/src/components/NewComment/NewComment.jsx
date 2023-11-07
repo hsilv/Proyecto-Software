@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "../../context/sessionContext";
 import { useRecipeComments } from "../../hooks/api/useComments";
+import { useNotifications } from "../../hooks/api/useNotifications";
 import styles from "./NewComment.module.scss";
 import CherryRating from "../CherryRating/CherryRating";
 
-function NewComment({ idRecipe, refreshTrigger }) {
+function NewComment({ idRecipe, refreshTrigger, idOP }) {
   const { userInfo } = useContext(SessionContext);
   const [rating, setRating] = useState(1);
   const [posted, setPosted] = useState(false);
@@ -18,6 +19,7 @@ function NewComment({ idRecipe, refreshTrigger }) {
     checkUserComment,
     postRecipeComment,
   } = useRecipeComments();
+  const {postNotification} = useNotifications();
 
   useEffect(() => {
     if (userInfo) {
@@ -67,6 +69,7 @@ function NewComment({ idRecipe, refreshTrigger }) {
       id_recipe: idRecipe,
     });
     setPosted(true);
+    postNotification(`${userInfo.username} rated your recipe :)`, idOP, userInfo.idUser, idRecipe);
   };
 
   useEffect(() => {

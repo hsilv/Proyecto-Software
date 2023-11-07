@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
           calorias,
           porciones,
           usuario (
-            username
+            id, username
           ),
           miniatura (
               url

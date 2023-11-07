@@ -3,7 +3,7 @@ import NewComment from "../NewComment/NewComment";
 import styles from "./CommentBlock.module.scss";
 import PropTypes from "prop-types";
 
-function CommentBlock({ comments, loading, idRecipe, refreshTrigger }) {
+function CommentBlock({ comments, loading, idRecipe, refreshTrigger, idOP }) {
   return (
     <>
       <div className={styles.title}>
@@ -22,7 +22,7 @@ function CommentBlock({ comments, loading, idRecipe, refreshTrigger }) {
           </div>
         )}
       </div>
-      {loading ? '' : <NewComment idRecipe={idRecipe} refreshTrigger={refreshTrigger}/>}
+      {loading ? '' : <NewComment idRecipe={idRecipe} refreshTrigger={refreshTrigger} idOP={idOP}/>}
     </>
   );
 }
