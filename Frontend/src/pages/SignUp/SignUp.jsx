@@ -3,7 +3,7 @@ import styles from "./SignUp.module.css";
 import Register from "../../components/Register/Register";
 import { useNavigate } from "react-router-dom";
 import { SessionContext } from "../../context/sessionContext";
-import LoginComponent from "../../components/LogIn/LogIn";
+import LoginComponent from "../../components/Login/Login";
 
 function SignUp() {
   const {logged} = useContext(SessionContext);
