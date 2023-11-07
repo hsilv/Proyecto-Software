@@ -12,6 +12,8 @@ import CollectionModal from "../../components/Collection/CollectionModal";
 import { useRecipesByUser } from "../../hooks/api/useRecipesByUser";
 import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
 
+import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
+
 function Profile() {
   const [selected, setSelected] = useState(1);
   const [editMode, setEditMode] = useState(false);
@@ -176,6 +178,12 @@ function Profile() {
   return (
     <>
       <NavBar />
+      <div className={style.mainContainer}>
+        <div className={style.userInfoContainer}>
+          <ProfileInfo/>
+        </div>
+      </div>
+
       <div className={style.profileWrapper}>
         <div className={style.infoContainer}>
           <img
