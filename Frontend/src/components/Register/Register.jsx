@@ -112,7 +112,7 @@ function Register({ pageCallback }) {
           style={{ fontFamily: "League Spartan, sans-serif", fontSize: "14px" }}
         >
           Already have an account?{" "}
-          <button
+          <button className={styles.linkButton}
             onClick={() => pageCallback(true)}
           >
             Sign in

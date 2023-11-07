@@ -106,7 +106,7 @@ function LoginComponent({ pageCallback }) {
             style={{ fontFamily: "League Spartan, sans-serif", fontSize: "14px" }}
           >
             Don't have an account yet?{" "}
-            <button
+            <button className={styles.linkButton}
               onClick={() => pageCallback(false)}
             >
               Register here

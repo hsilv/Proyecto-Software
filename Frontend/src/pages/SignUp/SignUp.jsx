@@ -6,19 +6,24 @@ import { SessionContext } from "../../context/sessionContext";
 import LoginComponent from "../../components/Login/Login";
 
 function SignUp() {
-  const {logged} = useContext(SessionContext);
+  const { logged } = useContext(SessionContext);
   const [currentPage, setCurrentPage] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(logged){
+    if (logged) {
       navigate('/Home');
     }
   }, [logged, navigate]);
 
   return (
     <div className={styles.mainContainer}>
-      {currentPage ? <LoginComponent pageCallback={setCurrentPage}/> : <Register pageCallback={setCurrentPage}/>}
+      <div className={currentPage ? styles.fade_in : styles.fade_out}>
+        {currentPage ? <LoginComponent pageCallback={setCurrentPage} /> : null}
+      </div>
+      <div className={!currentPage ? styles.fade_in : styles.fade_out}>
+        {!currentPage ? <Register pageCallback={setCurrentPage} /> : null}
+      </div>
     </div>
   );
 }
