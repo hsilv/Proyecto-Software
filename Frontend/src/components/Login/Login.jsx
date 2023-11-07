@@ -17,7 +17,7 @@ const schema = Joi.object({
     .required(),
 });
 
-function LoginComponent() {
+function LoginComponent({ pageCallback }) {
   const form = useForm(schema, { username: "", password: "" });
   const [errState, setErrState] = useState(false);
   const [errMessage, setErrMessage] = useState();
@@ -106,15 +106,11 @@ function LoginComponent() {
             style={{ fontFamily: "League Spartan, sans-serif", fontSize: "14px" }}
           >
             Don't have an account yet?{" "}
-            <NavLink
-              to={"/SignUp"}
-              style={{
-                fontFamily: "League Spartan, sans-serif",
-                fontSize: "14px",
-              }}
+            <button
+              onClick={() => pageCallback(false)}
             >
               Register here
-            </NavLink>
+            </button>
           </p>
         </div>
       </div>

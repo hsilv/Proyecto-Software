@@ -17,7 +17,7 @@ const schema = Joi.object({
   confirmPassword: Joi.ref("password"),
 });
 
-function Register() {
+function Register({ pageCallback }) {
   const { signUp, loading, signUpError } = useSignUp();
 
   const form = useForm(schema, {
@@ -112,15 +112,11 @@ function Register() {
           style={{ fontFamily: "League Spartan, sans-serif", fontSize: "14px" }}
         >
           Already have an account?{" "}
-          <NavLink
-            to={"/"}
-            style={{
-              fontFamily: "League Spartan, sans-serif",
-              fontSize: "14px",
-            }}
+          <button
+            onClick={() => pageCallback(true)}
           >
             Sign in
-          </NavLink>
+          </button>
         </p>
       </div>
     </div>
