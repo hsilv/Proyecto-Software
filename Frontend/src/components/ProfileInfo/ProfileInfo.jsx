@@ -2,23 +2,39 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './ProfileInfo.module.css';
 import { SessionContext } from '../../context/sessionContext';
 import { TbEdit } from 'react-icons/tb';
+import Button from "../../components/Button/Button";
 
 function ProfileInfo() {
   const { userInfo } = useContext(SessionContext);
   const [editMode, setEditMode] = useState(false);
-  const [editedValues, setEditedValues] = useState(["", ""]);
+  const [editedValues, setEditedValues] = useState({
+    description: userInfo ? userInfo.desc : '',
+  });
 
   useEffect(() => {
     console.table(userInfo);
   }, [userInfo]);
 
+  const handleEditClick = () => {
+    setEditMode(true);
+  };
+
   const handleDescChange = (event) => {
-    setEditedValues([editedValues[0], event.target.value]);
+    setEditedValues({
+      description: event.target.value,
+    });
+  };
+
+  const handleSave = () => {
+    // Logica de backend
+    setEditMode(false);
   };
 
   const handleCancel = () => {
     setEditMode(false);
-    setEditedValues(["", ""]);
+    setEditedValues({
+      description: userInfo ? userInfo.desc : 'User description goes here...',
+    });
   };
 
   return (
@@ -38,14 +54,35 @@ function ProfileInfo() {
               <p>@{userInfo ? userInfo.username : 'Username'}</p>
             </div>
             <div className={styles.userIcon}>
-              <TbEdit fontSize={'30px'} />
+              {editMode ? (
+                <>
+                  <button className={styles.profileButton} onClick={handleSave}>Save</button>
+                  <button className={styles.secprofileButton} onClick={handleCancel}>Cancel</button>
+                </>
+              ) : (
+                <TbEdit fontSize={'30px'} onClick={handleEditClick} />
+              )}
             </div>
           </div>
         </div>
       </div>
       <div className={styles.bioInformation}>
-        <p><b>{userInfo ? userInfo.followers : '0'} Followers</b></p>
-        <p>&quot;{userInfo ? userInfo.desc : 'User description goes here.'}User description goes here.&quot;</p>
+        {editMode ? (
+          <textarea
+            className={styles.textAreaStyle}
+            placeholder='Enter your new bio here'
+            maxLength={70}
+            value={editedValues.description}
+            onChange={handleDescChange}
+          />
+        ) : (
+          <>
+            <p>
+              <b>{userInfo ? userInfo.followers : '0'} Followers</b>
+            </p>
+            <p>&quot;{editedValues.description}&quot;</p>
+          </>
+        )}
       </div>
     </div>
   );

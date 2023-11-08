@@ -1,111 +1,160 @@
 .mainContainer {
-    width: 100%;
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-  }
-  
-  .headerImage {
-    position: relative;
-    width: 100%;
-    background-image: url('/assets/profile.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 25vh;
-  }
-  
-  .headerOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-  }
-  
-  .headerContent {
-    position: relative;
-    z-index: 1;
-    padding: 50px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    justify-content: space-between;
-  }
-  
-  .profileImage {
-    border-radius: 50%;
-    width: 13rem;
-    height: 13rem;
-    object-fit: cover;
-    background-color: blueviolet;
-  }
-  
-  .profileImage img {
-    border-radius: inherit;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .headerTitle {
-    display: flex;
-    color: #FFFF;
-    flex-direction: column;
-    text-align: right;
-  }
-  
-  .headerTitle p {
-    font-size: 1.3rem;
-    margin-block-start: 0em;
-    font-family: 'League Spartan', sans-serif;
-  }
-  
-  .headerContent h1 {
-    font-size: 2.5rem;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    font-family: 'Aclonica', sans-serif;
-  }
-  
-  .bioInformation {
-    display: flex;
-    padding: 20px 50px;
-    flex-direction: column;
-    align-items: flex-end;
-    height: 25vh;
-  }
-  
-  .userInfoColumn p {
-    font-size: 1.2rem;
-    margin-block-end: 0em;
-    margin-block-start: 0em;
-    font-family: 'League Spartan', sans-serif;
-  }
+  width: 100%;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
 
-  .bioInformation p {
-    font-size: 1.2rem;
-    margin-block-end: 0em;
-    margin-block-start: 0em;
-    font-family: 'League Spartan', sans-serif;
-  }
+.headerImage {
+  position: relative;
+  width: 100%;
+  background-image: url('/assets/profile.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 25vh;
+}
 
-  .userIcon {
-    color: #FFFF;
-    cursor: pointer;
-  }
-  
-  .userInfo {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .userInfoColumn {
-    display: flex;
-    color: #FFFF;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-  
+.headerOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.headerContent {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  position: relative;
+  z-index: 1;
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.profileImage {
+  border-radius: 50%;
+  width: 13rem;
+  height: 13rem;
+  object-fit: cover;
+  background-color: blueviolet;
+}
+
+.profileImage img {
+  border-radius: inherit;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.headerTitle {
+  display: flex;
+  color: #FFFF;
+  flex-direction: column;
+  text-align: right;
+}
+
+.headerTitle p {
+  font-size: 1.3rem;
+  margin-block-start: 0em;
+  font-family: 'League Spartan', sans-serif;
+}
+
+.headerContent h1 {
+  font-size: 2.5rem;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  font-family: 'Aclonica', sans-serif;
+}
+
+.bioInformation {
+  display: flex;
+  padding: 20px 50px;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  height: 25vh;
+}
+
+.userInfoColumn p {
+  font-size: 1.2rem;
+  margin-block-end: 0em;
+  margin-block-start: 0em;
+  font-family: 'League Spartan', sans-serif;
+}
+
+.bioInformation p {
+  font-size: 1.2rem;
+  margin-block-end: 0.5em;
+  margin-block-start: 0.5em;
+  font-family: 'League Spartan', sans-serif;
+}
+
+.userIcon {
+  color: #FFFF;
+  cursor: pointer;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.userInfoColumn {
+  display: flex;
+  color: #FFFF;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profileButton {
+  background-color: #BF3545;
+  margin: 5px;
+  color: #F5F5F5;
+  border-radius: 5px;
+  padding: 10px 22px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'League Spartan', sans-serif;
+  transition: background-color 0.3s;
+}
+
+.secprofileButton {
+  background-color: transparent;
+  color: #FFF;
+  margin: 5px;
+  border-radius: 5px;
+  padding: 8px 20px;
+  border: 2px solid #BF3545;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'League Spartan', sans-serif;
+  transition: background-color 0.3s;
+}
+.profileButton:hover {
+  background-color: #7a1d27; 
+  color: #FFF; 
+}
+
+.secprofileButton:hover {
+  background-color:  #7a1d27; 
+  color: #FFF; 
+  border: 2px solid #7a1d27;
+}
+
+.textAreaStyle {
+  margin-top: 27px;
+  padding: 20px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 40%;
+  font-family: 'League Spartan', sans-serif;
+}
+
