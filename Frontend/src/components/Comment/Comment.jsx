@@ -80,11 +80,10 @@ function Comment({ comment, refreshTrigger }) {
     const vocabulary = formRef.current.checkbox0.checked;
     const mean = formRef.current.checkbox1.checked;
     const outOfContext = formRef.current.checkbox2.checked;
-    console.log(comment);
-    console.log(userInfo);
     if (comment.id) {
       flagComment({flagger: userInfo.idUser, comment: comment.comentario, autor_id: comment.autor_id, id_comment: comment.id, observation, vocabulary, mean, outOfContext})
     }
+    closeModal();
   };
 
   const onDeleteClick = () => {
