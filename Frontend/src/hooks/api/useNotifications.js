@@ -7,13 +7,21 @@ function useNotifications() {
 
   useEffect(() => {
     if (error) {
-      console.error(`Error fetching notifications : `, error.status, error.message);
+      console.error(
+        `Error fetching notifications : `,
+        error.status,
+        error.message
+      );
     }
   }, [error]);
 
   useEffect(() => {
-    if (result) setResultNotifications(result.reverse());
-  }, [result])
+    if (result) {
+      if (result !== true) {
+        setResultNotifications(result.reverse());
+      }
+    }
+  }, [result]);
 
   const getNotifications = async (userID) => {
     await fetchAPI({
@@ -25,7 +33,12 @@ function useNotifications() {
     });
   };
 
-  const postNotification = async (description, recipientID, senderID, recipeID) => {
+  const postNotification = async (
+    description,
+    recipientID,
+    senderID,
+    recipeID
+  ) => {
     await fetchAPI({
       method: "POST",
       route: `user/postNotification`,
@@ -40,9 +53,9 @@ function useNotifications() {
     });
   };
 
-  const deleteNotification = async ( id ) => {
+  const deleteNotification = async (id) => {
     await fetchAPI({
-      method: 'DELETE',
+      method: "DELETE",
       route: `user/deleteNotification`,
       body: JSON.stringify({
         id: id,
