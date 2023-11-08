@@ -1,4 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import dayjs from 'dayjs';
 import { database } from '../../db/database.cjs';
 import { verifyToken } from '../../utils/signToken.js';
 
@@ -177,6 +181,32 @@ router.delete('/comments', async (req, res) => {
     res
       .status(400)
       .json({ error: true, message: 'Header de autorización vacío' });
+  }
+});
+
+router.post('/comments/flag', async (req, res) => {
+  const day = dayjs().format('DD-MM-YYYY');
+  const newReport = `${day}: ${JSON.stringify(req.body)}\n`;
+  const reportsDir = './reports';
+  const reportsPath = path.join(__dirname, reportsDir);
+
+  if (!fs.existsSync(reportsPath)) {
+    try {
+      fs.mkdirSync(reportsPath, { recursive: true });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ status: 500, message: 'Error al crear el directorio' });
+    }
+  }
+
+  const filePath = path.join(reportsPath, `${day}.txt`);
+
+  try {
+    fs.appendFileSync(filePath, newReport);
+    return res.status(200).json({ status: 200, message: 'Denuncia completada :)' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ status: 500, message: 'Error al escribir en el archivo' });
   }
 });
 
