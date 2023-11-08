@@ -2,12 +2,14 @@ import styles from "./Comment.module.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { TbFlag } from "react-icons/tb";
 import { useEffect, useState, useContext } from "react";
+import { AiTwotoneDelete } from "react-icons/ai";
 import Modal from "../Modal/Modal";
 import { CgClose } from "react-icons/cg";
 import AnyButton from "../AnyButton/AnyButton";
 import PropTypes from "prop-types";
 import { SessionContext } from "../../context/sessionContext";
 import CherryRating from "../CherryRating/CherryRating";
+import { useRecipeComments } from "../../hooks/api/useComments";
 
 const reportTypes = [
   "Mal vocabulario",
@@ -32,10 +34,12 @@ const months = [
 function Comment({ comment }) {
   const navigate = useNavigate();
   const { userInfo } = useContext(SessionContext);
-  const [showModal, setShowModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isOwned, setOwned] = useState(false);
   const [transStyles, setTransStyles] = useState(false);
   const [date, setDate] = useState("");
+  const {deleteRecipeOwnComment} = useRecipeComments();
 
   const onUserClick = () => {
     navigate(
@@ -48,11 +52,12 @@ function Comment({ comment }) {
   };
 
   const onFlagClick = () => {
-    setShowModal(true);
+    setShowReportModal(true);
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    setShowReportModal(false);
+    setShowDeleteModal(false);
     setTransStyles(false);
   };
 
@@ -61,11 +66,21 @@ function Comment({ comment }) {
     closeModal();
   };
 
+  const onDeleteClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const deleteComment = () => {
+    console.log("This should delete a comment");
+    deleteRecipeOwnComment({id_recipe: comment.receta_id});
+    closeModal();
+  }
+
   useEffect(() => {
-    if (showModal) {
+    if (showReportModal || showDeleteModal) {
       setTimeout(() => setTransStyles(true), 50);
     }
-  }, [showModal]);
+  }, [showReportModal, showDeleteModal]);
 
   useEffect(() => {
     if (comment) {
@@ -125,12 +140,17 @@ function Comment({ comment }) {
               <TbFlag />
             </div>
           )}
+          {isOwned && (
+            <div className={styles.deleteOwn} onClick={onDeleteClick}>
+              <AiTwotoneDelete />
+            </div>
+          )}
         </div>
       </div>
       <span className={styles.commentSpan}>
         {comment ? comment.comentario : "..."}
       </span>
-      <Modal show={showModal}>
+      <Modal show={showReportModal}>
         <div
           className={
             styles.repModal + " " + (transStyles ? styles.repShowed : undefined)
@@ -177,6 +197,38 @@ function Comment({ comment }) {
                 onClick={sendReport}
               >
                 Enviar
+              </AnyButton>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal show={showDeleteModal}>
+        <div
+          className={
+            styles.repModal + " " + (transStyles ? styles.repShowed : undefined)
+          }
+        >
+          <div
+            className={
+              styles.reportBody +
+              " " +
+              (transStyles ? styles.repBodyShowed : undefined)
+            }
+          >
+            <div className={styles.modalHeader}>
+              <h3>Borrar Comentario</h3>
+              <CgClose onClick={closeModal} className={styles.closeIcon} />
+            </div>
+            <div className={styles.modalBody}>
+              <span className={styles.confirmMsg}>¿Estás seguro de borrar este comentario?</span>
+              <span className={styles.tooltipMsg}>Recuerda, esta es una acción irreversible</span>
+            </div>
+            <div className={styles.modalFooter}>
+              <AnyButton
+                classes={[styles.sendReportButton]}
+                onClick={deleteComment}
+              >
+                Estoy Seguro
               </AnyButton>
             </div>
           </div>

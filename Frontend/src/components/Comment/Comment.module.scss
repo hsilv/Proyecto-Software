@@ -79,7 +79,30 @@ $backgColor: #c1c1c1;
     fill-opacity: 0;
     transition: fill-opacity 0.4s ease;
 
-    &:hover{
+    &:hover {
+      fill-opacity: 1;
+    }
+  }
+}
+
+.deleteOwn {
+  svg {
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+    stroke: $darker;
+    fill: $darker;
+    fill-opacity: 0;
+    path {
+      &:not(:first-child) {
+        fill-opacity: 1;
+      }
+      &:first-child {
+        fill-opacity: inherit;
+      }
+      transition: fill-opacity 0.4s ease;
+    }
+    &:hover {
       fill-opacity: 1;
     }
   }
@@ -191,4 +214,20 @@ $backgColor: #c1c1c1;
     width: 1.3em;
     height: 1.3em;
   }
+}
+
+.confirmMsg{
+  font-size: 1.1rem;
+  display: block;
+  margin-block-end: 30px;
+  margin-block-start: 20px;
+}
+
+.tooltipMsg{
+  font-size: 1.1rem;
+  display: block;
+  margin-block-end: 30px;
+  margin-block-start: 20px;
+  font-style: italic;
+  color: $darker;
 }

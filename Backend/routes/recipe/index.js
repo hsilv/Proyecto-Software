@@ -1,5 +1,6 @@
 import express from 'express';
 import { database } from '../../db/database.cjs';
+import { verifyToken } from '../../utils/signToken.js';
 
 const router = express.Router();
 
@@ -155,12 +156,34 @@ router.get('/comments', async (req, res) => {
   }
 });
 
+router.delete('/comments', async (req, res) => {
+  if (req.headers.authorization) {
+    const tokenState = verifyToken(req.headers.authorization);
+    if (tokenState.error) {
+      res.status(200).json(tokenState);
+    } else {
+      const { error, data } = await database
+        .from('comentario')
+        .delete()
+        .eq('receta_id', req.body.id_recipe)
+        .eq('autor_id', tokenState.idUser);
+      if (data === null && !error) {
+        res.status(200).json({ status: 200, message: 'Comentario borrado con éxito' });
+      } else {
+        res.status(200).json({ status: 500, message: 'Error de servidor' });
+      }
+    }
+  } else {
+    res
+      .status(400)
+      .json({ error: true, message: 'Header de autorización vacío' });
+  }
+});
+
 router.post('/comments/check', async (req, res) => {
   try {
     if (!req.body || !req.body.id_recipe || !req.body.id_user) {
-      res
-        .status(400)
-        .json({ error: 'Datos insuficientes' });
+      res.status(400).json({ error: 'Datos insuficientes' });
     } else {
       const { error, data } = await database
         .from('comentario')
@@ -173,9 +196,7 @@ router.post('/comments/check', async (req, res) => {
           .json({ error: 'Error al obtener comentarios de la receta' });
       } else if (data) {
         if (data.length === 0) {
-          res
-            .status(200)
-            .json({ found: false });
+          res.status(200).json({ found: false });
         } else {
           res.status(200).json({ found: true });
         }

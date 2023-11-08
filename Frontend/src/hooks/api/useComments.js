@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAPI } from "../useAPI";
+import { useLocalStorage } from '../useLocalStorage';
 
 /**
  *
@@ -7,6 +8,7 @@ import { useAPI } from "../useAPI";
 
 function useRecipeComments() {
   const { fetchAPI, error, loading, result } = useAPI();
+  const { item } = useLocalStorage("cookapptoken", "", true);
   const [resultRecipeComments, setResultRecipeComments] = useState([]);
 
   useEffect(() => {
@@ -50,6 +52,23 @@ function useRecipeComments() {
     });
   }
 
+  const deleteRecipeOwnComment = async ({
+    id_recipe,
+  }) => {
+    await fetchAPI({
+      method: "DELETE",
+      route: `recipe/comments`,
+      headers: {
+        Authorization: item,
+      },
+      body: JSON.stringify({
+        id_recipe: parseInt(id_recipe),
+      }),
+      log: false,
+      showReply: true,
+    });
+  }
+
   const checkUserComment = async ({
     id_user,
     id_recipe,
@@ -73,6 +92,7 @@ function useRecipeComments() {
     getRecipeComments,
     postRecipeComment,
     checkUserComment,
+    deleteRecipeOwnComment,
   };
 }
 
