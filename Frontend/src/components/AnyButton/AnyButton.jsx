@@ -8,14 +8,15 @@ const AnyButton = ({
   disabled = false,
   loading = false,
   classes = [],
+  buttonType = 'button'
 }) => {
     const classNames = classes.join(' ');
     return(<button
       className={`${styles.AnyButton} ${type === 'primary' ? 'primary' : 'secondary'} ${classNames}`}
-      type='button'
+      type={buttonType}
       onClick={() => {
         if (!loading && !disabled) {
-          onClick()
+          onClick ? onClick() : null;
         }
       }}
       disabled={disabled}

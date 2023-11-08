@@ -69,6 +69,37 @@ function useRecipeComments() {
     });
   }
 
+  const flagComment = async ({
+    flagger,
+    comment,
+    autor_id,
+    id_comment,
+    observation,
+    vocabulary,
+    mean,
+    outOfContext,
+  }) => {
+    await fetchAPI({
+      method: "POST",
+      route: `recipe/comments/flag`,
+      headers: {
+        Authorization: item,
+      },
+      body: JSON.stringify({
+        flagger,
+        comment,
+        author: autor_id,
+        id_comment: id_comment,
+        observation: observation,
+        vocabulary: vocabulary,
+        mean: mean,
+        OOC: outOfContext,
+      }),
+      log: false,
+      showReply: false,
+    });
+  }
+
   const checkUserComment = async ({
     id_user,
     id_recipe,
@@ -93,6 +124,7 @@ function useRecipeComments() {
     postRecipeComment,
     checkUserComment,
     deleteRecipeOwnComment,
+    flagComment,
   };
 }
 

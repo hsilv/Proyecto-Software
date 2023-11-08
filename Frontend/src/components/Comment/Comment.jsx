@@ -1,7 +1,7 @@
 import styles from "./Comment.module.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { TbFlag } from "react-icons/tb";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { AiTwotoneDelete } from "react-icons/ai";
 import Modal from "../Modal/Modal";
 import { CgClose } from "react-icons/cg";
@@ -41,6 +41,9 @@ function Comment({ comment, refreshTrigger }) {
   const [date, setDate] = useState("");
   const [deleted, setDeleted] = useState(false);
   const {deleteRecipeOwnComment, resultRecipeComments : result} = useRecipeComments();
+  // eslint-disable-next-line no-unused-vars
+  const {flagComment, resultRecipeComments: commentFlagged} = useRecipeComments();
+  const formRef = useRef(null);
 
   const onUserClick = () => {
     navigate(
@@ -71,9 +74,17 @@ function Comment({ comment, refreshTrigger }) {
     setTransStyles(false);
   };
 
-  const sendReport = () => {
-    console.log("This should send a report");
-    closeModal();
+  const sendReport = async (e) => {
+    e.preventDefault();
+    const observation = formRef.current.observation.value;
+    const vocabulary = formRef.current.checkbox0.checked;
+    const mean = formRef.current.checkbox1.checked;
+    const outOfContext = formRef.current.checkbox2.checked;
+    console.log(comment);
+    console.log(userInfo);
+    if (comment.id) {
+      flagComment({flagger: userInfo.idUser, comment: comment.comentario, autor_id: comment.autor_id, id_comment: comment.id, observation, vocabulary, mean, outOfContext})
+    }
   };
 
   const onDeleteClick = () => {
@@ -177,12 +188,13 @@ function Comment({ comment, refreshTrigger }) {
               <h3>Reporte un Abuso</h3>
               <CgClose onClick={closeModal} className={styles.closeIcon} />
             </div>
-            <div className={styles.modalBody}>
+            <form className={styles.modalBody} ref={formRef} onSubmit={sendReport}>
               <div className={styles.caseList}>
-                {reportTypes.map((value) => {
+                {reportTypes.map((value, index) => {
                   return (
                     <div className={styles.caseItem} key={value + "reportDiv"}>
                       <input
+                        name={`checkbox${index}`}
                         type="checkbox"
                         key={value + "report"}
                         className={styles.reportInput}
@@ -194,20 +206,20 @@ function Comment({ comment, refreshTrigger }) {
               </div>
               <span>¿Deseas dejar alguna observación?</span>
               <textarea
-                name="Observation"
+                name="observation"
                 id="obsrecipe"
                 cols="30"
                 rows="10"
                 className={styles.observation}
               ></textarea>
-            </div>
-            <div className={styles.modalFooter}>
               <AnyButton
                 classes={[styles.sendReportButton]}
-                onClick={sendReport}
+                buttonType="submit"
               >
                 Enviar
               </AnyButton>
+            </form>
+            <div className={styles.modalFooter}>
             </div>
           </div>
         </div>
