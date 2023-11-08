@@ -48,7 +48,7 @@ function useRecipeComments() {
         qualification: parseFloat(qualification),
       }),
       log: false,
-      showReply: true,
+      showReply: false,
     });
   }
 
@@ -65,7 +65,7 @@ function useRecipeComments() {
         id_recipe: parseInt(id_recipe),
       }),
       log: false,
-      showReply: true,
+      showReply: false,
     });
   }
 

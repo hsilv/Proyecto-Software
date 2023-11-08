@@ -12,7 +12,7 @@ function CommentBlock({ comments, loading, idRecipe, refreshTrigger, idOP }) {
       <div className={styles.commentBlock}>
         {comments ? (
           comments.map((value, index) => {
-            return <Comment key={value + index} comment={value} />;
+            return <Comment refreshTrigger={refreshTrigger} key={value + index} comment={value} />;
           })
         ) : loading ? (
           <div className={styles.loadingHolder}>...</div>

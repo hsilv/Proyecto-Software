@@ -96,7 +96,7 @@ function Recipe() {
   }, [id]);
 
   useEffect(() => {
-    if (refreshComments === 1) {
+    if (refreshComments >= 1) {
       getRecipeComments(id);
     }
   }, [refreshComments]);

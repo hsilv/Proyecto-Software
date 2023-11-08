@@ -31,7 +31,7 @@ const months = [
   "diciembre",
 ];
 
-function Comment({ comment }) {
+function Comment({ comment, refreshTrigger }) {
   const navigate = useNavigate();
   const { userInfo } = useContext(SessionContext);
   const [showReportModal, setShowReportModal] = useState(false);
@@ -39,7 +39,8 @@ function Comment({ comment }) {
   const [isOwned, setOwned] = useState(false);
   const [transStyles, setTransStyles] = useState(false);
   const [date, setDate] = useState("");
-  const {deleteRecipeOwnComment} = useRecipeComments();
+  const [deleted, setDeleted] = useState(false);
+  const {deleteRecipeOwnComment, resultRecipeComments : result} = useRecipeComments();
 
   const onUserClick = () => {
     navigate(
@@ -50,6 +51,15 @@ function Comment({ comment }) {
         : "/"
     );
   };
+
+  useEffect(() => {
+    if (result) {
+      if (result.status === 200) {
+        refreshTrigger(2);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deleted, result])
 
   const onFlagClick = () => {
     setShowReportModal(true);
@@ -70,9 +80,9 @@ function Comment({ comment }) {
     setShowDeleteModal(true);
   };
 
-  const deleteComment = () => {
-    console.log("This should delete a comment");
+  const deleteComment = async () => {
     deleteRecipeOwnComment({id_recipe: comment.receta_id});
+    setDeleted(true);
     closeModal();
   }
 
@@ -250,6 +260,7 @@ Comment.propTypes = {
       username: PropTypes.string,
     }),
   }),
+  refreshTrigger: PropTypes.func.isRequired,
 };
 
 export default Comment;
