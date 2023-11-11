@@ -13,10 +13,11 @@ import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import { usePopularRecipes } from '../../hooks/api/usePopularRecipes';
+import Loading from '../../components/Loading';
 
 function Home() {
-  const {getPopularRecipes, resultPopularRecipes: popularRecipes} = usePopularRecipes();
-  const { checkSession, userInfo } = useContext(SessionContext);
+  const {getPopularRecipes, resultPopularRecipes: popularRecipes, loadingPopularRecipes} = usePopularRecipes();
+  const { checkSession, userInfo, loading } = useContext(SessionContext);
 
   useEffect(() => {
     getPopularRecipes();
@@ -74,6 +75,7 @@ function Home() {
           ))}
         </div>
       </div>
+      <Loading loading={loading && loadingPopularRecipes}/>
     </>
   );
 }
