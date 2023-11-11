@@ -35,11 +35,11 @@ function Register({ pageCallback }) {
 
   const handleSignUp = () => {
     if (form.validate()) {
-      // postSignUp(form.values.username, form.values.password, form.values.email, form.values.realName);
-      alert("Registration successful! You are now a member.");
-    } else {
-      alert("Please review and correct the your form answers.");
-    }
+      postSignUp(form.values.username, form.values.password, form.values.email, form.values.realName);
+/*       alert("Registration successful! You are now a member.");
+ */    } else {
+/*       alert("Please review and correct the your form answers.");
+ */    }
   };
 
   return (
