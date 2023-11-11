@@ -13,16 +13,17 @@ import { useRecipesByUser } from "../../hooks/api/useRecipesByUser";
 import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
 
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
+import Loading from "../../components/Loading";
 
 function Profile() {
   const [selected, setSelected] = useState(1);
   const [editMode, setEditMode] = useState(false);
   const [editedValues, setEditedValues] = useState(["", ""]);
-  const { userInfo } = useContext(SessionContext);
+  const { userInfo, loading } = useContext(SessionContext);
   const [showModal, setShowModal] = useState(false);
   const [selectedCollection, setSelectedCollection] = useState();
-  const {getRecipesByUser, resultRecipesByUser: userRecipes} = useRecipesByUser();
-  const {getCollectionsByUser, resultCollectionsByUser: userCollections} = useCollectionsByUser();
+  const {getRecipesByUser, resultRecipesByUser: userRecipes, loadingRecipesByUser} = useRecipesByUser();
+  const {getCollectionsByUser, resultCollectionsByUser: userCollections, loadingCollectionsByUser} = useCollectionsByUser();
   const navigate = useNavigate();
 
   const recipeClickHandler = (recipeID) => {
@@ -200,6 +201,7 @@ function Profile() {
       <Modal show={showModal}>
         <CollectionModal id={selectedCollection} showModal={showModal} closer={setShowModal}/>
       </Modal>
+      <Loading loading={loading && loadingCollectionsByUser && loadingRecipesByUser}/>
     </>
   );
 }

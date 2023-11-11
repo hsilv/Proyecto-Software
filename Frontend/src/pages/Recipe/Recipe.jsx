@@ -17,6 +17,7 @@ import Modal from "../../components/Modal/Modal";
 import { CgClose } from "react-icons/cg";
 import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
 import { SessionContext } from "../../context/sessionContext";
+import Loading from "../../components/Loading";
 
 function Recipe() {
   let { id } = useParams();
@@ -27,10 +28,10 @@ function Recipe() {
   const [showCollModal, setShowCollModal] = useState(false);
   const [transStyles, setTransStyles] = useState(false);
 
-  const { getRecipeDetails, resultRecipeDetails: detailsRecipe } =
+  const { getRecipeDetails, resultRecipeDetails: detailsRecipe, loadingRecipeDetails } =
     useRecipeDetails(id);
 
-  const { resultSimilarRecipes: similarRecipes, getSimilarRecipes } =
+  const { resultSimilarRecipes: similarRecipes, getSimilarRecipes, loadingSimilarRecipes } =
     useSimilarRecipes();
 
   const {
@@ -41,7 +42,7 @@ function Recipe() {
 
   const { userInfo } = useContext(SessionContext);
 
-  const { getCollectionsByUser, resultCollectionsByUser } =
+  const { getCollectionsByUser, resultCollectionsByUser} =
     useCollectionsByUser();
 
   const { postRecipeToColl } = useCollectionsByUser();
@@ -262,6 +263,7 @@ function Recipe() {
           </div>
         </div>
       </Modal>
+      <Loading loading={loadingRecipeDetails && loadingSimilarRecipes}/>
     </>
   );
 }
