@@ -4,13 +4,24 @@ import { LoggedRoutes } from "./loggedRoutes";
 import { UnloggedRoutes } from "./unLoggedRoutes";
 
 function MainRoutes() {
-  const { logged } = useContext(SessionContext);
-  const [loggedState, setLoggedState] = useState(false);
+  const { userInfo } = useContext(SessionContext);
+  const [routes, setRoutes] = useState(() => {
+    if (userInfo) {
+      return <LoggedRoutes />;
+    }else {
+      return <UnloggedRoutes />;
+    }
+  });
 
   useEffect(() => {
-    setLoggedState(logged);
-  }, [logged]);
-  return loggedState ? <LoggedRoutes /> : <UnloggedRoutes />;
+    if (userInfo) {
+      setRoutes(<LoggedRoutes />);
+    } else {
+      setRoutes(<UnloggedRoutes />);
+    }
+  }, [userInfo]);
+
+  return routes;
 }
 
 export { MainRoutes };

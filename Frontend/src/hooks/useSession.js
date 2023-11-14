@@ -15,6 +15,14 @@ function useSession() {
   }, []);
 
   useEffect(() => {
+    if(loginError) {
+      saveUserInfo("")
+      saveItem("not");
+      setLogged(false);
+    }
+  }, [loginError])
+
+  useEffect(() => {
     if(result && result.error){
       setLogged(false);
       setLoginError(result);
@@ -45,6 +53,7 @@ function useSession() {
       if (res.token) {
         saveItem(res.token);
         setLogged(true);
+        setLoginError(null);
       } else if(res.status || res.error) {
         setLogged(false);
         setLoginError(res);
@@ -73,6 +82,7 @@ function useSession() {
       if (res.username) {
         saveUserInfo(res);
         setLogged(true);
+        setLoginError(null);
       } else if (res.status) {
         setLogged(false);
         setLoginError(res);
