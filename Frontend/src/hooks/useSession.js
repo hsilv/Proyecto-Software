@@ -7,12 +7,19 @@ function useSession() {
   const [ logged, setLogged ] = useState(false);
   const { item, saveItem } = useLocalStorage("cookapptoken", "", true);
   const { item: userInfo, saveItem: saveUserInfo } = useLocalStorage("cookappuser", {}, false);
-  const { loading, error, fetchAPI } = useAPI();
+  const { result, loading, error, fetchAPI } = useAPI();
   const [ loginError, setLoginError ] = useState();
 
   useEffect(() => {
     checkSession();
   }, []);
+
+  useEffect(() => {
+    if(result && result.error){
+      setLogged(false);
+      setLoginError(result);
+    }
+  }, [result])
 
   useEffect(() => {
     if(logged) {
@@ -38,7 +45,7 @@ function useSession() {
       if (res.token) {
         saveItem(res.token);
         setLogged(true);
-      } else if(res.status) {
+      } else if(res.status || res.error) {
         setLogged(false);
         setLoginError(res);
       }
@@ -47,7 +54,7 @@ function useSession() {
 
   const logOut = () => {
     saveItem("not");
-    saveUserInfo(null);
+    saveUserInfo("");
     setLogged(false);
   };
 
