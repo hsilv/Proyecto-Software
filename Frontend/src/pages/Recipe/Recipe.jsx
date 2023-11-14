@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
-import NavBar from "../../components/NavBar/NavBar";
 import styles from "./Recipe.module.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -140,7 +139,6 @@ function Recipe() {
 
   return (
     <>
-      <NavBar />
       <div className={styles.RecipeInfoContainer}>
         <div className={styles.RecipeImageContainer}>
           <img

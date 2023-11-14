@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import styles from "./SearchPage.module.css";
-import NavBar from "../../components/NavBar/NavBar";
 import { TbMap2, TbLayoutList, TbAlarm } from "react-icons/tb";
 import { useState } from "react";
 import SearchResultsList from "../../components/SearchResult/SearchResult";
@@ -109,7 +108,6 @@ function SearchPage() {
 
   return (
     <>
-      <NavBar />
       <div className={styles.SearchPageContainer}>
         <div className={styles.FiltersContainer}>
           <h1>Filters</h1>

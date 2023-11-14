@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import NavBar from "../../components/NavBar/NavBar";
 import ProfileNav from "../../components/ProfileNav/ProfileNav";
 import style from "./Profile.module.css";
 import Edit from "/assets/edit-btn.svg";
@@ -178,7 +177,6 @@ function Profile() {
 
   return (
     <>
-      <NavBar />
       <div className={style.mainContainer}>
         <div className={style.userInfoContainer}>
           <ProfileInfo/>

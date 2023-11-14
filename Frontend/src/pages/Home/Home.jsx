@@ -1,6 +1,5 @@
 import { useContext, useEffect } from "react";
 import styles from "./Home.module.css";
-import NavBar from "../../components/NavBar/NavBar";
 import { SessionContext } from "../../context/sessionContext";
 import { TbSeeding, TbCake, TbCoffee, TbAlarm } from "react-icons/tb";
 import { BiParty } from "react-icons/bi";
@@ -36,7 +35,6 @@ function Home() {
 
   return (
     <>
-      <NavBar />
       <div className={styles.homeElementsContainer}>
         <div className={styles.welcomeBackContainer}>
           <div className={styles.welcomeBackInfo}>

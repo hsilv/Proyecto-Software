@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
-import NavBar from "../../components/NavBar/NavBar";
 import ProfileNav from "../../components/ProfileNav/ProfileNav";
 import RecipePreview from "../../components/RecipePreview/RecipePreview"
 import style from "./Profile.module.css";
@@ -172,7 +171,6 @@ function Profile() {
 
   return (
     <>
-      <NavBar />
       <div className={style.profileWrapper}>
         <div className={style.infoContainer}>
           <img

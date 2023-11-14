@@ -6,6 +6,7 @@ import ProfileView from "../pages/Profile/ProfileView";
 import SearchPage from "../pages/Search/SearchPage";
 import CreateRecipe from "../pages/CreateRecipe/CreateRecipe";
 import Page404 from "../pages/Page404";
+import NavBar from "../components/NavBar/NavBar";
 
 /* const LoggedRoutes = () => {
   let routes = useRoutes([
@@ -24,6 +25,7 @@ import Page404 from "../pages/Page404";
 function LoggedRoutes() {
    return(
     <>
+    <NavBar />
     <Routes>
         <Route path="/Home" element={<Navigate to={'/'}/>}/>
         <Route path="/" element={<Home />} />

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./CreateRecipe.module.css";
-import NavBar from "../../components/NavBar/NavBar";
 import { SessionContext } from "../../context/sessionContext";
 
 function CreateRecipe() {
@@ -27,7 +26,6 @@ function CreateRecipe() {
 
   return (
     <>
-      <NavBar />
       <div className={styles.createRecipeContainer}>
         <div className={styles.formContainer}></div>
       </div>
