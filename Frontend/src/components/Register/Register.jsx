@@ -35,11 +35,15 @@ function Register({ pageCallback }) {
 
   const handleSignUp = () => {
     if (form.validate()) {
-      postSignUp(form.values.username, form.values.password, form.values.email, form.values.realName);
-/*       alert("Registration successful! You are now a member.");
- */    } else {
-/*       alert("Please review and correct the your form answers.");
- */    }
+      postSignUp(
+        form.values.username,
+        form.values.password,
+        form.values.email,
+        form.values.realName
+      );
+    } else {
+      console.log('Ocurrió un error en el registro');
+    }
   };
 
   return (
@@ -106,14 +110,17 @@ function Register({ pageCallback }) {
         </Button>
         {signUpError && (
           <span>
-            {signUpError.message === "Sesión expirada" ? "" : signUpError.message}
+            {signUpError.message === "Sesión expirada"
+              ? ""
+              : signUpError.message}
           </span>
         )}
         <p
           style={{ fontFamily: "League Spartan, sans-serif", fontSize: "14px" }}
         >
           Already have an account?{" "}
-          <button className={styles.linkButton}
+          <button
+            className={styles.linkButton}
             onClick={() => pageCallback(true)}
           >
             Sign in
