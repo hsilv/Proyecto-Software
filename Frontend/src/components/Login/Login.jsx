@@ -42,7 +42,7 @@ function LoginComponent({ pageCallback }) {
 
   useEffect(() => {
     if (logged) {
-      navigate("/Home", { replace: true });
+      navigate("/", { replace: true });
       setErrState(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,16 +90,8 @@ function LoginComponent({ pageCallback }) {
             required
           />
 
-          {errState? (
-            <span
-              style={{
-                fontFamily: "League Spartan, sans-serif",
-                fontSize: "14px",
-              }}
-              className={styles.errorMsg}
-            >
-              {errMessage}
-            </span>
+          {errState ? (
+            <span className={styles.errorMsg}>{errMessage}</span>
           ) : null}
 
           <Button
@@ -110,12 +102,7 @@ function LoginComponent({ pageCallback }) {
           >
             Login
           </Button>
-          <p
-            style={{
-              fontFamily: "League Spartan, sans-serif",
-              fontSize: "14px",
-            }}
-          >
+          <p>
             Don&apos;t have an account yet?{" "}
             <button
               className={styles.linkButton}
@@ -127,7 +114,7 @@ function LoginComponent({ pageCallback }) {
         </div>
       </div>
       <div className={styles.loginmainImageContainer}>
-        <img src={loginImage} alt="Register Image" />
+        <img src={loginImage} alt="Register Image" loading="lazy" />
       </div>
     </div>
   );

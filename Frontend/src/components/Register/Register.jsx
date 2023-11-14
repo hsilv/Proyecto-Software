@@ -28,21 +28,16 @@ function Register({ pageCallback }) {
     confirmPassword: "",
   });
 
-  // eslint-disable-next-line no-unused-vars
-  const postSignUp = async (username, password, email, name) => {
-    signUp(username, password, email, name);
-  };
-
   const handleSignUp = () => {
     if (form.validate()) {
-      postSignUp(
+      signUp(
         form.values.username,
         form.values.password,
         form.values.email,
         form.values.realName
       );
     } else {
-      console.log('Ocurrió un error en el registro');
+      console.error('Ocurrió un error en el registro');
     }
   };
 

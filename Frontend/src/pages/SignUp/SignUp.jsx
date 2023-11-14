@@ -12,7 +12,8 @@ function SignUp() {
 
   useEffect(() => {
     if (logged) {
-      navigate('/Home');
+/*       navigate('/profile', {replace: true}); */
+      console.log('Navega');
     }
   }, [logged, navigate]);
 

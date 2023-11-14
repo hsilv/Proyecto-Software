@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useCallback, useState } from "react";
 import { TbChefHat, TbBell, TbSquareRoundedPlus, TbUser } from "react-icons/tb";
 import { SessionContext } from "../../context/sessionContext";
@@ -7,7 +8,7 @@ import SearchBar from "../SearchBar/Searchbar";
 import Notifications from "../Notifications/Notifications"
 import styles from "./NavBar.module.css";
 
-const NavBar = ({  }) => {
+const NavBar = () => {
   const { logOut, logged, checkSession, loading, userInfo } = useContext(SessionContext);
   const navigate = useNavigate();
   const [checked, setChecked] = useState(0);
@@ -16,7 +17,7 @@ const NavBar = ({  }) => {
   const {resultNotifications: notifications, getNotifications, deleteNotification} = useNotifications();
 
   useEffect(() => {
-      getNotifications(userInfo.idUser);
+      getNotifications(userInfo?.idUser);
     }, [userInfo]);
 
 
@@ -61,7 +62,7 @@ const NavBar = ({  }) => {
 
   return (
     <div className={styles.NavbarContainer}>
-          <NavLink className={styles.LeftAlignedContent} to={"/Home"}>
+          <NavLink className={styles.LeftAlignedContent} to={"/"}>
             <TbChefHat style={{marginRight:'5px'}} fontSize={'24px'} />
             CookApp
           </NavLink>

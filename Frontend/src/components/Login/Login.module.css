@@ -7,6 +7,8 @@
   justify-content: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   background-color: #ffff;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 14px;
 }
 
 .loginformContainer {

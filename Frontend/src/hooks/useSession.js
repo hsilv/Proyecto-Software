@@ -14,6 +14,12 @@ function useSession() {
     checkSession();
   }, []);
 
+  useEffect(() => {
+    if(logged) {
+      checkSession();
+    }
+  }, [logged])
+
 
 
   const login = async (username, password) => {
@@ -41,6 +47,7 @@ function useSession() {
 
   const logOut = () => {
     saveItem("not");
+    saveUserInfo(null);
     setLogged(false);
   };
 
