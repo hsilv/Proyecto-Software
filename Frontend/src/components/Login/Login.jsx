@@ -13,28 +13,24 @@ const schema = Joi.object({
   username: Joi.string()
     .pattern(new RegExp("^[a-zA-Z0-9|_|-]{3,30}$"))
     .required(),
-  password: Joi.string()
-    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-    .required(),
+  password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
 });
 
 function LoginComponent({ pageCallback }) {
   const form = useForm(schema, { username: "", password: "" });
   const [errState, setErrState] = useState(false);
   const [errMessage, setErrMessage] = useState();
-  const { login, logged, loading, loginError, error } = useContext(SessionContext);
   const navigate = useNavigate();
 
-  const postLogin = async (username, password) => {
-    await login(username, password);
-  };
+  const { login, logged, loading, loginError, error } =
+    useContext(SessionContext);
 
   const handleLogin = () => {
     if (form.validate()) {
-      postLogin(form.values.username, form.values.password);
+      login(form.values.username, form.values.password);
     } else {
       setErrState(true);
-      setErrMessage('Usuario o contraseña no válidos');
+      setErrMessage("Usuario o contraseña no válidos");
     }
   };
 
@@ -42,13 +38,14 @@ function LoginComponent({ pageCallback }) {
     if (e.key === "Enter") {
       handleLogin();
     }
-  }
+  };
 
   useEffect(() => {
     if (logged) {
-      navigate("/Home");
+      navigate("/Home", { replace: true });
       setErrState(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logged]);
 
   useEffect(() => {
@@ -58,16 +55,16 @@ function LoginComponent({ pageCallback }) {
         setErrMessage(loginError.message);
       }
     }
-  }, [loginError])
+  }, [loginError]);
 
   useEffect(() => {
     if (error) {
-      if (error.status) {
+      if (error.status && error.status != 400) {
         setErrState(true);
         setErrMessage(error.message);
       }
     }
-  }, [error])
+  }, [error]);
 
   return (
     <div className={styles.loginContainer}>
@@ -92,8 +89,18 @@ function LoginComponent({ pageCallback }) {
             type="password"
             required
           />
-          
-          {errState ? <span style={{ fontFamily: "League Spartan, sans-serif", fontSize: "14px" }} className={styles.errorMsg}>{errMessage}</span> : null}
+
+          {errState? (
+            <span
+              style={{
+                fontFamily: "League Spartan, sans-serif",
+                fontSize: "14px",
+              }}
+              className={styles.errorMsg}
+            >
+              {errMessage}
+            </span>
+          ) : null}
 
           <Button
             type="primary"
@@ -104,10 +111,14 @@ function LoginComponent({ pageCallback }) {
             Login
           </Button>
           <p
-            style={{ fontFamily: "League Spartan, sans-serif", fontSize: "14px" }}
+            style={{
+              fontFamily: "League Spartan, sans-serif",
+              fontSize: "14px",
+            }}
           >
             Don&apos;t have an account yet?{" "}
-            <button className={styles.linkButton}
+            <button
+              className={styles.linkButton}
               onClick={() => pageCallback(false)}
             >
               Register here

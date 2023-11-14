@@ -3,6 +3,10 @@ require('dotenv').config();
 const dotenv = require('dotenv');
 const { createClient } = require('@supabase/supabase-js');
 
+/**
+ * @function initiStorage(): Función que inicializa una instancia de "localStorage" virtual para el backend.
+ * @return No regresa nada, debido a que inicializa este "localStorage" virtual de forma global.
+ */
 async function initStorage() {
   await storage.init({
     dir: 'storage',
@@ -14,6 +18,12 @@ async function initStorage() {
   });
 }
 
+/**
+ * @function appStorage(): Objeto de una instancia de "localStorage" virtual para el backend, que guarda, lee y elimina algpun elemento del mismo.
+ * @method getItem(key): Obtiene el item de "localStorage" virtual.
+ * @method setItem(key,value): Guarda el item de "localStorage".
+ * @method removeItem(key): Elimina el item de "localStorage".
+ */
 const appStorage = {
   getItem: (key) => storage.getItemSync(key),
   setItem: (key, value) => {
@@ -24,6 +34,9 @@ const appStorage = {
   },
 };
 
+/**
+ * @data options: Provee una configuración básica para el "localStorage" virtual.
+ */
 const options = {
   db: {
     schema: 'public',
@@ -39,6 +52,9 @@ const options = {
   },
 };
 
+/**
+ * @class DatabaseInstance: Instancia normal de una vase de datos, dependiendo de su entorno, ya sea, testing, producción, etc.
+ */
 class DatabaseInstance {
   constructor() {
     if (!process.env.NODE_ENV) {

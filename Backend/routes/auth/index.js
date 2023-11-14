@@ -89,7 +89,7 @@ router.post('/check', (req, res) => {
   if (req.headers.authorization) {
     const tokenState = verifyToken(req.headers.authorization);
     if (tokenState.error) {
-      res.status(200).json(tokenState);
+      res.status(203).json(tokenState);
     } else {
       res.status(200).json(tokenState);
     }

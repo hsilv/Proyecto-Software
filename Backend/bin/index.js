@@ -8,10 +8,13 @@ import misc from '../routes/misc/index.js';
 import collections from '../routes/collections/index.js';
 import { getAllCollections, getAllComments, getAllSavedRecipes } from '../utils/getAllTables.js';
 
+// Obtiene el puerto para realizar el deploy del backend.
 const port = process.env.DEPLOY_PORT;
 
 // eslint-disable-next-line import/no-mutable-exports
+// Si la instancia o el entorno no es de pruebas, entonces ejecutar.
 if (process.env.NODE_ENV !== 'testing') {
+  // Inicialización de escucha del servidor
   app.listen(port, async () => {
     if (process.env.NODE_ENV !== 'testing') {
     // eslint-disable-next-line no-console
@@ -23,6 +26,7 @@ if (process.env.NODE_ENV !== 'testing') {
   });
 }
 
+// Middlewares de rutas de API.
 app.use('/auth/', auth);
 app.use('/recipe/', recipe);
 app.use('/user/', user);
