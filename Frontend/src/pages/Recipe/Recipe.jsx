@@ -28,11 +28,17 @@ function Recipe() {
   const [showCollModal, setShowCollModal] = useState(false);
   const [transStyles, setTransStyles] = useState(false);
 
-  const { getRecipeDetails, resultRecipeDetails: detailsRecipe, loadingRecipeDetails } =
-    useRecipeDetails(id);
+  const {
+    getRecipeDetails,
+    resultRecipeDetails: detailsRecipe,
+    loadingRecipeDetails,
+  } = useRecipeDetails(id);
 
-  const { resultSimilarRecipes: similarRecipes, getSimilarRecipes, loadingSimilarRecipes } =
-    useSimilarRecipes();
+  const {
+    resultSimilarRecipes: similarRecipes,
+    getSimilarRecipes,
+    loadingSimilarRecipes,
+  } = useSimilarRecipes();
 
   const {
     getRecipeComments,
@@ -42,7 +48,7 @@ function Recipe() {
 
   const { userInfo } = useContext(SessionContext);
 
-  const { getCollectionsByUser, resultCollectionsByUser} =
+  const { getCollectionsByUser, resultCollectionsByUser } =
     useCollectionsByUser();
 
   const { postRecipeToColl } = useCollectionsByUser();
@@ -237,7 +243,8 @@ function Recipe() {
             <div className={styles.cardModalBody}>
               <ul className={styles.collList}>
                 {resultCollectionsByUser ? (
-                  resultCollectionsByUser.length > 0 && resultCollectionsByUser.map((value) => {
+                  resultCollectionsByUser.length > 0 &&
+                  resultCollectionsByUser.map((value) => {
                     return (
                       <li
                         key={`${value.id} ${value.nombre} ${value.user_id}`}
@@ -263,7 +270,7 @@ function Recipe() {
           </div>
         </div>
       </Modal>
-      <Loading loading={loadingRecipeDetails && loadingSimilarRecipes}/>
+      <Loading loading={loadingRecipeDetails && loadingSimilarRecipes} />
     </>
   );
 }
