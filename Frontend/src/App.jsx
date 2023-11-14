@@ -9,7 +9,6 @@ function App() {
     <BrowserRouter>
       <SessionProvider>
         <NavProvider>
-          {/* {logged ? <LoggedRoutes /> : <UnloggedRoutes />} */}
           <MainRoutes />
         </NavProvider>
       </SessionProvider>

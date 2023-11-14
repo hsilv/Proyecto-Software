@@ -8,20 +8,6 @@ import CreateRecipe from "../pages/CreateRecipe/CreateRecipe";
 import Page404 from "../pages/Page404";
 import NavBar from "../components/NavBar/NavBar";
 
-/* const LoggedRoutes = () => {
-  let routes = useRoutes([
-    { path: "/", element: <Home /> },
-    { path: "/Recipe/:id", element: <Recipe /> },
-    { path: "/Profile", element: <Profile /> },
-    { path: "/SearchPage/:search", element: <SearchPage /> },
-    { path: "/Profile/:username", element: <ProfileView /> },
-    { path: "/CreateRecipe", element: <CreateRecipe /> },
-    {path: "*", element: <Page404 />}
-  ]);
-
-  return routes;
-}; */
-
 function LoggedRoutes() {
    return(
     <>

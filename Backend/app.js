@@ -9,14 +9,6 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'development';
 }
 
-if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: '.env.production' });
-} else if (process.env.NODE_ENV === 'development') {
-  dotenv.config({ path: '.env.development' });
-} else if (process.env.NODE_ENV === 'testing') {
-  dotenv.config({ path: '.env.testing' });
-}
-
 const app = express();
 app.use(cors({
   origin: ['http://165.227.240.90', 'http://localhost:5173', 'https://cookapp.app', 'https://www.cookapp.app'],
@@ -25,7 +17,16 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.text());
-app.use(morgan('dev'));
+
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+  dotenv.config({ path: '.env.development' });
+} else if (process.env.NODE_ENV === 'testing') {
+  app.use(morgan('dev'));
+  dotenv.config({ path: '.env.testing' });
+}
 
 global.__dirname = getDirname(import.meta.url);
 
