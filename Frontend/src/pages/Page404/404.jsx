@@ -6,9 +6,9 @@ function Page404() {
   
   return <div className={styles.page404}>
     <div className={styles.content404}>
-      Vaya! Parece que esta página no existe.
+      Oops! It looks this page doesn&apos;t exist
       <NavLink to={'/'} replace>
-        Regresar al inicio
+        Go Back
       </NavLink>
     </div>
   </div>;
