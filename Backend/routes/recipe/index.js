@@ -164,7 +164,7 @@ router.delete('/comments', async (req, res) => {
   if (req.headers.authorization) {
     const tokenState = verifyToken(req.headers.authorization);
     if (tokenState.error) {
-      res.status(200).json(tokenState);
+      res.status(203).json(tokenState);
     } else {
       const { error, data } = await database
         .from('comentario')
@@ -174,7 +174,7 @@ router.delete('/comments', async (req, res) => {
       if (data === null && !error) {
         res.status(200).json({ status: 200, message: 'Comentario borrado con éxito' });
       } else {
-        res.status(200).json({ status: 500, message: 'Error de servidor' });
+        res.status(500).json({ status: 500, message: 'Error de servidor' });
       }
     }
   } else {

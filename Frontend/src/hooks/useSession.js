@@ -61,10 +61,17 @@ function useSession() {
     }
   };
 
-  const logOut = () => {
+  const logOut = async () => {
+    await fetchAPI({
+      route: "auth/logout",
+      method: "PUT",
+      log: false,
+      showReply: false,
+    });
     saveItem("not");
     saveUserInfo("");
     setLogged(false);
+    
   };
 
   const checkSession = async () => {

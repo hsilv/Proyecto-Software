@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   if (!error && data) {
     if (data.length === 0) {
       res.status.json({
-        status: 203,
+        status: 404,
         message: 'No se ha encontrado la colección',
       });
     } else {

@@ -18,7 +18,8 @@ function useNotifications() {
   useEffect(() => {
     if (result) {
       if (result !== true) {
-        setResultNotifications(result.reverse());
+        /* setResultNotifications(result.reverse()); */
+        console.log(result);
       }
     }
   }, [result]);

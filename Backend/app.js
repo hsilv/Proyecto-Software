@@ -3,11 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-import apicache from 'apicache';
 import getDirname from './utils/getDirname.js';
-
-const avoidERR = (req, res) => (res.statusCode === 200) || (res.statusCode === 203);
-const cacheSuccess = apicache.middleware('30 seconds', avoidERR);
 
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'development';
@@ -24,11 +20,9 @@ app.use(express.text());
 
 if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: '.env.production' });
-  app.use(cacheSuccess);
 } else if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
   dotenv.config({ path: '.env.development' });
-  app.use(cacheSuccess);
 } else if (process.env.NODE_ENV === 'testing') {
   dotenv.config({ path: '.env.testing' });
 }

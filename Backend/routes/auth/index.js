@@ -37,6 +37,10 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.put('/logout', (req, res) => {
+  res.status(200).json({ status: 200, message: 'Cache de login limpiada' });
+});
+
 router.post('/register', async (req, res) => {
   if (req.body.username) {
     const userExists = await isUser(req.body.username);
