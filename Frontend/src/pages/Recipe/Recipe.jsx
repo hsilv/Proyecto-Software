@@ -25,7 +25,6 @@ import SimilarRecipesSwiper from "../../components/SimilarRecipesSwiper/SimilarR
 
 function Recipe() {
   let { id } = useParams();
-  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
 
@@ -33,8 +32,7 @@ function Recipe() {
   const [recipeCountry, setRecipeCountry] = useState("");
   const [showCollModal, setShowCollModal] = useState(false);
   const [transStyles, setTransStyles] = useState(false);
-  /*   const [loadingSimilarRecipes, setLoadingSimilarRecipes] = useState(false);
-   */
+
   const {
     getRecipeDetails,
     resultRecipeDetails: detailsRecipe,
@@ -54,26 +52,12 @@ function Recipe() {
 
   const { postRecipeToColl } = useCollectionsByUser();
 
-  const {
-    resultSimilarRecipes: similarRecipes,
-    getSimilarRecipes,
-    loadingSimilarRecipes,
-  } = useSimilarRecipes();
-
-  useEffect(() => {
-    getSimilarRecipes(recipeCountry);
-  }, [recipeCountry]);
-
-  useEffect(() => {
-    getSimilarRecipes(recipeCountry);
-  }, []);
-
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(loadingRecipeDetails + loadingSimilarRecipes);
+      setLoading(loadingRecipeDetails);
     }, 20);
     return () => clearTimeout(timer);
-  }, [loadingRecipeDetails, loadingSimilarRecipes]);
+  }, [loadingRecipeDetails,]);
 
   useEffect(() => {
     if (userInfo) {
@@ -340,31 +324,6 @@ function Recipe() {
               {renderBlock(detailsRecipe.porciones, "portion(s)")}
               {renderBlock(detailsRecipe.calorias, "calories/portion")}
             </div>
-            {/*             <div className={styles.SimilarRecipesContainer}>
-              <span className={styles.SimilarRecipesTitle}>
-                Similar Recipes
-              </span>
-              <div className={styles.SimilarRecipesCards}>
-                <Swiper slidesPerView="3" className={styles.swiperC}>
-                  {similarRecipes?.map((recipe) => (
-                    <SwiperSlide key={recipe.id}>
-                      <div
-                        className={styles.SimilarRecipesImageContainer}
-                        onClick={() => {
-                          navigate(`/recipe/${recipe.id}`);
-                        }}
-                      >
-                        <ImgWithLoading
-                          src={recipe.miniatura[0]}
-                          alt="Similar Recipe Image"
-                          loading="lazy"
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-            </div> */}
             <SimilarRecipesSwiper similarParam={recipeCountry} />
             <div className={styles.RecipeInstructions}>
               {renderIngredients(
