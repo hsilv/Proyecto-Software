@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Eczar&display=swap');
+
 $paddingInfo: 50px;
 
 .RecipeInfoContainer {
@@ -26,7 +28,6 @@ $paddingInfo: 50px;
   overflow: auto;
   padding-inline: $paddingInfo;
   padding-block: calc($paddingInfo / (1.68 / 1.68));
-  padding-bottom: calc($paddingInfo / 1.68);
 
   p {
     margin-block-start: 20px;
@@ -40,7 +41,7 @@ $paddingInfo: 50px;
     color: #434343;
     margin-block-end: 0;
     font-size: 2.3rem;
-    font-family: 'Aclonica', sans-serif;
+    font-family: 'Bree Serif', serif;
   }
 
 }
@@ -54,7 +55,7 @@ $paddingInfo: 50px;
     display: inline;
     color: #434343;
     font-size: 2.3rem;
-    font-family: 'Aclonica', sans-serif;
+    font-family: 'Bree Serif', serif;
   }
   h2 {
     margin: 0;

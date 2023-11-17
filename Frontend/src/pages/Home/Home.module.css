@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Eczar&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Calistoga&display=swap');
+
 
 .homeElementsContainer {
     width: 100%;
@@ -52,7 +54,8 @@
     color: #434343;
     margin-block-end: 0;
     font-size: 2.3rem;
-    font-family: 'Eczar', serif;
+    font-family: 'Bree Serif', serif;
+
 }
 
 .welcomeBackContainer img {

@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
 
 .resultContainer {
     display: flex;
@@ -45,7 +45,7 @@
 .resultContainerInfo h2 {
     font-size: 1.8rem;
     color: #434343;
-    font-family: 'Aclonica', sans-serif;
+    font-family: 'Bree Serif', serif;
 }
 
 .resultContainerTitle {
@@ -67,7 +67,7 @@
 }
 
 .timeInformation h3 {
-    font-family: 'Aclonica', sans-serif; 
+    font-family: 'Bree Serif', serif;
     font-size: 1rem;
     color: #343a40;
 }
@@ -79,4 +79,49 @@
     font-weight: 300;
     text-align: justify;
     margin: 0;
+}
+
+
+@media screen and (max-width: 768px) {
+    .resultContainerImage {
+      display: none; 
+    }
+  
+    .resultContainerInfo h2 {
+        font-size: 1rem;
+        color: #434343;
+        font-family: 'League Spartan', sans-serif;
+    }
+
+    .timeInformation h3 {
+        font-family: 'League Spartan', sans-serif;
+        font-size: 1rem;
+        color: #343a40;
+    }
+
+    .resultContainerInfo{
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        border-top-right-radius: inherit;
+        border-bottom-right-radius: inherit;
+        width: 100%;
+        height: inherit;
+        padding: 10px 2 0px;    
+    }
+
+    .resultContainer {
+        display: flex;
+        flex-direction: row;
+        margin-top: 30px;
+        background-color: #FFFF;
+        overflow: hidden;
+        width: 80vw;
+        height: 25vh;
+        border-radius: 10px;
+        filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.4));
+        cursor: pointer;
+    }
+    
+    
 }
