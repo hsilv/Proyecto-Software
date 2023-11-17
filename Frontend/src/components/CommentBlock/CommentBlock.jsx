@@ -28,6 +28,7 @@ function CommentSkeleton() {
 function CommentBlock({ idRecipe, idReceiver }) {
   const { userInfo } = useContext(SessionContext);
   const [canComment, setCanComment] = useState(false);
+  const [posted, setPosted] = useState(undefined);
 
   const {
     getRecipeComments,
@@ -57,9 +58,9 @@ function CommentBlock({ idRecipe, idReceiver }) {
     }
   }, [comments, userInfo]);
 
-/*   useEffect(() => {
-    if (canComment) console.log(comments);
-  }, [canComment, comments]); */
+  useEffect(() => {
+    console.log(posted);
+  }, [posted])
 
   return (
     <>
@@ -72,7 +73,7 @@ function CommentBlock({ idRecipe, idReceiver }) {
         </>
       ) : (
         <>
-          {canComment && <NewComment idRecipe={idRecipe} idReceiver={idReceiver} />}
+          {canComment && !posted && <NewComment idRecipe={idRecipe} idReceiver={idReceiver} setPostedState={setPosted}/>}
           <div>Hola</div>
         </>
       )}

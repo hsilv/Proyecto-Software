@@ -2,20 +2,23 @@ $darker: #bf3545;
 $darker2: #e65364;
 $blockColor: #fae0d4;
 
-.newComment{
+.newComment {
   display: flex;
   flex-direction: column;
   font-family: "League Spartan", sans-serif;
+  padding-bottom: 15px;
+  border-bottom: thin solid rgb(194, 194, 194);
+  margin-top: 35px;
 }
 
-.header{
+.header {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-block-end: 15px;
 }
 
-.userInfo{
+.userInfo {
   flex-grow: 1;
   display: flex;
   flex-direction: row;
@@ -40,7 +43,7 @@ $blockColor: #fae0d4;
   flex-grow: 1;
   max-width: 200px;
 
-  svg{
+  svg {
     width: 1em;
     height: 100%;
   }
@@ -58,52 +61,52 @@ $blockColor: #fae0d4;
   color: inherit;
 }
 
-.numberRating{
+.numberRating {
   display: none;
 }
 
-.sendButton{
-    box-sizing: border-box;
-    border-radius: 10px;
-    min-height: 50px;
-    max-height: 50px;
-    max-width: 200px;
-    justify-self: center;
-    align-self: end;
-    outline: none;
-    border: none;
-    font-weight: bold;
-    font-size: 1em;
-    background-color: $darker2;
-    color: $blockColor;
-    position: relative;
-    padding-inline: 15px;
-    cursor: pointer;
-    transition: padding-left 0.7s ease;
+.sendButton {
+  box-sizing: border-box;
+  border-radius: 10px;
+  min-height: 50px;
+  max-height: 50px;
+  max-width: 200px;
+  justify-self: center;
+  align-self: end;
+  outline: none;
+  border: none;
+  font-weight: bold;
+  font-size: 1em;
+  background-color: $darker2;
+  color: $blockColor;
+  position: relative;
+  padding-inline: 15px;
+  cursor: pointer;
+  transition: padding-left 0.7s ease;
 
-    &::before{
-        content: url('/assets/comment.svg');
-        display: inline-block;
-        object-fit: contain;
-        height: 50px;
-        width: 50px;
-        position: absolute;
-        left: 0.5ch;
-        top: 13px;
-        opacity: 0;
-        transition: opacity 0.7s ease;
+  &::before {
+    content: url("/assets/comment.svg");
+    display: inline-block;
+    object-fit: contain;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    left: 0.5ch;
+    top: 13px;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+
+  &:hover {
+    padding-left: 50px;
+
+    &::before {
+      opacity: 1;
     }
-
-    &:hover{
-        padding-left: 50px;
-
-        &::before{
-            opacity: 1;
-        }
-    }
+  }
 }
 
-.commentInput{
+.commentInput {
   font-family: inherit;
   box-sizing: border-box;
   width: 100%;
@@ -116,7 +119,6 @@ $blockColor: #fae0d4;
   padding-inline: 15px;
   padding-block: calc(15px / (1.68 / 1.68));
 
-  
   &::-webkit-scrollbar-track {
     background: white;
   }
@@ -127,8 +129,123 @@ $blockColor: #fae0d4;
   }
 }
 
-.commentForm{
+.commentForm {
   display: flex;
   flex-direction: column;
   row-gap: 15px;
+}
+
+@media only screen and (max-width: 640px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-block-end: 15px;
+  }
+
+  .userInfo {
+    width: 80%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    
+    .pfp{
+      flex-grow: 1;
+      max-width: 50px;
+      align-items: center;
+      aspect-ratio: 1/1;
+    }
+
+    .name{
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    .username{
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+
+  .qualification {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 380px){
+  .userInfo{
+    flex-direction: column;
+
+    .pfp{
+      max-width: unset;
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+.loadingHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  background-color: rgb(206, 206, 206);
+  border-radius: 15px;
+}
+
+.errorHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  background-color: rgb(224, 224, 224);
+  border-radius: 15px;
+  margin-bottom: 20px;
+
+  .sad{
+    display: block !important;
+    font-weight: 800;
+    font-size: 3rem;
+    margin-block-end: 20px;
+  }
+}
+
+.ldsRing {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.ldsRing div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: ldsRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+.ldsRing div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.ldsRing div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.ldsRing div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes ldsRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
