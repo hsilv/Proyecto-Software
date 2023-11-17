@@ -1,21 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
-
 .SearchPageContainer{
     display: flex;
     flex-direction: row;
-    z-index: -1;
-    top: 0;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 .FiltersContainer {
     display: flex;
     flex-direction: column;
-    background-color: #bf3545;
+    background-color: #dee2e6;
     width: 20%; 
     height: 100vh;
     overflow-y: scroll;
@@ -27,7 +20,7 @@
     font-weight: 500;
     margin-top: 90px;
     margin-left: 20px;
-    color: rgb(242, 249, 255);
+    color: #343a40;
 }
 
 .FiltersCountryContainer{
@@ -46,10 +39,10 @@
 }
 
 .FiltersCountryContainerInfo h2 {
-    font-family: 'Lobster Two', cursive;
+    font-family: 'Aclonica', sans-serif;
     padding: 0;
     margin-left: 10px;
-    color: #f3f3f3;
+    color: #343a40;
 }
 
 .CountryOptions {
@@ -86,20 +79,21 @@
 }
 
 .ResultsContainer {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     width: 80%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: auto;
     padding-bottom: 2%;
+    margin-inline-end: 40px;
 }
 
 .ResultsContainer h1 {
-    margin-left: 1.8vw;
+    box-sizing: border-box;
     font-family: 'League Spartan', sans-serif;
     font-weight: 500;
-    font-size: 1.2rem;
-    margin-top: 100px;
+    font-size: 1.5rem;
+    margin-top: 50px;
     color: #343a40;
     width: fit-content;
     display: inline;
