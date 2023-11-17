@@ -4,11 +4,27 @@
 
 body {
   margin: 0px;
-  box-sizing: border-box;
 }
 
 :root {
-  box-sizing: border-box;
   background-color: #F2F2F2;
   font-family: 'League Spartan', sans-serif;
+
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F2F2F2;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #b4b4b4;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 0px 4px #F2F2F2; /* color del "margen" */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8a8a8a;
+  }
 }

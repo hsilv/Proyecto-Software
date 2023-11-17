@@ -93,9 +93,11 @@ function useSession() {
       } else if (res.status) {
         setLogged(false);
         setLoginError(res);
+        logOut();
       }
     } else {
       setLogged(false);
+      logOut();
     }
   };
 
