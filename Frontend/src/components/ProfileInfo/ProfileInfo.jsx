@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './ProfileInfo.module.css';
 import { SessionContext } from '../../context/sessionContext';
-import { TbEdit } from 'react-icons/tb';
+import { TbEdit, TbUpload } from 'react-icons/tb';
 import Button from "../../components/Button/Button";
 
 function ProfileInfo() {
@@ -17,6 +17,9 @@ function ProfileInfo() {
 
   const handleEditClick = () => {
     setEditMode(true);
+  };
+
+  const handleUploadClick = () => {
   };
 
   const handleDescChange = (event) => {
@@ -51,14 +54,15 @@ function ProfileInfo() {
           <div className={styles.userInfo}>
             <div className={styles.userInfoColumn}>
               <h1>{userInfo ? userInfo.name : 'Full name'}</h1>
-              <p>@{userInfo ? userInfo.username : 'Username'}</p>
+              <p>@ {userInfo ? userInfo.username : 'Username'}</p>
             </div>
             <div className={styles.userIcon}>
               {editMode ? (
-                <>
+                <div className={styles.editContent}>
+                  <TbUpload fontSize={'25px'} onClick={handleUploadClick} />
                   <button className={styles.profileButton} onClick={handleSave}>Save</button>
                   <button className={styles.secprofileButton} onClick={handleCancel}>Cancel</button>
-                </>
+                </div>
               ) : (
                 <TbEdit fontSize={'30px'} onClick={handleEditClick} />
               )}

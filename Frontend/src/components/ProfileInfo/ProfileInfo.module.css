@@ -24,8 +24,7 @@
 }
 
 .headerContent {
-  position: fixed;
-  top: 0; 
+  top: 10px; 
   left: 0; 
   position: relative;
   z-index: 1;
@@ -114,7 +113,6 @@
 
 .profileButton {
   background-color: #BF3545;
-  margin: 5px;
   color: #F5F5F5;
   border-radius: 5px;
   padding: 10px 22px;
@@ -128,7 +126,6 @@
 .secprofileButton {
   background-color: transparent;
   color: #FFF;
-  margin: 5px;
   border-radius: 5px;
   padding: 8px 20px;
   border: 2px solid #BF3545;
@@ -156,5 +153,12 @@
   font-size: 16px;
   width: 40%;
   font-family: 'League Spartan', sans-serif;
+}
+
+.editContent {
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
