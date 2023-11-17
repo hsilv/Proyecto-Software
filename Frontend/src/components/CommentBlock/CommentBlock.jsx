@@ -72,8 +72,8 @@ function CommentBlock({ idRecipe, idReceiver }) {
         </>
       ) : (
         <>
-          <div>Hola</div>
           {canComment && <NewComment idRecipe={idRecipe} idReceiver={idReceiver} />}
+          <div>Hola</div>
         </>
       )}
     </>

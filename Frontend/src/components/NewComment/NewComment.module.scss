@@ -2,16 +2,26 @@ $darker: #bf3545;
 $darker2: #e65364;
 $blockColor: #fae0d4;
 
-.newComment {
-  font-family: "League Spartan", sans-serif;
-  background-color: $darker;
-  padding-inline: 20px;
-  padding-block: 13px;
-  border-radius: 10px;
-  margin-block: 1rem;
+.newComment{
   display: flex;
   flex-direction: column;
-  row-gap: 13px;
+  font-family: "League Spartan", sans-serif;
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-block-end: 15px;
+}
+
+.userInfo{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  column-gap: 20px;
 }
 
 .pfp {
@@ -22,58 +32,34 @@ $blockColor: #fae0d4;
   aspect-ratio: 1/1;
 }
 
-.userInfo {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  column-gap: 20px;
-  flex-wrap: wrap;
-  background-color: $blockColor;
-  border-radius: 10px;
-  padding-inline: 20px;
-  padding-block: 15px;
-  flex-grow: 1;
-}
-
-.username {
-  font-weight: bold;
-  font-size: large;
-  color: $darker;
-}
-
-.header {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: center;
-  column-gap: 20px;
-}
-
 .qualification {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: $blockColor;
-  padding-inline: 20px;
-  padding-block: 15px;
-  border-radius: 10px;
+  flex-grow: 1;
+  max-width: 200px;
 
   svg{
     width: 1em;
-    height: 1em;
+    height: 100%;
   }
 }
 
-.commentForm {
-    display: flex;
-    flex-direction: column;
-    row-gap: inherit;
+.name {
+  font-weight: 500;
+  font-size: large;
+  color: inherit;
 }
 
-.commentInput{
-    resize: none;
+.username {
+  font-weight: 300;
+  font-size: large;
+  color: inherit;
+}
+
+.numberRating{
+  display: none;
 }
 
 .sendButton{
@@ -117,21 +103,32 @@ $blockColor: #fae0d4;
     }
 }
 
-.commentInput {
+.commentInput{
+  font-family: inherit;
   box-sizing: border-box;
   width: 100%;
-  margin: 0;
+  font-size: 1.1rem;
   border-radius: 10px;
+  resize: none;
+  outline: none;
+  border: none;
+  box-shadow: 0px 0px 2px 0px rgba(129, 129, 129, 0.75);
   padding-inline: 15px;
+  padding-block: calc(15px / (1.68 / 1.68));
+
+  
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #b4b4b4;
+    box-shadow: inset 0px 0px 0px 4px white; /* color del "margen" */
+  }
 }
 
-.rating{
-    svg{
-        width: 1.5em;
-        height: 1.5em;
-    }
-}
-
-.numberRating{
-    display: none;
+.commentForm{
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
 }
