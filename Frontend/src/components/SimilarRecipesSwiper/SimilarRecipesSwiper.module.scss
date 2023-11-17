@@ -1,0 +1,85 @@
+$background: linear-gradient(90deg, #e4e4e4 25%, #d4d4d4 50%, #e4e4e4 75%);
+$background-size: 200% 100%;
+$background-position: 100% 0;
+
+
+.SimilarRecipesImageContainer {
+  height: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin: 0 2% 0 0;
+  box-sizing: border-box;
+}
+
+.SimilarRecipesImageContainer img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.SimilarRecipesImage{
+    object-fit: cover;
+    width: 100%;
+    height: 100% !important;
+    img{
+        min-height: 10rem;
+        height: 10rem;
+    }
+}
+
+.similarSwiper{
+    height: 10rem;
+    width: 100%;
+    max-width: 100%;
+}
+
+.SimilarRecipesTitle {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  vertical-align: top;
+}
+
+.SimilarRecipesContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10rem;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.SimilarRecipesCards {
+  height: inherit;
+  flex-grow: 1;
+  box-sizing: border-box;
+  width: 96%;
+  padding-inline-start: 20px;
+}
+
+.skeleton{
+    height: 10rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 2% 0 0;
+    box-sizing: border-box;
+    background: $background;
+    background-size: $background-size;
+    background-position: $background-position;
+    border-radius: 15px;
+    animation: loading 3s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 100% 0;
+    }
+    50% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}

@@ -21,6 +21,7 @@ import { SessionContext } from "../../context/sessionContext";
 import Loading from "../../components/Loading";
 import ImgWithLoading from "../../components/ImgWithLoading";
 import RecipeSkeleton from "../../components/RecipeSkeleton";
+import SimilarRecipesSwiper from "../../components/SimilarRecipesSwiper/SimilarRecipesSwiper";
 
 function Recipe() {
   let { id } = useParams();
@@ -32,8 +33,8 @@ function Recipe() {
   const [recipeCountry, setRecipeCountry] = useState("");
   const [showCollModal, setShowCollModal] = useState(false);
   const [transStyles, setTransStyles] = useState(false);
-
-  
+  /*   const [loadingSimilarRecipes, setLoadingSimilarRecipes] = useState(false);
+   */
   const {
     getRecipeDetails,
     resultRecipeDetails: detailsRecipe,
@@ -41,23 +42,31 @@ function Recipe() {
   } = useRecipeDetails(id);
 
   const {
-    resultSimilarRecipes: similarRecipes,
-    getSimilarRecipes,
-    loadingSimilarRecipes,
-  } = useSimilarRecipes();
-  
-  const {
     getRecipeComments,
     resultRecipeComments: comments,
     loadingRecipeComments,
   } = useRecipeComments();
 
   const { userInfo } = useContext(SessionContext);
-  
+
   const { getCollectionsByUser, resultCollectionsByUser } =
-  useCollectionsByUser();
-  
+    useCollectionsByUser();
+
   const { postRecipeToColl } = useCollectionsByUser();
+
+  const {
+    resultSimilarRecipes: similarRecipes,
+    getSimilarRecipes,
+    loadingSimilarRecipes,
+  } = useSimilarRecipes();
+
+  useEffect(() => {
+    getSimilarRecipes(recipeCountry);
+  }, [recipeCountry]);
+
+  useEffect(() => {
+    getSimilarRecipes(recipeCountry);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -65,7 +74,7 @@ function Recipe() {
     }, 20);
     return () => clearTimeout(timer);
   }, [loadingRecipeDetails, loadingSimilarRecipes]);
-  
+
   useEffect(() => {
     if (userInfo) {
       getCollectionsByUser(userInfo.idUser);
@@ -124,10 +133,6 @@ function Recipe() {
   useEffect(() => {
     if (detailsRecipe.pais) setRecipeCountry(detailsRecipe.pais);
   }, [detailsRecipe.pais]);
-
-  useEffect(() => {
-    getSimilarRecipes(recipeCountry);
-  }, [recipeCountry]);
 
   const handleAddColection = () => {
     toggleModal();
@@ -335,6 +340,32 @@ function Recipe() {
               {renderBlock(detailsRecipe.porciones, "portion(s)")}
               {renderBlock(detailsRecipe.calorias, "calories/portion")}
             </div>
+            {/*             <div className={styles.SimilarRecipesContainer}>
+              <span className={styles.SimilarRecipesTitle}>
+                Similar Recipes
+              </span>
+              <div className={styles.SimilarRecipesCards}>
+                <Swiper slidesPerView="3" className={styles.swiperC}>
+                  {similarRecipes?.map((recipe) => (
+                    <SwiperSlide key={recipe.id}>
+                      <div
+                        className={styles.SimilarRecipesImageContainer}
+                        onClick={() => {
+                          navigate(`/recipe/${recipe.id}`);
+                        }}
+                      >
+                        <ImgWithLoading
+                          src={recipe.miniatura[0]}
+                          alt="Similar Recipe Image"
+                          loading="lazy"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </div> */}
+            <SimilarRecipesSwiper similarParam={recipeCountry} />
             <div className={styles.RecipeInstructions}>
               {renderIngredients(
                 "Ingredients",
