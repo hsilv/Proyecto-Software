@@ -8,6 +8,7 @@ import { SessionContext } from "../../context/sessionContext";
 import IngredientsContainer from "../../components/IngredientsContainer/IngredientsContainer";
 import StepsContainer from "../../components/StepsContainer/StepsContainer";
 import Button from "../../components/Button/Button";
+import { useAPI } from "../../hooks/useAPI";
 
 const schema = Joi.object({
   title: Joi.string().min(3).max(60).required(),
@@ -20,6 +21,7 @@ const schema = Joi.object({
 
 function CreateRecipe() {
   const { checkSession, userInfo } = useContext(SessionContext);
+  const { fetchAPI, error, loading, result } = useAPI();
   const [categories, setCategories] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [steps, setSteps] = useState([]);
@@ -35,17 +37,42 @@ function CreateRecipe() {
     calories: "",
   });
 
+  const createRecipe = async () => {
+    console.log("post")
+    const res = await fetchAPI({
+        method: 'POST',
+        route: 'recipe/postRecipe',
+        body: JSON.stringify({
+            authorId: userInfo.id,
+            name: form.values.title,
+            desc: form.values.desc,
+            country: form.values.country,
+            time: form.values.time,
+            ingredients: ingredients.map((ingredient) => "(" + ingredient[0] + ", " + ingredient[1] + ")"),
+            portions: form.values.portions,
+            calories: form.values.calories,
+            steps: steps,
+            // imagen?
+        }),
+        log: true,
+        showReply: true,
+    });
+}
+
   useEffect(() => {
     checkSession();
   }, []);
+
+  useEffect(() => {
+  }, [form, ingredients, categories, steps])
 
   useEffect(() => {
     setValidForm(form.validate());
   }, [form.values]);
 
   const postRecipe = () => {
-    const date = new Date();
-    // Post the recipe
+    console.log("post");
+    createRecipe();
   };
 
   return (
@@ -98,6 +125,7 @@ function CreateRecipe() {
             label="Time (minutes)"
             type="number"
             required
+            min="1"
           />
 
           <h1 className={styles.sectionHeader}>Nutrition Facts</h1>
@@ -108,6 +136,7 @@ function CreateRecipe() {
             label="portions"
             type="number"
             required
+            min="1"
           />
           <Input
             value={form.values.calories}
@@ -116,6 +145,7 @@ function CreateRecipe() {
             label="calories per portion"
             type="number"
             required
+            min="0"
           />
 
           <h1 className={styles.sectionHeader}>Categories</h1>
@@ -135,10 +165,7 @@ function CreateRecipe() {
             !form.values.country || 
             !form.values.time || 
             !form.values.portions || 
-            !form.values.calories || 
-            categories.length < 1 ||
-            ingredients.length < 1 ||
-            steps.length < 1 ||
+            !form.values.calories ||
             recipeImage == null}
           onClick={() => {
             postRecipe();

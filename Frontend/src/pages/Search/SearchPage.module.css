@@ -10,10 +10,11 @@
 .FiltersContainer {
     display: flex;
     flex-direction: column;
-    background-color: #b34444;
+    background-color: #dee2e6;
     width: 20%; 
     height: 100vh;
     overflow-y: scroll;
+    gap: 20px;
 }
 
 .FiltersContainer h1 {
@@ -22,10 +23,13 @@
     font-weight: 500;
     margin-top: 20px;
     margin-left: 20px;
-    color: white;
+    margin-bottom: 0;
+    color: #333;
+    width: fit-content;
 }
 
 .FiltersCountryContainer{
+    align-self: center;
     display: flex;
     flex-direction: column;
     height: 25%;
@@ -41,10 +45,10 @@
 }
 
 .FiltersCountryContainerInfo h2 {
-    font-family: 'Bree Serif', serif;
+    font-family: 'Aclonica', sans-serif;
     padding: 0;
     margin-left: 10px;
-    color: white;
+    color: #333;
 }
 
 .CountryOptions {
@@ -59,7 +63,7 @@
     font-size: 1.3rem;
     overflow: auto;
     margin-bottom: 0;
-    color: white;
+    color: #333;
 }
 
 .CountryOptions button {
@@ -95,8 +99,9 @@
     box-sizing: border-box;
     font-family: 'League Spartan', sans-serif;
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     margin-top: 50px;
+    margin-left: 60px;
     color: #343a40;
     width: fit-content;
     display: inline;

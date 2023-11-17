@@ -10,6 +10,8 @@
 }
 
 .createRecipeContainer {
+    display: flex;
+    flex-direction: column;
     width: 50%;
     padding: 10px 30px;
     background-color: #FFF;
@@ -71,6 +73,7 @@
     font-family: Raleway, sans-serif;
     font-weight: 600;
     font-size: 1rem;
+    max-width: 30px;
   }
   
   .button:disabled {
