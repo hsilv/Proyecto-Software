@@ -6,9 +6,7 @@ import styles from "./Modal.module.scss";
 import { CgClose } from "react-icons/cg";
 
 export default function Modal({ show, children, title, setCloseState }) {
-
   const [transStyles, setTransStyles] = useState(false);
-
 
   const toggleModal = async () => {
     if (show) {
@@ -20,16 +18,14 @@ export default function Modal({ show, children, title, setCloseState }) {
     }
   };
 
-  
   useEffect(() => {
     const initShow = async () => {
-      if(show){
+      if (show) {
         await setTimeout(() => setTransStyles(true), 50);
       } else {
         setTransStyles(false);
-        await setTimeout(() => setCloseState(false), 400);
       }
-    }
+    };
     initShow();
   }, [show]);
 
@@ -38,17 +34,24 @@ export default function Modal({ show, children, title, setCloseState }) {
       {show &&
         createPortal(
           <>
-            <div className={`${styles.modalView} ${transStyles && styles.backgTransition}`}>
-              <div className={`${styles.modal} ${transStyles && styles.transition}`}>
+            <div
+              className={`${styles.modalView} ${
+                transStyles && styles.backgTransition
+              }`}
+              onClick={toggleModal}
+            >
+              <div
+                className={`${styles.modal} ${
+                  transStyles && styles.transition
+                }`}
+              >
                 <div className={styles.modalHeader}>
                   <h2>{title}</h2>
                   <button onClick={toggleModal} className={styles.closerModal}>
                     <CgClose />
                   </button>
                 </div>
-                <div className={styles.modalBody}>
-                  {children}
-                </div>
+                <div className={styles.modalBody}>{children}</div>
               </div>
             </div>
           </>,
@@ -59,13 +62,14 @@ export default function Modal({ show, children, title, setCloseState }) {
 }
 
 Modal.propTypes = {
-  setCloseState: PropTypes.func.isRequired,
+  setCloseState: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.node,
   title: PropTypes.string,
 };
 
 Modal.defaultProps = {
+  setCloseState: () => {},
   show: false,
   children: "",
 };
