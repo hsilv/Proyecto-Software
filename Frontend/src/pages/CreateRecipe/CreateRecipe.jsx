@@ -7,7 +7,7 @@ import useForm from "../../hooks/useForm";
 import { SessionContext } from "../../context/sessionContext";
 import IngredientsContainer from "../../components/IngredientsContainer/IngredientsContainer";
 import StepsContainer from "../../components/StepsContainer/StepsContainer";
-import AnyButton from "../../components/AnyButton/AnyButton";
+import Button from "../../components/Button/Button";
 
 const schema = Joi.object({
   title: Joi.string().min(3).max(60).required(),
@@ -41,15 +41,15 @@ function CreateRecipe() {
 
   useEffect(() => {
     setValidForm(form.validate());
-  }, [form.values])
+  }, [form.values]);
 
   const postRecipe = () => {
     const date = new Date();
-    //post
-  }
+    // Post the recipe
+  };
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <div className={styles.createRecipeContainer}>
         <div className={styles.formContainer}>
           <h1 className={styles.sectionHeader}>Recipe Overview</h1>
@@ -67,15 +67,17 @@ function CreateRecipe() {
             type="file"
             id="recipeImg"
             name="recipeImg"
+            required
             className={styles.fileInput}
             onChange={(event) => {setRecipeImage(event.target.files[0])}}
           />
 
-          <label htmlFor="descInput" className={styles.descLabel}><span className={styles.descLabelSpan}>Description*</span></label>
+          <label htmlFor="descInput" className={styles.descLabel}><span className={styles.descLabelSpan}>Description</span></label>
           <textarea
             name="descInput"
             id="descInput"
             rows="5"
+            required
             value={form.values.desc}
             onChange={form.onChange("desc")}
             className={styles.descInput}
@@ -126,15 +128,26 @@ function CreateRecipe() {
           <StepsContainer callback={setSteps} />
         </div>
 
-        <button
+        <Button
           className={styles.publishBtn}
-          disabled={validForm && categories.length > 0 && ingredients.length > 0 && steps.length > 0 && recipeImage != null}
-          onClick={() => {postRecipe()}}>
-            Publish Recipe
-        </button>
-
+          disabled={!form.values.title || 
+            !form.values.desc || 
+            !form.values.country || 
+            !form.values.time || 
+            !form.values.portions || 
+            !form.values.calories || 
+            categories.length < 1 ||
+            ingredients.length < 1 ||
+            steps.length < 1 ||
+            recipeImage == null}
+          onClick={() => {
+            postRecipe();
+          }}
+        >
+          Publish Recipe
+        </Button>
       </div>
-    </>
+    </div>
   );
 }
 

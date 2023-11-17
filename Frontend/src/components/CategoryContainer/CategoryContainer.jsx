@@ -45,6 +45,7 @@ function CategoryContainer({ callback }) {
                 <Input
                     value={form.values.category}
                     onChange={form.onChange("category")}
+                    required
                     name="newCategory"
                     label="Add Category"
                     type="text"

@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styles from "./Recipe.module.scss";
 import { NavLink, useParams } from "react-router-dom";
 import Ratings from "../../components/Ratings/Ratings";
-import { TbFolderPlus, TbHeart } from "react-icons/tb";
+import { TbFolderPlus, TbHeart, TbTrash } from "react-icons/tb";
 import "swiper/css";
+import { SessionContext } from "../../context/sessionContext";
 import CommentBlock from "../../components/CommentBlock/CommentBlock";
 import { useRecipeDetails } from "../../hooks/api/useRecipe";
 import ImgWithLoading from "../../components/ImgWithLoading";
@@ -14,7 +15,7 @@ import AddRecipeToCollectionModal from "../../components/AddRecipeToCollectionMo
 
 function Recipe() {
   let { id } = useParams();
-
+  const { userInfo } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
   const [showCollModal, setShowCollModal] = useState(false);
 
@@ -33,7 +34,10 @@ function Recipe() {
 
   useEffect(() => {
     getRecipeDetails();
-  }, [id]);
+    console.table(userInfo);
+  }, [id, userInfo]);
+
+  const isAdmin = userInfo && userInfo.rol === 'admin';
 
   const renderBlock = (title, subtitle) => (
     <div className={styles.Block}>
@@ -113,6 +117,12 @@ function Recipe() {
                     </NavLink>
                   ) : null}
                 </h2>
+                {isAdmin && (
+                  <TbTrash
+                    fontSize={"30px"}
+                    className={styles.intButton}
+                  />
+                )}
                 <TbFolderPlus
                   fontSize={"30px"}
                   className={styles.intButton}
