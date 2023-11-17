@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
@@ -19,16 +20,20 @@ import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
 import { SessionContext } from "../../context/sessionContext";
 import Loading from "../../components/Loading";
 import ImgWithLoading from "../../components/ImgWithLoading";
+import RecipeSkeleton from "../../components/RecipeSkeleton";
 
 function Recipe() {
   let { id } = useParams();
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(true);
 
   const [refreshComments, setRefreshComments] = useState(0);
   const [recipeCountry, setRecipeCountry] = useState("");
   const [showCollModal, setShowCollModal] = useState(false);
   const [transStyles, setTransStyles] = useState(false);
 
+  
   const {
     getRecipeDetails,
     resultRecipeDetails: detailsRecipe,
@@ -40,7 +45,7 @@ function Recipe() {
     getSimilarRecipes,
     loadingSimilarRecipes,
   } = useSimilarRecipes();
-
+  
   const {
     getRecipeComments,
     resultRecipeComments: comments,
@@ -48,12 +53,19 @@ function Recipe() {
   } = useRecipeComments();
 
   const { userInfo } = useContext(SessionContext);
-
+  
   const { getCollectionsByUser, resultCollectionsByUser } =
-    useCollectionsByUser();
-
+  useCollectionsByUser();
+  
   const { postRecipeToColl } = useCollectionsByUser();
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(loadingRecipeDetails + loadingSimilarRecipes);
+    }, 20);
+    return () => clearTimeout(timer);
+  }, [loadingRecipeDetails, loadingSimilarRecipes]);
+  
   useEffect(() => {
     if (userInfo) {
       getCollectionsByUser(userInfo.idUser);
@@ -283,60 +295,64 @@ function Recipe() {
             alt="Recipe"
           />
         </div>
-        <div className={styles.RecipeDetails}>
-          <div className={styles.RecipeHeader}>
-            <h1>{detailsRecipe ? detailsRecipe.nombre : "Placeholder"}</h1>
-            <div className={styles.tools}>
-              <h2>
-                {detailsRecipe.usuario ? (
-                  <NavLink
-                    className={styles.AuthorUsername}
-                    to={`/profile/${detailsRecipe.usuario?.username}`}
-                  >
-                    @{detailsRecipe.usuario?.username}
-                  </NavLink>
-                ) : null}
-              </h2>
-              <TbFolderPlus
-                fontSize={"30px"}
-                className={styles.intButton}
-                onClick={handleAddColection}
-              />
-              <TbHeart
-                fontSize={"30px"}
-                className={styles.intButton}
-                onClick={handleFavorite}
+        {loading ? (
+          <RecipeSkeleton />
+        ) : (
+          <div className={styles.RecipeDetails}>
+            <div className={styles.RecipeHeader}>
+              <h1>{detailsRecipe ? detailsRecipe.nombre : "Placeholder"}</h1>
+              <div className={styles.tools}>
+                <h2>
+                  {detailsRecipe.usuario ? (
+                    <NavLink
+                      className={styles.AuthorUsername}
+                      to={`/profile/${detailsRecipe.usuario?.username}`}
+                    >
+                      @{detailsRecipe.usuario?.username}
+                    </NavLink>
+                  ) : null}
+                </h2>
+                <TbFolderPlus
+                  fontSize={"30px"}
+                  className={styles.intButton}
+                  onClick={handleAddColection}
+                />
+                <TbHeart
+                  fontSize={"30px"}
+                  className={styles.intButton}
+                  onClick={handleFavorite}
+                />
+              </div>
+            </div>
+            <Ratings value={detailsRecipe.avg_calificacion} color={"#434343"} />
+            <p>{detailsRecipe.descripcion}</p>
+            <div className={styles.DetailsContainer}>
+              {renderBlock(detailsRecipe.tiempo, "minutes")}
+              {renderBlock(
+                detailsRecipe ? detailsRecipe.ingredientes?.length : 0,
+                "ingredients"
+              )}
+              {renderBlock(detailsRecipe.porciones, "portion(s)")}
+              {renderBlock(detailsRecipe.calorias, "calories/portion")}
+            </div>
+            <div className={styles.RecipeInstructions}>
+              {renderIngredients(
+                "Ingredients",
+                detailsRecipe ? detailsRecipe.ingredientes : ["", ""]
+              )}
+              {renderSteps("Steps", detailsRecipe.paso)}
+              <CommentBlock
+                comments={
+                  comments ? (comments.status ? undefined : comments) : comments
+                }
+                loading={loadingRecipeComments}
+                idRecipe={parseInt(id)}
+                refreshTrigger={setRefreshComments}
+                idOP={detailsRecipe.usuario?.id}
               />
             </div>
           </div>
-          <Ratings value={detailsRecipe.avg_calificacion} color={"#434343"} />
-          <p>{detailsRecipe.descripcion}</p>
-          <div className={styles.DetailsContainer}>
-            {renderBlock(detailsRecipe.tiempo, "minutes")}
-            {renderBlock(
-              detailsRecipe ? detailsRecipe.ingredientes?.length : 0,
-              "ingredients"
-            )}
-            {renderBlock(detailsRecipe.porciones, "portion(s)")}
-            {renderBlock(detailsRecipe.calorias, "calories/portion")}
-          </div>
-          <div className={styles.RecipeInstructions}>
-            {renderIngredients(
-              "Ingredients",
-              detailsRecipe ? detailsRecipe.ingredientes : ["", ""]
-            )}
-            {renderSteps("Steps", detailsRecipe.paso)}
-            <CommentBlock
-              comments={
-                comments ? (comments.status ? undefined : comments) : comments
-              }
-              loading={loadingRecipeComments}
-              idRecipe={parseInt(id)}
-              refreshTrigger={setRefreshComments}
-              idOP={detailsRecipe.usuario?.id}
-            />
-          </div>
-        </div>
+        )}
       </div>
     </>
   );
