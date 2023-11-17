@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Eczar&display=swap');
+
 .SearchPageContainer{
     display: flex;
     flex-direction: row;
-    flex-grow: 1;
+    flex-grow: 1;   
     overflow: hidden;
 }
 
@@ -12,6 +14,7 @@
     width: 20%; 
     height: 100vh;
     overflow-y: scroll;
+    gap: 20px;
 }
 
 .FiltersContainer h1 {
@@ -20,10 +23,13 @@
     font-weight: 500;
     margin-top: 20px;
     margin-left: 20px;
-    color: #343a40;
+    margin-bottom: 0;
+    color: #333;
+    width: fit-content;
 }
 
 .FiltersCountryContainer{
+    align-self: center;
     display: flex;
     flex-direction: column;
     height: 25%;
@@ -42,7 +48,7 @@
     font-family: 'Aclonica', sans-serif;
     padding: 0;
     margin-left: 10px;
-    color: #343a40;
+    color: #333;
 }
 
 .CountryOptions {
@@ -57,6 +63,7 @@
     font-size: 1.3rem;
     overflow: auto;
     margin-bottom: 0;
+    color: #333;
 }
 
 .CountryOptions button {
@@ -94,6 +101,7 @@
     font-weight: 500;
     font-size: 1.1rem;
     margin-top: 50px;
+    margin-left: 60px;
     color: #343a40;
     width: fit-content;
     display: inline;
@@ -106,4 +114,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .FiltersContainer {
+      display: none; 
+    }
+
+    .ResultsContainer h1 {
+        box-sizing: border-box;
+        font-family: 'League Spartan', sans-serif;
+        font-weight: 500;
+        font-size: 1.5rem;
+        margin-top: 50px;
+        color: #343a40;
+        width: fit-content;
+        display: inline;
+        width: 100%;
+        padding-left: 10%;
+    }
+    .ResultsContainer {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow: auto;
+        padding-bottom: 2%;
+        margin-inline-end: 40px;
+    }
+  	
 }

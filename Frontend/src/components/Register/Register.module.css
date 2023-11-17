@@ -54,3 +54,14 @@
     text-decoration: underline;
     color: blue; 
 }
+
+@media screen and (max-width: 768px) {
+    .mainImageContainer {
+      display: none; 
+    }
+  
+    .registerContainer {
+      width: 100%;
+      border-radius: 20px;
+  }
+}

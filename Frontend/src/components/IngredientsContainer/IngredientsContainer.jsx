@@ -25,6 +25,7 @@ function IngredientsContainer({ callback }) {
             form.setValue("ingredientAmount", "");
         };
         callback(ingredients);
+        console.log(ingredients)
     };
 
     const removeIngredient = (elemId) => {
