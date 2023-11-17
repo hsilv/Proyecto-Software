@@ -1,0 +1,62 @@
+.formContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.stepNumber {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.inputArea {
+    display: flex;
+    flex-direction: column;
+}
+
+.addBtn {
+    border-radius: 50%;
+    background-color: #bf3545;
+    border: 1px solid #bf3545;
+    color: #fff;
+    font-size: 1.3rem;
+    height: fit-content;
+    width: fit-content;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.addBtn:disabled {
+    border: 1px solid gray;
+    background-color: transparent;
+    color: gray;
+    cursor: default;
+}
+
+.descInput {
+    outline: none;
+    padding: 5px 10px;
+    border: 1px solid #DDD;
+    border-radius: 8px;
+    font-family: 'League Spartan', sans-serif;
+    width: 16.55rem;
+    font-size: 0.846em;
+    outline: none;
+    margin-bottom: 20px;
+}
+  
+.descLabelSpan {
+    font-size: 0.846em;
+    font-family: 'League Spartan', sans-serif;
+    color: #333;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.descLabel {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    user-select: none;
+}

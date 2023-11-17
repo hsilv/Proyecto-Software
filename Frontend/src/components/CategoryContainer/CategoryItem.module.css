@@ -1,0 +1,26 @@
+.categoryItem {
+    display: flex;
+    width: fit-content;
+    padding: 0.2rem 0.6rem;
+    background-color: #fff;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.categoryItem span {
+    font-family: 'League Spartan', sans-serif;
+    color: #333;
+    font-weight: 400;
+}
+
+.deleteIcon {
+    margin-left: 1rem;
+    color: #333;
+    cursor: pointer;
+    font-size: large;
+}
+
+.deleteIcon:hover {
+    color: red;
+}

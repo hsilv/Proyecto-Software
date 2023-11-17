@@ -1,0 +1,24 @@
+.formContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.addBtn {
+    border-radius: 50%;
+    background-color: #bf3545;
+    border: 1px solid #bf3545;
+    color: #fff;
+    font-size: 1.3rem;
+    height: fit-content;
+    width: fit-content;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.addBtn:disabled {
+    border: 1px solid gray;
+    background-color: transparent;
+    color: gray;
+    cursor: default;
+}
