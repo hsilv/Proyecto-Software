@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from "prop-types";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "../../context/sessionContext";
 import { useRecipeComments } from "../../hooks/api/useComments";
 import { useNotifications } from "../../hooks/api/useNotifications";
@@ -10,7 +10,7 @@ import CherryRating from "../CherryRating/CherryRating";
 function NewComment({ idRecipe, setPostedState, idReceiver }) {
   const { userInfo } = useContext(SessionContext);
   const [rating, setRating] = useState(1);
-  const ref = useRef(null);
+  const [comment, setComment] = useState("");
 
   const {
     loadingRecipeComments: loading,
@@ -23,6 +23,7 @@ function NewComment({ idRecipe, setPostedState, idReceiver }) {
 
   const handleForm = async (ev) => {
     ev.preventDefault();
+    setComment(ev.target.commentInput.value);
     await postRecipeComment({
       id_recipe: idRecipe,
       id_user: userInfo.idUser,
@@ -39,11 +40,15 @@ function NewComment({ idRecipe, setPostedState, idReceiver }) {
 
   useEffect(() => {
     if (result && result.message === "Comentario hecho") {
+      while (!comment);
       setPostedState({
-        id_recipe: idRecipe,
-        id_user: userInfo.idUser,
-        comment: ref.current.commentInput.value,
-        qualification: rating,
+        receta_id: idRecipe,
+        usuario: { id_user: userInfo.idUser, username: userInfo.username },
+        comentario: comment,
+        calificacion: rating,
+        autor_id: userInfo.idUser,
+        fecha: new Date().toISOString(),
+        id: -1,
       });
     }
   }, [result]);
@@ -56,67 +61,66 @@ function NewComment({ idRecipe, setPostedState, idReceiver }) {
           <span>Parece que hubo un error al publicar tu comentario</span>
         </div>
       )}
-      {loading ? (
-        !error && (
-          <div className={styles.loadingHolder}>
-            <div className={styles.ldsRing}>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
+      {loading
+        ? !error && (
+            <div className={styles.loadingHolder}>
+              <div className={styles.ldsRing}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             </div>
-          </div>
-        )
-      ) : (
-        !error && <div className={styles.newComment}>
-          <div className={styles.header}>
-            <div className={styles.userInfo}>
-              <img
-                src={userInfo?.pfp}
-                alt="Foto de Perfil"
-                className={styles.pfp}
-              />
-              <span className={styles.name}>{userInfo.name}</span>
-              <span className={styles.username}>@{userInfo.username}</span>
+          )
+        : !error && (
+            <div className={styles.newComment}>
+              <div className={styles.header}>
+                <div className={styles.userInfo}>
+                  <img
+                    src={userInfo?.pfp}
+                    alt="Foto de Perfil"
+                    className={styles.pfp}
+                  />
+                  <span className={styles.name}>{userInfo.name}</span>
+                  <span className={styles.username}>@{userInfo.username}</span>
+                </div>
+                <div className={styles.qualification}>
+                  <CherryRating
+                    value={rating}
+                    className={styles.rating}
+                    onChange={setRating}
+                    readOnly={false}
+                  />
+                </div>
+              </div>
+              <form
+                className={styles.commentForm}
+                id={`${userInfo?.idUser} comment`}
+                onSubmit={handleForm}
+              >
+                <textarea
+                  name="commentInput"
+                  id="commentInput"
+                  cols="30"
+                  rows="5"
+                  form={`${userInfo?.idUser} comment`}
+                  className={styles.commentInput}
+                  maxLength={400}
+                />
+                <input
+                  type="number"
+                  name="rating"
+                  id="rating"
+                  value={rating}
+                  className={styles.numberRating}
+                  readOnly
+                />
+                <button type="submit" className={styles.sendButton}>
+                  Comentar
+                </button>
+              </form>
             </div>
-            <div className={styles.qualification}>
-              <CherryRating
-                value={rating}
-                className={styles.rating}
-                onChange={setRating}
-                readOnly={false}
-              />
-            </div>
-          </div>
-          <form
-            className={styles.commentForm}
-            id={`${userInfo?.idUser} comment`}
-            onSubmit={handleForm}
-            ref={ref}
-          >
-            <textarea
-              name="commentInput"
-              id="commentInput"
-              cols="30"
-              rows="5"
-              form={`${userInfo?.idUser} comment`}
-              className={styles.commentInput}
-              maxLength={400}
-            />
-            <input
-              type="number"
-              name="rating"
-              id="rating"
-              value={rating}
-              className={styles.numberRating}
-              readOnly
-            />
-            <button type="submit" className={styles.sendButton}>
-              Comentar
-            </button>
-          </form>
-        </div>
-      )}
+          )}
     </>
   );
 }

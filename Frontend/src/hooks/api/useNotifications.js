@@ -17,9 +17,9 @@ function useNotifications() {
 
   useEffect(() => {
     if (result) {
-      if (result !== true) {
-        /* setResultNotifications(result.reverse()); */
-        console.log(result);
+      if (result !== true && Array.isArray(result)) {
+        setResultNotifications(result.reverse());
+        /* console.log(result); */
       }
     }
   }, [result]);
