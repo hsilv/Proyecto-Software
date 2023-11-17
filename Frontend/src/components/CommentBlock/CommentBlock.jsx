@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { useRecipeComments } from "../../hooks/api/useComments";
 import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "../../context/sessionContext";
+import NewComment from "../NewComment/NewComment";
 
 function CommentSkeleton() {
   return (
@@ -24,13 +25,14 @@ function CommentSkeleton() {
   );
 }
 
-function CommentBlock({ idRecipe }) {
+function CommentBlock({ idRecipe, idReceiver }) {
   const { userInfo } = useContext(SessionContext);
   const [canComment, setCanComment] = useState(false);
 
   const {
     getRecipeComments,
     resultRecipeComments: comments,
+    errorRecipeComments,
     loadingRecipeComments,
   } = useRecipeComments();
 
@@ -39,23 +41,25 @@ function CommentBlock({ idRecipe }) {
   }, []);
 
   useEffect(() => {
-    if (comments && userInfo) {
-      console.log(comments, userInfo);
+    if (comments && userInfo && Array.isArray(comments)) {
       const userComment = comments.find((comment) => {
         return comment.autor_id === userInfo.idUser;
       });
       if (userComment) {
         setCanComment(false);
-      }else{
+      } else {
         setCanComment(true);
       }
+    } else if (!errorRecipeComments) {
+      setCanComment(true);
+    } else {
+      setCanComment(false);
     }
   }, [comments, userInfo]);
 
-  useEffect(() => {
-    if (canComment) console.log("Puede comentar");
-    else console.log("No puede comentar acá");
-  }, [canComment]);
+/*   useEffect(() => {
+    if (canComment) console.log(comments);
+  }, [canComment, comments]); */
 
   return (
     <>
@@ -66,16 +70,19 @@ function CommentBlock({ idRecipe }) {
         <>
           <CommentSkeleton /> <CommentSkeleton />{" "}
         </>
-      ) : <>
-        <div>Hola</div>
-        {canComment && <div>Comentario para hacerse jeje</div>}
-      </>}
+      ) : (
+        <>
+          <div>Hola</div>
+          {canComment && <NewComment idRecipe={idRecipe} idReceiver={idReceiver} />}
+        </>
+      )}
     </>
   );
 }
 
 CommentBlock.propTypes = {
-  idRecipe: PropTypes.number.isRequired,
+  idRecipe: PropTypes.number.isRequired || PropTypes.string.isRequired,
+  idReceiver: PropTypes.number.isRequired || PropTypes.string.isRequired,
 };
 
 export default CommentBlock;

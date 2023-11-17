@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "../../context/sessionContext";
@@ -6,16 +7,13 @@ import { useNotifications } from "../../hooks/api/useNotifications";
 import styles from "./NewComment.module.scss";
 import CherryRating from "../CherryRating/CherryRating";
 
-function NewComment({ idRecipe, refreshTrigger, idOP }) {
+function NewComment({ idRecipe,/*  refreshTrigger, */ idReceiver }) {
   const { userInfo } = useContext(SessionContext);
   const [rating, setRating] = useState(1);
-  const [posted, setPosted] = useState(false);
-  const [globalError, setGlobalError] = useState(false);
-  const [show, setShow] = useState(false);
   const {
-    loadingRecipeComments: loading,
+/*     loadingRecipeComments: loading,
     errorRecipeComments: error,
-    resultRecipeComments: result,
+    resultRecipeComments: result, */
     checkUserComment,
     postRecipeComment,
   } = useRecipeComments();
@@ -27,34 +25,8 @@ function NewComment({ idRecipe, refreshTrigger, idOP }) {
         id_user: userInfo.idUser,
         id_recipe: idRecipe,
       });
-    } else {
-      setGlobalError(true);
     }
   }, []);
-
-  useEffect(() => {
-    if (error) {
-      setGlobalError(true);
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (globalError || loading) {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
-  }, [globalError, loading]);
-
-  useEffect(() => {
-    if (result) {
-      if (result.found) {
-        setShow(false);
-      } else {
-        setShow(true);
-      }
-    }
-  }, [result]);
 
   const handleForm = async (ev) => {
     ev.preventDefault();
@@ -68,19 +40,10 @@ function NewComment({ idRecipe, refreshTrigger, idOP }) {
       id_user: userInfo.idUser,
       id_recipe: idRecipe,
     });
-    setPosted(true);
-    postNotification(`${userInfo.username} rated your recipe :)`, idOP, userInfo.idUser, idRecipe);
+    postNotification(`${userInfo.username} rated your recipe :)`, idReceiver, userInfo.idUser, idRecipe);
   };
 
-  useEffect(() => {
-    if (result) {
-      if (result.found) {
-        refreshTrigger(1);
-      }
-    }
-  }, [posted, result]);
-
-  return show ? (
+  return (
     <div className={styles.newComment}>
       <div className={styles.header}>
         <div className={styles.userInfo}>
@@ -127,14 +90,12 @@ function NewComment({ idRecipe, refreshTrigger, idOP }) {
         </button>
       </form>
     </div>
-  ) : (
-    ""
   );
 }
 
 NewComment.propTypes = {
-  idRecipe: PropTypes.number.isRequired,
-  refreshTrigger: PropTypes.func.isRequired,
+  idRecipe: PropTypes.number.isRequired || PropTypes.string.isRequired,
+  idReceiver: PropTypes.number.isRequired || PropTypes.string.isRequired
 };
 
 export default NewComment;

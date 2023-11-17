@@ -16,7 +16,6 @@ function Recipe() {
   let { id } = useParams();
 
   const [loading, setLoading] = useState(true);
-  const [recipeCountry, setRecipeCountry] = useState("");
   const [showCollModal, setShowCollModal] = useState(false);
 
   const {
@@ -35,11 +34,6 @@ function Recipe() {
   useEffect(() => {
     getRecipeDetails();
   }, [id]);
-
-
-  useEffect(() => {
-    if (detailsRecipe.pais) setRecipeCountry(detailsRecipe.pais);
-  }, [detailsRecipe.pais]);
 
   const renderBlock = (title, subtitle) => (
     <div className={styles.Block}>
@@ -142,7 +136,7 @@ function Recipe() {
               {renderBlock(detailsRecipe.porciones, "portion(s)")}
               {renderBlock(detailsRecipe.calorias, "calories/portion")}
             </div>
-            <SimilarRecipesSwiper similarParam={recipeCountry} />
+            <SimilarRecipesSwiper similarParam={detailsRecipe?.pais ? detailsRecipe.pais: ''} />
             <div className={styles.RecipeInstructions}>
               {renderIngredients(
                 "Ingredients",
@@ -151,6 +145,7 @@ function Recipe() {
               {renderSteps("Steps", detailsRecipe.paso)}
               <CommentBlock
                 idRecipe={parseInt(id)}
+                idReceiver={detailsRecipe?.usuario?.id}
               />
             </div>
           </div>
