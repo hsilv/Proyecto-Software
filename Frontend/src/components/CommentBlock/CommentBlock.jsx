@@ -1,49 +1,81 @@
-import Comment from "../Comment/Comment";
-import NewComment from "../NewComment/NewComment";
+/* eslint-disable no-constant-condition */
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./CommentBlock.module.scss";
 import PropTypes from "prop-types";
+import { useRecipeComments } from "../../hooks/api/useComments";
+import { useContext, useEffect, useState } from "react";
+import { SessionContext } from "../../context/sessionContext";
 
-function CommentBlock({ comments, loading, idRecipe, refreshTrigger, idOP }) {
+function CommentSkeleton() {
+  return (
+    <div className={styles.commentSkeleton}>
+      <div className={styles.headingSkeleton}>
+        <div className={styles.userInfoSkeleton}>
+          <div className={styles.pfpSkeleton}></div>
+          <div className={styles.usernameSkeleton}></div>
+        </div>
+        <div className={styles.toolsSkeleton}>
+          <div className={styles.ratingSkeleton}></div>
+          <div className={styles.buttonsSkeleton}></div>
+        </div>
+      </div>
+      <div className={styles.bodySkeleton}></div>
+    </div>
+  );
+}
+
+function CommentBlock({ idRecipe }) {
+  const { userInfo } = useContext(SessionContext);
+  const [canComment, setCanComment] = useState(false);
+
+  const {
+    getRecipeComments,
+    resultRecipeComments: comments,
+    loadingRecipeComments,
+  } = useRecipeComments();
+
+  useEffect(() => {
+    getRecipeComments(idRecipe);
+  }, []);
+
+  useEffect(() => {
+    if (comments && userInfo) {
+      console.log(comments, userInfo);
+      const userComment = comments.find((comment) => {
+        return comment.autor_id === userInfo.idUser;
+      });
+      if (userComment) {
+        setCanComment(false);
+      }else{
+        setCanComment(true);
+      }
+    }
+  }, [comments, userInfo]);
+
+  useEffect(() => {
+    if (canComment) console.log("Puede comentar");
+    else console.log("No puede comentar acá");
+  }, [canComment]);
+
   return (
     <>
       <div className={styles.title}>
         <h1>Comentarios</h1>
       </div>
-      <div className={styles.commentBlock}>
-        {comments ? (
-          comments.map((value, index) => {
-            return <Comment refreshTrigger={refreshTrigger} key={value + index} comment={value} />;
-          })
-        ) : loading ? (
-          <div className={styles.loadingHolder}>...</div>
-        ) : (
-          <div className={styles.emptyBlock}>
-            Vaya! Parece que nadie ha agregado un comentario aún...
-          </div>
-        )}
-      </div>
-      {loading ? '' : <NewComment idRecipe={idRecipe} refreshTrigger={refreshTrigger} idOP={idOP}/>}
+      {loadingRecipeComments ? (
+        <>
+          <CommentSkeleton /> <CommentSkeleton />{" "}
+        </>
+      ) : <>
+        <div>Hola</div>
+        {canComment && <div>Comentario para hacerse jeje</div>}
+      </>}
     </>
   );
 }
 
 CommentBlock.propTypes = {
-  comments: PropTypes.arrayOf(
-    PropTypes.shape({
-      autor_id: PropTypes.number,
-      calificacion: PropTypes.number,
-      comentario: PropTypes.string,
-      fecha: PropTypes.string,
-      id: PropTypes.number,
-      receta_id: PropTypes.number,
-      usuario: PropTypes.shape({
-        username: PropTypes.string,
-      }),
-    })
-  ),
-  loading: PropTypes.bool.isRequired,
   idRecipe: PropTypes.number.isRequired,
-  refreshTrigger: PropTypes.func.isRequired,
 };
 
 export default CommentBlock;

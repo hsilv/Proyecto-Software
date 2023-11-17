@@ -7,7 +7,6 @@ import { TbFolderPlus, TbHeart } from "react-icons/tb";
 import "swiper/css";
 import CommentBlock from "../../components/CommentBlock/CommentBlock";
 import { useRecipeDetails } from "../../hooks/api/useRecipe";
-import { useRecipeComments } from "../../hooks/api/useComments";
 import ImgWithLoading from "../../components/ImgWithLoading";
 import RecipeSkeleton from "../../components/RecipeSkeleton";
 import SimilarRecipesSwiper from "../../components/SimilarRecipesSwiper/SimilarRecipesSwiper";
@@ -17,8 +16,6 @@ function Recipe() {
   let { id } = useParams();
 
   const [loading, setLoading] = useState(true);
-
-  const [refreshComments, setRefreshComments] = useState(0);
   const [recipeCountry, setRecipeCountry] = useState("");
   const [showCollModal, setShowCollModal] = useState(false);
 
@@ -28,18 +25,21 @@ function Recipe() {
     loadingRecipeDetails,
   } = useRecipeDetails(id);
 
-  const {
-    getRecipeComments,
-    resultRecipeComments: comments,
-    loadingRecipeComments,
-  } = useRecipeComments();
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(loadingRecipeDetails);
     }, 20);
     return () => clearTimeout(timer);
   }, [loadingRecipeDetails]);
+
+  useEffect(() => {
+    getRecipeDetails();
+  }, [id]);
+
+
+  useEffect(() => {
+    if (detailsRecipe.pais) setRecipeCountry(detailsRecipe.pais);
+  }, [detailsRecipe.pais]);
 
   const renderBlock = (title, subtitle) => (
     <div className={styles.Block}>
@@ -78,21 +78,6 @@ function Recipe() {
       </div>
     );
   }
-
-  useEffect(() => {
-    getRecipeDetails();
-    getRecipeComments(id);
-  }, [id]);
-
-  useEffect(() => {
-    if (refreshComments >= 1) {
-      getRecipeComments(id);
-    }
-  }, [refreshComments]);
-
-  useEffect(() => {
-    if (detailsRecipe.pais) setRecipeCountry(detailsRecipe.pais);
-  }, [detailsRecipe.pais]);
 
   const handleAddColection = () => {
     setShowCollModal(true);
@@ -165,13 +150,7 @@ function Recipe() {
               )}
               {renderSteps("Steps", detailsRecipe.paso)}
               <CommentBlock
-                comments={
-                  comments ? (comments.status ? undefined : comments) : comments
-                }
-                loading={loadingRecipeComments}
                 idRecipe={parseInt(id)}
-                refreshTrigger={setRefreshComments}
-                idOP={detailsRecipe.usuario?.id}
               />
             </div>
           </div>
