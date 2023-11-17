@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
@@ -24,6 +25,9 @@ export default function Modal({ show, children, title, setCloseState }) {
     const initShow = async () => {
       if(show){
         await setTimeout(() => setTransStyles(true), 50);
+      } else {
+        setTransStyles(false);
+        await setTimeout(() => setCloseState(false), 400);
       }
     }
     initShow();
