@@ -26,6 +26,7 @@ $paddingInfo: 50px;
   overflow: auto;
   padding-inline: $paddingInfo;
   padding-block: calc($paddingInfo / (1.68 / 1.68));
+  padding-bottom: calc($paddingInfo / 1.68);
 
   p {
     margin-block-start: 20px;

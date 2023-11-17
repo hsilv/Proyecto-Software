@@ -1,12 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
-
 $blockColor: #fae0d4;
 $darker: #bf3545;
 $backgColor: #c1c1c1;
 
-.container {
+
+.container{
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  &:not(:last-child){
+    border-bottom: thin solid rgb(177, 177, 177);
+  }
+  padding-block: 30px;
+}
+
+.userData{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.profile{
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  align-items: center;
+  flex-grow: 2;
+}
+
+.pfp{
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+
+}
+
+.utils{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  max-width: 175px;
+  column-gap: 10px;
+  svg {
+    height: 1.6rem;
+    width: 1.6rem;
+  }
+}
+
+.report {
+  svg {
+    height: 1.7rem;
+    width: 1.7rem;
+    cursor: pointer;
+    fill: $darker;
+    stroke: $darker;
+    fill-opacity: 0;
+    transition: fill-opacity 0.4s ease;
+
+    &:hover {
+      fill-opacity: 1;
+    }
+  }
+}
+/* .container {
   box-sizing: border-box;
   margin-block: 1%;
   display: flex;
@@ -233,4 +293,4 @@ $backgColor: #c1c1c1;
   margin-block-start: 20px;
   font-style: italic;
   color: $darker;
-}
+} */

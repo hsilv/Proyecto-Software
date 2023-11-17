@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styles from "./Comment.module.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { TbFlag } from "react-icons/tb";
@@ -31,19 +32,20 @@ const months = [
   "diciembre",
 ];
 
-function Comment({ comment, refreshTrigger }) {
-  const navigate = useNavigate();
-  const { userInfo } = useContext(SessionContext);
-  const [showReportModal, setShowReportModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [isOwned, setOwned] = useState(false);
-  const [transStyles, setTransStyles] = useState(false);
+function Comment({ comment }) {
+  // const navigate = useNavigate();
+  // const { userInfo } = useContext(SessionContext);
+  // const [showReportModal, setShowReportModal] = useState(false);
+  //const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [isOwned, setOwned] = useState(false);
+  // const [transStyles, setTransStyles] = useState(false);
   const [date, setDate] = useState("");
-  const [deleted, setDeleted] = useState(false);
-  const {deleteRecipeOwnComment, resultRecipeComments : result} = useRecipeComments();
+  // const [deleted, setDeleted] = useState(false);
+  // const {deleteRecipeOwnComment, resultRecipeComments : result} = useRecipeComments();
   // eslint-disable-next-line no-unused-vars
-  const {flagComment, resultRecipeComments: commentFlagged} = useRecipeComments();
-  const formRef = useRef(null);
+  // const {flagComment, resultRecipeComments: commentFlagged} = useRecipeComments();
+  // const formRef = useRef(null);
+  /*
 
   const onUserClick = () => {
     navigate(
@@ -53,9 +55,9 @@ function Comment({ comment, refreshTrigger }) {
           : "/"
         : "/"
     );
-  };
+  }; */
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (result) {
       if (result.status === 200) {
         refreshTrigger(2);
@@ -100,7 +102,11 @@ function Comment({ comment, refreshTrigger }) {
     if (showReportModal || showDeleteModal) {
       setTimeout(() => setTransStyles(true), 50);
     }
-  }, [showReportModal, showDeleteModal]);
+  }, [showReportModal, showDeleteModal]); */
+
+  const onFlagClick = () => {
+    /* setShowReportModal(true); */
+  };
 
   useEffect(() => {
     if (comment) {
@@ -113,14 +119,55 @@ function Comment({ comment, refreshTrigger }) {
 
         setDate(`${day} de ${month} de ${year}`);
       }
-      if (comment.usuario.username === userInfo.username) {
-        setOwned(true);
-      }
     }
-  }, [comment, userInfo]);
+  }, [comment]);
 
   return (
     <div className={styles.container}>
+      <div className={styles.userData}>
+        <div className={styles.profile}>
+          <NavLink
+            to={
+              comment
+                ? comment.usuario
+                  ? `/Profile/${comment.usuario.username}`
+                  : "/"
+                : "/"
+            }
+          >
+            <img
+              src="https://fakeimg.pl/50x50/ffffff"
+              alt="Imagen de muestra"
+              className={styles.pfp}
+            />
+          </NavLink>
+          <span className={styles.nameSpan} /* onClick={onUserClick} */>
+            {comment
+              ? comment.usuario
+                ? `@${comment.usuario.username}`
+                : undefined
+              : undefined}
+          </span>
+          <span className={styles.date}>{date}</span>
+        </div>
+        <div className={styles.utils}>
+          <div className={styles.qualification}>
+            <CherryRating
+              value={comment ? comment.calificacion : 0}
+              readOnly={true}
+              className={styles.cherries}
+            />
+          </div>
+          <div className={styles.report} onClick={onFlagClick}>
+              <TbFlag />
+            </div>
+        </div>
+      </div>
+      <span className={styles.commentSpan}>
+        {comment ? comment.comentario : "..."}
+      </span>
+    </div>
+    /*     <div className={styles.container}>
       <div className={styles.userData}>
         <div className={styles.profile}>
           <NavLink
@@ -255,7 +302,7 @@ function Comment({ comment, refreshTrigger }) {
           </div>
         </div>
       </Modal>
-    </div>
+    </div> */
   );
 }
 
@@ -271,7 +318,7 @@ Comment.propTypes = {
       username: PropTypes.string,
     }),
   }),
-  refreshTrigger: PropTypes.func.isRequired,
+  /*   refreshTrigger: PropTypes.func.isRequired, */
 };
 
 export default Comment;

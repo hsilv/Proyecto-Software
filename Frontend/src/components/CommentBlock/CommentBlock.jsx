@@ -6,6 +6,7 @@ import { useRecipeComments } from "../../hooks/api/useComments";
 import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "../../context/sessionContext";
 import NewComment from "../NewComment/NewComment";
+import Comment from "../Comment/Comment";
 
 function CommentSkeleton() {
   return (
@@ -58,9 +59,9 @@ function CommentBlock({ idRecipe, idReceiver }) {
     }
   }, [comments, userInfo]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     console.log(posted);
-  }, [posted])
+  }, [posted]) */
 
   return (
     <>
@@ -73,8 +74,16 @@ function CommentBlock({ idRecipe, idReceiver }) {
         </>
       ) : (
         <>
-          {canComment && !posted && <NewComment idRecipe={idRecipe} idReceiver={idReceiver} setPostedState={setPosted}/>}
-          <div>Hola</div>
+          {canComment && !posted && (
+            <NewComment
+              idRecipe={idRecipe}
+              idReceiver={idReceiver}
+              setPostedState={setPosted}
+            />
+          )}
+          {comments.map((comment) => {
+            return <Comment comment={comment} key={comment.id} />;
+          })}
         </>
       )}
     </>
