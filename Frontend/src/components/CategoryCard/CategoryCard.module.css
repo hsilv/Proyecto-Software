@@ -1,7 +1,8 @@
 .CategoryCardContainer {
   height: 8em;
   width: 16em;
-  background-color: #f19c7d;
+  background-color: #c0c0c0;
+  color: #333;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -22,7 +23,8 @@
 }
 
 .CategoryCardContainer:hover {
-  background-color: #c0c0c0;
+  background-color: #f19c7d;
+  color: #FFF;
   transform: scale(1.05); 
 }
 
@@ -30,11 +32,6 @@
   font-family: 'Aclonica', sans-serif;
   font-size: 1.2rem;
   transition: color 0.2s ease-in-out; 
-  color: white;
-}
-
-.CategoryCardContainer:hover h3 {
-  color: #333;
 }
 
 .CategoryCardContainer > *:not(:last-child) {
