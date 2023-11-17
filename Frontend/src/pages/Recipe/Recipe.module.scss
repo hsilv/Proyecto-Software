@@ -10,7 +10,7 @@ $paddingInfo: 50px;
   overflow: hidden;
 }
 
-.RecipeImageContainer{
+.RecipeImageContainer {
   grid-column: 1;
 }
 
@@ -25,12 +25,26 @@ $paddingInfo: 50px;
   grid-column: 2;
   overflow: auto;
   padding-inline: $paddingInfo;
-  padding-block: calc($paddingInfo / (1.68 / 1.68) );
-  text-align: justify;
-} 
+  padding-block: calc($paddingInfo / (1.68 / 1.68));
 
-.RecipeHeader{
-  h1{
+  p {
+    margin-block-start: 20px;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    font-family: "League Spartan", sans-serif;
+    font-weight: 300;
+  }
+
+  h1 {
+    color: #434343;
+    margin-block-end: 0;
+    font-size: 2.3rem;
+    font-family: "Aclonica", sans-serif;
+  }
+}
+
+.RecipeHeader {
+  h1 {
     flex-grow: 100;
     margin: 0;
     margin-inline-end: 30px;
@@ -40,7 +54,7 @@ $paddingInfo: 50px;
     font-size: 2.3rem;
     font-family: "Aclonica", sans-serif;
   }
-  h2{
+  h2 {
     margin: 0;
     width: auto;
     display: inline;
@@ -50,9 +64,13 @@ $paddingInfo: 50px;
   flex-wrap: wrap;
 }
 
-.AuthorUsername{
+.AuthorUsername {
   text-decoration: none;
-  &:visited{
+  &:visited {
+    color: inherit;
+  }
+
+  &:link {
     color: inherit;
   }
 }
@@ -69,7 +87,7 @@ $paddingInfo: 50px;
   fill-opacity: 1;
 }
 
-.tools{
+.tools {
   display: flex;
   flex-direction: row;
   column-gap: 16px;
@@ -77,7 +95,7 @@ $paddingInfo: 50px;
   flex-grow: 1;
 }
 
-@media only screen and (max-width: 960px){
+@media only screen and (max-width: 960px) {
   .RecipeInfoContainer {
     display: flex;
     grid-template-columns: unset;
@@ -85,29 +103,25 @@ $paddingInfo: 50px;
     overflow: auto;
     flex-direction: column;
   }
-  
-  .RecipeImageContainer{
+
+  .RecipeImageContainer {
     width: 100%;
     height: 31vh;
   }
-  
+
   .RecipeImageContainer img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
+
   .RecipeDetails {
     overflow: unset;
-    text-align: justify;
-  } 
+    text-align: start;
+  }
 }
 
-/*
-
-
-
-.RecipeDetails p {
+/* .RecipeDetails p {
   margin-block-start: 0;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -162,25 +176,72 @@ $paddingInfo: 50px;
   font-size: 2.3rem;
   font-family: "Aclonica", sans-serif;
 }
-
+*/
 .DetailsContainer {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 10rem;
-  padding: 10px;
   align-items: center;
   justify-content: space-evenly;
+  font-family: "League Spartan", sans-serif;
 }
 
 .Block {
   display: flex;
   flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  flex-grow: 1;
+
+  &:not(:last-child) {
+    border-right: thin solid #434343;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    display: inline;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-family: "League Spartan", sans-serif;
+    font-weight: 300;
+    display: inline;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .DetailsContainer {
+    flex-direction: column;
+    display: flex;
+    height: unset;
+    flex-wrap: wrap;
+    margin-block: 40px;
+  }
+
+  .Block {
+    width: 50%;
+    &:not(:last-child) {
+      border-right: unset;
+    }
+    border-bottom: thin solid #434343;
+
+    &:first-child {
+      border-top: thin solid #434343;
+    }
+  }
+}
+
+/* .Block {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-right: thin solid #434343;
-  padding: 10px;
-  min-width: 18%;
+  flex-grow: 1;
 }
 
 .Block h1 {
@@ -191,8 +252,8 @@ $paddingInfo: 50px;
   font-size: 1.5rem;
   font-family: "League Spartan", sans-serif;
   font-weight: 300;
-}
-
+} */
+/*
 .SimilarRecipesContainer {
   display: flex;
   flex-direction: row;
@@ -206,6 +267,8 @@ $paddingInfo: 50px;
   height: inherit;
   width: 88%;
 }
+
+*/
 
 .RecipeInstructions {
   margin-top: 60px;
@@ -235,7 +298,7 @@ $paddingInfo: 50px;
   margin-right: 10px;
   color: #ffa179;
 }
-
+/*
 .SimilarRecipesImageContainer {
   height: 10rem;
   justify-content: center;

@@ -310,9 +310,34 @@ function Recipe() {
             </div>
           </div>
           <Ratings value={detailsRecipe.avg_calificacion} color={"#434343"} />
+          <p>{detailsRecipe.descripcion}</p>
+          <div className={styles.DetailsContainer}>
+            {renderBlock(detailsRecipe.tiempo, "minutes")}
+            {renderBlock(
+              detailsRecipe ? detailsRecipe.ingredientes?.length : 0,
+              "ingredients"
+            )}
+            {renderBlock(detailsRecipe.porciones, "portion(s)")}
+            {renderBlock(detailsRecipe.calorias, "calories/portion")}
+          </div>
+          <div className={styles.RecipeInstructions}>
+            {renderIngredients(
+              "Ingredients",
+              detailsRecipe ? detailsRecipe.ingredientes : ["", ""]
+            )}
+            {renderSteps("Steps", detailsRecipe.paso)}
+            <CommentBlock
+              comments={
+                comments ? (comments.status ? undefined : comments) : comments
+              }
+              loading={loadingRecipeComments}
+              idRecipe={parseInt(id)}
+              refreshTrigger={setRefreshComments}
+              idOP={detailsRecipe.usuario?.id}
+            />
+          </div>
         </div>
       </div>
-      {/* <Loading loading={loadingRecipeDetails && loadingSimilarRecipes} /> */}
     </>
   );
 }
