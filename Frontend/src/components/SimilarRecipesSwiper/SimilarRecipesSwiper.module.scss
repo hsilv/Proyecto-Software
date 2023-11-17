@@ -59,17 +59,35 @@ $background-position: 100% 0;
   padding-inline-start: 20px;
 }
 
-.skeleton{
+.similarBlock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-block: 30px;
+    column-gap: 30px;
+}
+
+.similarTitle{
     height: 10rem;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 2% 0 0;
-    box-sizing: border-box;
+    width: 5ch;
     background: $background;
     background-size: $background-size;
     background-position: $background-position;
-    border-radius: 15px;
+    border-radius: 10px;
     animation: loading 3s infinite;
+    margin-bottom: 10px;
+}
+
+.similarRecipes{
+    height: 10rem;
+    width: 100%;
+    background: $background;
+    background-size: $background-size;
+    background-position: $background-position;
+    border-radius: 10px;
+    animation: loading 3s infinite;
+    margin-bottom: 10px;
 }
 
 @keyframes loading {
