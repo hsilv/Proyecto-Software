@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './ProfileInfo.module.css';
 import { SessionContext } from '../../context/sessionContext';
 import { TbEdit, TbUpload } from 'react-icons/tb';
-import Button from "../../components/Button/Button";
 
 function ProfileInfo() {
   const { userInfo } = useContext(SessionContext);
@@ -14,6 +13,7 @@ function ProfileInfo() {
   useEffect(() => {
     console.table(userInfo);
   }, [userInfo]);
+  
 
   const handleEditClick = () => {
     setEditMode(true);
