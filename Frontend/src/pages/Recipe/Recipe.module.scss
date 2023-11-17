@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
+
 $paddingInfo: 50px;
 
 .RecipeInfoContainer {
@@ -39,7 +43,7 @@ $paddingInfo: 50px;
     color: #434343;
     margin-block-end: 0;
     font-size: 2.3rem;
-    font-family: "Aclonica", sans-serif;
+    font-family: 'Lobster Two', cursive;
   }
 
 }
@@ -53,7 +57,7 @@ $paddingInfo: 50px;
     display: inline;
     color: #434343;
     font-size: 2.3rem;
-    font-family: "Aclonica", sans-serif;
+    font-family: 'Lobster Two', cursive;
   }
   h2 {
     margin: 0;

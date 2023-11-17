@@ -26,11 +26,11 @@ function Home() {
 
   // Categorias Fijas
   const categories = [
-    { icon: <TbSeeding fontSize="2rem" />, name: "Vegan", value: "Vegana" },
-    { icon: <TbCake fontSize="2rem" />, name: "Sweet", value: "Postres"},
-    { icon: <TbCoffee fontSize="2rem" />, name: "Drinks", value: "Bebidas" },
-    { icon: <TbAlarm fontSize="2rem" />, name: "Fast", value: "Rápidas" },
-    { icon: <BiParty fontSize="2rem" />, name: "Party", value: "Fiestas" },
+    { icon: <TbSeeding fontSize="2rem" color="white" />, name: "Vegan", value: "Vegana" },
+    { icon: <TbCake fontSize="2rem" color="white"/>, name: "Sweet", value: "Postres"},
+    { icon: <TbCoffee fontSize="2rem" color="white"/>, name: "Drinks", value: "Bebidas" },
+    { icon: <TbAlarm fontSize="2rem" color="white"/>, name: "Fast", value: "Rápidas" },
+    { icon: <BiParty fontSize="2rem" color="white"/>, name: "Party", value: "Fiestas" },
   ];
 
   return (

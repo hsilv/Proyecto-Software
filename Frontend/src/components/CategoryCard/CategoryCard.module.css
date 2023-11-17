@@ -1,7 +1,7 @@
 .CategoryCardContainer {
   height: 8em;
-  width: 17em;
-  background-color: #dedede;
+  width: 16em;
+  background-color: #f19c7d;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -9,6 +9,16 @@
   align-items: center;
   cursor: pointer; 
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+}
+
+@media screen and (max-width: 600px) {
+  .CategoryCardContainer {
+    width: 50rem; 
+    max-width: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
 }
 
 .CategoryCardContainer:hover {
@@ -20,6 +30,7 @@
   font-family: 'Aclonica', sans-serif;
   font-size: 1.2rem;
   transition: color 0.2s ease-in-out; 
+  color: white;
 }
 
 .CategoryCardContainer:hover h3 {

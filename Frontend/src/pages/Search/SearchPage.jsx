@@ -113,14 +113,14 @@ function SearchPage() {
           <h1>Filters</h1>
           <div className={styles.FiltersCountryContainer}>
             <div className={styles.FiltersCountryContainerInfo}>
-              <TbMap2 fontSize={"1.5rem"} />
+              <TbMap2 fontSize={"1.5rem"} color="white" />
               <h2>Country</h2>
             </div>
             {countries ? filterCategoryBuilder(countries) : ""}
           </div>
           <div className={styles.FiltersCountryContainer}>
             <div className={styles.FiltersCountryContainerInfo}>
-              <TbLayoutList fontSize={"1.5rem"} />
+              <TbLayoutList fontSize={"1.5rem"} color="white"  />
               <h2>Category</h2>
             </div>
             <div className={styles.CountryOptions}>
@@ -144,7 +144,7 @@ function SearchPage() {
           </div>
           <div className={styles.FiltersCountryContainer}>
             <div className={styles.FiltersCountryContainerInfo}>
-              <TbAlarm fontSize={"1.5rem"} />
+              <TbAlarm fontSize={"1.5rem"} color="white" />
               <h2>Duration</h2>
             </div>
             {filterCategoryBuilder(TimeList)}

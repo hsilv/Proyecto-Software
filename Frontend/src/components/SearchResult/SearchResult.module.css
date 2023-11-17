@@ -1,11 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
+
 .resultContainer {
     display: flex;
     flex-direction: row;
     margin-top: 30px;
     background-color: #FFFF;
     overflow: hidden;
-    width: 45vw;
-    height: 21vh;
+    width: 50vw;
+    height: 25vh;
     border-radius: 10px;
     filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.4));
     cursor: pointer;
@@ -41,7 +45,7 @@
 .resultContainerInfo h2 {
     font-size: 1.8rem;
     color: #434343;
-    font-family: 'Aclonica', sans-serif; 
+    font-family: 'Lobster Two', cursive;
 }
 
 .resultContainerTitle {
