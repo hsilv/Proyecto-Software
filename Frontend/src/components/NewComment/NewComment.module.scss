@@ -3,15 +3,28 @@ $darker2: #e65364;
 $blockColor: #fae0d4;
 
 .newComment {
-  font-family: "League Spartan", sans-serif;
-  background-color: $darker;
-  padding-inline: 20px;
-  padding-block: 13px;
-  border-radius: 10px;
-  margin-block: 1rem;
   display: flex;
   flex-direction: column;
-  row-gap: 13px;
+  font-family: "League Spartan", sans-serif;
+  padding-bottom: 15px;
+  border-bottom: thin solid rgb(194, 194, 194);
+  margin-top: 35px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-block-end: 15px;
+}
+
+.userInfo {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  column-gap: 20px;
 }
 
 .pfp {
@@ -22,116 +35,217 @@ $blockColor: #fae0d4;
   aspect-ratio: 1/1;
 }
 
-.userInfo {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  column-gap: 20px;
-  flex-wrap: wrap;
-  background-color: $blockColor;
-  border-radius: 10px;
-  padding-inline: 20px;
-  padding-block: 15px;
-  flex-grow: 1;
-}
-
-.username {
-  font-weight: bold;
-  font-size: large;
-  color: $darker;
-}
-
-.header {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: center;
-  column-gap: 20px;
-}
-
 .qualification {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: $blockColor;
-  padding-inline: 20px;
-  padding-block: 15px;
-  border-radius: 10px;
+  flex-grow: 1;
+  max-width: 200px;
 
-  svg{
+  svg {
     width: 1em;
-    height: 1em;
+    height: 100%;
+  }
+}
+
+.name {
+  font-weight: 500;
+  font-size: large;
+  color: inherit;
+}
+
+.username {
+  font-weight: 300;
+  font-size: large;
+  color: inherit;
+}
+
+.numberRating {
+  display: none;
+}
+
+.sendButton {
+  box-sizing: border-box;
+  border-radius: 10px;
+  min-height: 50px;
+  max-height: 50px;
+  max-width: 200px;
+  justify-self: center;
+  align-self: end;
+  outline: none;
+  border: none;
+  font-weight: bold;
+  font-size: 1em;
+  background-color: $darker2;
+  color: $blockColor;
+  position: relative;
+  padding-inline: 15px;
+  cursor: pointer;
+  transition: padding-left 0.7s ease;
+
+  &::before {
+    content: url("/assets/comment.svg");
+    display: inline-block;
+    object-fit: contain;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    left: 0.5ch;
+    top: 13px;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+
+  &:hover {
+    padding-left: 50px;
+
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+.commentInput {
+  font-family: inherit;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  resize: none;
+  outline: none;
+  border: none;
+  box-shadow: 0px 0px 2px 0px rgba(129, 129, 129, 0.75);
+  padding-inline: 15px;
+  padding-block: calc(15px / (1.68 / 1.68));
+
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #b4b4b4;
+    box-shadow: inset 0px 0px 0px 4px white; /* color del "margen" */
   }
 }
 
 .commentForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+@media only screen and (max-width: 640px) {
+  .header {
     display: flex;
     flex-direction: column;
-    row-gap: inherit;
-}
+    align-items: center;
+    margin-block-end: 15px;
+  }
 
-.commentInput{
-    resize: none;
-}
-
-.sendButton{
-    box-sizing: border-box;
-    border-radius: 10px;
-    min-height: 50px;
-    max-height: 50px;
-    max-width: 200px;
-    justify-self: center;
-    align-self: end;
-    outline: none;
-    border: none;
-    font-weight: bold;
-    font-size: 1em;
-    background-color: $darker2;
-    color: $blockColor;
-    position: relative;
-    padding-inline: 15px;
-    cursor: pointer;
-    transition: padding-left 0.7s ease;
-
-    &::before{
-        content: url('/assets/comment.svg');
-        display: inline-block;
-        object-fit: contain;
-        height: 50px;
-        width: 50px;
-        position: absolute;
-        left: 0.5ch;
-        top: 13px;
-        opacity: 0;
-        transition: opacity 0.7s ease;
+  .userInfo {
+    width: 80%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    
+    .pfp{
+      flex-grow: 1;
+      max-width: 50px;
+      align-items: center;
+      aspect-ratio: 1/1;
     }
 
-    &:hover{
-        padding-left: 50px;
-
-        &::before{
-            opacity: 1;
-        }
+    .name{
+      flex-grow: 1;
+      text-align: center;
     }
+
+    .username{
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+
+  .qualification {
+    width: 100%;
+  }
 }
 
-.commentInput {
-  box-sizing: border-box;
+@media only screen and (max-width: 380px){
+  .userInfo{
+    flex-direction: column;
+
+    .pfp{
+      max-width: unset;
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+.loadingHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   width: 100%;
-  margin: 0;
-  border-radius: 10px;
-  padding-inline: 15px;
+  min-height: 200px;
+  background-color: rgb(206, 206, 206);
+  border-radius: 15px;
 }
 
-.rating{
-    svg{
-        width: 1.5em;
-        height: 1.5em;
-    }
+.errorHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  background-color: rgb(224, 224, 224);
+  border-radius: 15px;
+  margin-bottom: 20px;
+
+  .sad{
+    display: block !important;
+    font-weight: 800;
+    font-size: 3rem;
+    margin-block-end: 20px;
+  }
 }
 
-.numberRating{
-    display: none;
+.ldsRing {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.ldsRing div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: ldsRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+.ldsRing div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.ldsRing div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.ldsRing div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes ldsRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

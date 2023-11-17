@@ -15,7 +15,7 @@ const SearchBar = ({ keyword, onChange, onSearch }) => {
         className={styles.SearchbarContainer}
         key="search-bar"
         value={keyword}
-        placeholder="Search something"
+        placeholder="Search something..."
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyPress}
       />

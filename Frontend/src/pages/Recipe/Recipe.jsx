@@ -1,37 +1,22 @@
-/* eslint-disable no-constant-condition */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Recipe.module.scss";
 import { NavLink, useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import Ratings from "../../components/Ratings/Ratings";
 import { TbFolderPlus, TbHeart } from "react-icons/tb";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { AiFillPlusCircle } from "react-icons/ai";
 import "swiper/css";
 import CommentBlock from "../../components/CommentBlock/CommentBlock";
 import { useRecipeDetails } from "../../hooks/api/useRecipe";
-import { useSimilarRecipes } from "../../hooks/api/useSimilarRecipes";
-import { useRecipeComments } from "../../hooks/api/useComments";
-import Modal from "../../components/Modal/Modal";
-import { CgClose } from "react-icons/cg";
-import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
-import { SessionContext } from "../../context/sessionContext";
-import Loading from "../../components/Loading";
 import ImgWithLoading from "../../components/ImgWithLoading";
 import RecipeSkeleton from "../../components/RecipeSkeleton";
 import SimilarRecipesSwiper from "../../components/SimilarRecipesSwiper/SimilarRecipesSwiper";
+import AddRecipeToCollectionModal from "../../components/AddRecipeToCollectionModal";
 
 function Recipe() {
   let { id } = useParams();
 
   const [loading, setLoading] = useState(true);
-
-  const [refreshComments, setRefreshComments] = useState(0);
-  const [recipeCountry, setRecipeCountry] = useState("");
   const [showCollModal, setShowCollModal] = useState(false);
-  const [transStyles, setTransStyles] = useState(false);
 
   const {
     getRecipeDetails,
@@ -39,31 +24,16 @@ function Recipe() {
     loadingRecipeDetails,
   } = useRecipeDetails(id);
 
-  const {
-    getRecipeComments,
-    resultRecipeComments: comments,
-    loadingRecipeComments,
-  } = useRecipeComments();
-
-  const { userInfo } = useContext(SessionContext);
-
-  const { getCollectionsByUser, resultCollectionsByUser } =
-    useCollectionsByUser();
-
-  const { postRecipeToColl } = useCollectionsByUser();
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(loadingRecipeDetails);
     }, 20);
     return () => clearTimeout(timer);
-  }, [loadingRecipeDetails,]);
+  }, [loadingRecipeDetails]);
 
   useEffect(() => {
-    if (userInfo) {
-      getCollectionsByUser(userInfo.idUser);
-    }
-  }, [userInfo]);
+    getRecipeDetails();
+  }, [id]);
 
   const renderBlock = (title, subtitle) => (
     <div className={styles.Block}>
@@ -103,174 +73,16 @@ function Recipe() {
     );
   }
 
-  useEffect(() => {
-    getRecipeDetails();
-    getRecipeComments(id);
-  }, [id]);
-
-  useEffect(() => {
-    if (refreshComments >= 1) {
-      getRecipeComments(id);
-    }
-  }, [refreshComments]);
-
-  useEffect(() => {
-    if (detailsRecipe.pais) setRecipeCountry(detailsRecipe.pais);
-  }, [detailsRecipe.pais]);
-
   const handleAddColection = () => {
-    toggleModal();
-  };
-
-  const toggleModal = async () => {
-    if (showCollModal) {
-      setTransStyles(false);
-      await setTimeout(() => setShowCollModal(false), 400);
-    } else {
-      setShowCollModal(true);
-      setTimeout(() => setTransStyles(true), 50);
-    }
+    setShowCollModal(true);
   };
 
   const handleFavorite = () => {
     console.log("Añadir favorita");
   };
 
-  const handleAddRecipe = (idColl, recipeID) => {
-    postRecipeToColl(idColl, recipeID);
-  };
-
   return (
     <>
-      {/*       <div className={styles.RecipeInfoContainer}>
-        <div className={styles.RecipeImageContainer}>
-          <img
-            src={
-              detailsRecipe.miniatura && detailsRecipe.miniatura[0]?.url
-                ? detailsRecipe.miniatura[0]?.url
-                : "https://fakeimg.pl/1920x1080/161616"
-            }
-            placeholder="Imagen de Receta"
-            alt="Recipe"
-          />
-        </div>
-        <div className={styles.RecipeDetails}>
-          <div className={styles.UserInteractionsContainer}>
-            <div className={styles.interactions}>
-              <h2>@{detailsRecipe.usuario?.username}</h2>
-              <TbFolderPlus
-                fontSize={"24px"}
-                className={styles.intButton}
-                onClick={handleAddColection}
-              />
-              <TbHeart
-                fontSize={"24px"}
-                className={styles.intButton}
-                onClick={handleFavorite}
-              />
-            </div>
-            <div className={styles.recipeName}>
-              <h1>{detailsRecipe ? detailsRecipe.nombre : "Placeholder"}</h1>
-            </div>
-          </div>
-          <Ratings value={detailsRecipe.avg_calificacion} color={"#434343"} />
-          <p>{detailsRecipe.descripcion}</p>
-          <div className={styles.DetailsContainer}>
-            {renderBlock(detailsRecipe.tiempo, "minutes")}
-            {renderBlock(
-              detailsRecipe ? detailsRecipe.ingredientes?.length : 0,
-              "ingredients"
-            )}
-            {renderBlock(detailsRecipe.porciones, "portion(s)")}
-            {renderBlock(detailsRecipe.calorias, "calories/portion")}
-          </div>
-          <div className={styles.SimilarRecipesContainer}>
-            <p
-              style={{
-                marginBlockEnd: "0",
-                transform: "translateX(-15%) translateY(5%) rotate(-90deg)",
-              }}
-            >
-              Similar Recipes
-            </p>
-            <div className={styles.SimilarRecipesCards}>
-              <Swiper slidesPerView="3">
-                {similarRecipes?.map((recipe) => (
-                  <SwiperSlide key={recipe.id}>
-                    <div
-                      className={styles.SimilarRecipesImageContainer}
-                      onClick={() => {
-                        navigate(`/recipe/${recipe.id}`);
-                      }}
-                    >
-                      <img src={recipe.miniatura[0]} />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          </div>
-          <div className={styles.RecipeInstructions}>
-            {renderIngredients(
-              "Ingredients",
-              detailsRecipe ? detailsRecipe.ingredientes : ["", ""]
-            )}
-            {renderSteps("Steps", detailsRecipe.paso)}
-            <CommentBlock
-              comments={
-                comments ? (comments.status ? undefined : comments) : comments
-              }
-              loading={loadingRecipeComments}
-              idRecipe={parseInt(id)}
-              refreshTrigger={setRefreshComments}
-              idOP={detailsRecipe.usuario?.id}
-            />
-          </div>
-        </div>
-      </div>
-      <Modal show={showCollModal}>
-        <div
-          className={`${styles.addCollModal} ${
-            transStyles ? styles.showedCollModal : ""
-          }`}
-        >
-          <div className={styles.addToCollCard}>
-            <div className={styles.cardModalHeader}>
-              <h2>Añadir receta a una colección</h2>
-              <button onClick={toggleModal} className={styles.closerModal}>
-                <CgClose />
-              </button>
-            </div>
-            <div className={styles.cardModalBody}>
-              <ul className={styles.collList}>
-                {resultCollectionsByUser ? (
-                  resultCollectionsByUser.length > 0 &&
-                  resultCollectionsByUser.map((value) => {
-                    return (
-                      <li
-                        key={`${value.id} ${value.nombre} ${value.user_id}`}
-                        className={styles.collItem}
-                      >
-                        <span>{value.nombre}</span>
-                        <button
-                          className={styles.collItemButton}
-                          onClick={() => handleAddRecipe(value.id, id)}
-                        >
-                          <AiFillPlusCircle />
-                        </button>
-                      </li>
-                    );
-                  })
-                ) : (
-                  <span className={styles.collPlaceholder}>
-                    Aún no tienes colecciones!
-                  </span>
-                )}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </Modal> */}
       <div className={styles.RecipeInfoContainer}>
         <div className={styles.RecipeImageContainer}>
           <ImgWithLoading
@@ -324,7 +136,7 @@ function Recipe() {
               {renderBlock(detailsRecipe.porciones, "portion(s)")}
               {renderBlock(detailsRecipe.calorias, "calories/portion")}
             </div>
-            <SimilarRecipesSwiper similarParam={recipeCountry} />
+            <SimilarRecipesSwiper similarParam={detailsRecipe?.pais ? detailsRecipe.pais: ''} />
             <div className={styles.RecipeInstructions}>
               {renderIngredients(
                 "Ingredients",
@@ -332,18 +144,17 @@ function Recipe() {
               )}
               {renderSteps("Steps", detailsRecipe.paso)}
               <CommentBlock
-                comments={
-                  comments ? (comments.status ? undefined : comments) : comments
-                }
-                loading={loadingRecipeComments}
                 idRecipe={parseInt(id)}
-                refreshTrigger={setRefreshComments}
-                idOP={detailsRecipe.usuario?.id}
+                idReceiver={detailsRecipe?.usuario?.id}
               />
             </div>
           </div>
         )}
       </div>
+      <AddRecipeToCollectionModal
+        show={showCollModal}
+        setCloseState={setShowCollModal}
+      />
     </>
   );
 }

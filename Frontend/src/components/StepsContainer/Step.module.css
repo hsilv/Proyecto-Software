@@ -1,0 +1,34 @@
+.IngredientItem {
+    display: flex;
+    width: fit-content;
+    padding: 0.2rem 0.6rem;
+    background-color: #fff;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    max-width: 30rem;
+}
+
+.stepDesc {
+    max-width: 85%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.stepNumber {
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.deleteIcon {
+    margin-left: 1rem;
+    color: #333;
+    cursor: pointer;
+    font-size: large;
+}
+
+.deleteIcon:hover {
+    color: red;
+}
