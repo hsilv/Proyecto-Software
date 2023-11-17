@@ -1,4 +1,3 @@
-/* eslint-disable no-constant-condition */
 /* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./CommentBlock.module.scss";
 import PropTypes from "prop-types";
@@ -82,7 +81,7 @@ function CommentBlock({ idRecipe, idReceiver }) {
             />
           )}
           {posted && (
-            <Comment comment={posted} key={`${userInfo?.username} comment`} />
+            <Comment comment={posted} key={`${userInfo?.username} comment`} defaultOwner />
           )}
           {Array.isArray(comments) && comments.map((comment) => {
             return <Comment comment={comment} key={comment.id} />;

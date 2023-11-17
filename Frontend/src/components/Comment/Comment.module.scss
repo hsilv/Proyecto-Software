@@ -67,6 +67,26 @@ $backgColor: #c1c1c1;
     }
   }
 }
+
+.delete{
+  svg {
+    height: 1.7rem;
+    width: 1.7rem;
+    cursor: pointer;
+    fill: $darker;
+    
+    path{
+      transition: fill-opacity 0.4s ease;
+      &:first-child{
+        fill-opacity: 0;
+      }
+      &:hover {
+        fill-opacity: 1;
+      }
+    }
+
+  }
+}
 /* .container {
   box-sizing: border-box;
   margin-block: 1%;

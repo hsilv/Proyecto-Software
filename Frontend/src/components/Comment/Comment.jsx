@@ -32,12 +32,12 @@ const months = [
   "diciembre",
 ];
 
-function Comment({ comment }) {
+function Comment({ comment, defaultOwner }) {
   // const navigate = useNavigate();
-  // const { userInfo } = useContext(SessionContext);
+  const { userInfo } = useContext(SessionContext);
   // const [showReportModal, setShowReportModal] = useState(false);
   //const [showDeleteModal, setShowDeleteModal] = useState(false);
-  // const [isOwned, setOwned] = useState(false);
+  const [isOwned, setOwned] = useState(false);
   // const [transStyles, setTransStyles] = useState(false);
   const [date, setDate] = useState("");
   // const [deleted, setDeleted] = useState(false);
@@ -105,8 +105,29 @@ function Comment({ comment }) {
   }, [showReportModal, showDeleteModal]); */
 
   const onFlagClick = () => {
-    /* setShowReportModal(true); */
+    console.log('Mandar reporte');
   };
+
+  const onDeleteClick = () => {
+    console.log('Borrar comentario');
+  };
+
+  useEffect(() => {
+    if (comment) {
+      if (comment.fecha) {
+        let date = comment.fecha.slice(0, 10).split("-");
+
+        const year = date[0];
+        const month = months[parseInt(date[1] - 1)];
+        const day = date[2];
+
+        setDate(`${day} de ${month} de ${year}`);
+      }
+      if (comment.usuario.username === userInfo.username) {
+        setOwned(true);
+      }
+    }
+  }, [comment, userInfo]);
 
   useEffect(() => {
     if (comment) {
@@ -158,9 +179,16 @@ function Comment({ comment }) {
               className={styles.cherries}
             />
           </div>
-          <div className={styles.report} onClick={onFlagClick}>
+          {!isOwned && (
+            <div className={styles.report} onClick={onFlagClick}>
               <TbFlag />
             </div>
+          )}
+          {isOwned && (
+            <div className={styles.delete} onClick={onDeleteClick}>
+              <AiTwotoneDelete />
+            </div>
+          )}
         </div>
       </div>
       <span className={styles.commentSpan}>
@@ -318,7 +346,11 @@ Comment.propTypes = {
       username: PropTypes.string,
     }),
   }),
-  /*   refreshTrigger: PropTypes.func.isRequired, */
+  defaultOwner: PropTypes.bool,
 };
+
+Comment.defaultProps = {
+  defaultOwner: false,
+}
 
 export default Comment;
