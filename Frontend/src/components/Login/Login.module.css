@@ -66,3 +66,14 @@
   text-decoration: underline;
   color: blue;
 }
+
+@media screen and (max-width: 768px) {
+  .loginmainImageContainer {
+    display: none; 
+  }
+
+  .loginContainer {
+    width: 100%;
+    border-radius: 20px;
+}
+}

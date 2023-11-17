@@ -38,7 +38,7 @@ function Home() {
       <div className={styles.homeElementsContainer}>
         <div className={styles.welcomeBackContainer}>
           <div className={styles.welcomeBackInfo}>
-            <h1 style={{ fontSize: '1.7rem' }}>Hey there {userInfo?.name}!</h1>
+            <h1 style={{ fontSize: '1.5rem' }}>Hey there {userInfo?.name}!</h1>
             <p>Are you feeling hungry for some delicious inspiration? Get ready to explore a world of amazing recipes!</p>
           </div>
           <img src="assets/pancakes.png" alt="Pancakes" />
