@@ -8,19 +8,19 @@ function ProfileNav({ active, callback }) {
         type="button"
         className={`${styles.sectionBtn} ${active === 1 ? styles.selected : styles.neutral}`}
         onClick={() => callback(1)}>
-        Recetas
+        Recipes
       </button>
       <button
         type="button"
         className={`${styles.sectionBtn} ${active === 2 ? styles.selected : styles.neutral}`}
         onClick={() => callback(2)}>
-        Favoritos
+        Favourites
       </button>
       <button
         type="button"
         className={`${styles.sectionBtn} ${active === 3 ? styles.selected : styles.neutral}`}
         onClick={() => callback(3)}>
-        Colecciones
+        Collections
       </button>
     </div>
   )
