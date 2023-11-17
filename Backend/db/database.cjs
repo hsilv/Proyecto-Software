@@ -77,6 +77,16 @@ class DatabaseInstance {
       options,
     );
     // eslint-disable-next-line no-console
+
+    this.database.channel('custom-all-channel')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'comentario' },
+        (payload) => {
+          console.log('Change received!', payload);
+        },
+      )
+      .subscribe();
     console.log('Conexión a base de datos satisfactoria');
   }
 }

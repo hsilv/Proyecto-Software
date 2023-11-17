@@ -1,0 +1,88 @@
+.imageWithLoading {
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  display: inline-block !important;
+  vertical-align: top !important;
+  font-size: 0 !important;
+  transition: opacity 0.4 ease !important;
+  img {
+    width: 100%;
+    height: 100%;
+    transition: inherit;
+    object-fit: inherit;
+  }
+}
+
+.loadingView {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: inherit;
+  background-color: gray;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  display: flex;
+}
+
+.gone {
+  animation: goneLoading 0.4s ease 0.4s 1 normal forwards;
+}
+
+@keyframes goneLoading {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.loadingHolder {
+  img {
+    opacity: 0;
+  }
+}
+
+.ldsRing {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.ldsRing div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: ldsRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+.ldsRing div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.ldsRing div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.ldsRing div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes ldsRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

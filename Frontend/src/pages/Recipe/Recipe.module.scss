@@ -1,30 +1,111 @@
+$paddingInfo: 50px;
+
 .RecipeInfoContainer {
-  height: 100vh;
-  width: 100%;
-  top: 0;
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-}
-
-.RecipeImageContainer {
-  height: inherit;
-  width: 35%;
-}
-
-.RecipeImageContainer img {
-  object-fit: cover;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   width: 100%;
   height: 100%;
+  align-self: stretch;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.RecipeImageContainer{
+  grid-column: 1;
+}
+
+.RecipeImageContainer .RecipeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .RecipeDetails {
-  height: inherit;
-  width: 65%;
-  padding: 0px 40px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  max-height: 100%;
+  grid-column: 2;
+  overflow: auto;
+  padding-inline: $paddingInfo;
+  padding-block: calc($paddingInfo / (1.68 / 1.68) );
+  text-align: justify;
+} 
+
+.RecipeHeader{
+  h1{
+    flex-grow: 100;
+    margin: 0;
+    margin-inline-end: 30px;
+    width: auto;
+    display: inline;
+    color: #434343;
+    font-size: 2.3rem;
+    font-family: "Aclonica", sans-serif;
+  }
+  h2{
+    margin: 0;
+    width: auto;
+    display: inline;
+  }
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
+
+.AuthorUsername{
+  text-decoration: none;
+  &:visited{
+    color: inherit;
+  }
+}
+
+.intButton {
+  fill: #434343;
+  fill-opacity: 0;
+  stroke: #434343;
+  transition: fill-opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.intButton:hover {
+  fill-opacity: 1;
+}
+
+.tools{
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+  align-items: center;
+  flex-grow: 1;
+}
+
+@media only screen and (max-width: 960px){
+  .RecipeInfoContainer {
+    display: flex;
+    grid-template-columns: unset;
+    width: 100%;
+    overflow: auto;
+    flex-direction: column;
+  }
+  
+  .RecipeImageContainer{
+    width: 100%;
+    height: 31vh;
+  }
+  
+  .RecipeImageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .RecipeDetails {
+    overflow: unset;
+    text-align: justify;
+  } 
+}
+
+/*
+
+
 
 .RecipeDetails p {
   margin-block-start: 0;
@@ -206,10 +287,9 @@
   background-color: #cdcdcdb9;
 }
 
-.showedCollModal .addToCollCard{
+.showedCollModal .addToCollCard {
   top: 0;
 }
-
 
 .addToCollCard {
   display: flex;
@@ -242,7 +322,7 @@
   display: inline-block;
 }
 
-.closerModal{
+.closerModal {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -255,24 +335,24 @@
   padding-block: 10px;
 }
 
-.closerModal svg{
+.closerModal svg {
   cursor: pointer;
   width: 2em;
   height: 2em;
   transition: transform 0.4s ease;
 }
 
-.closerModal svg:hover{
+.closerModal svg:hover {
   transform: scale(1.2);
 }
 
-.collPlaceholder{
+.collPlaceholder {
   display: block;
   text-align: center;
   padding-block: 10px;
 }
 
-.collList{
+.collList {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -281,7 +361,7 @@
   border: 0;
 }
 
-.collItem{
+.collItem {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -292,12 +372,12 @@
   padding-block-start: 15px;
 }
 
-.collItem:not(:last-child){
+.collItem:not(:last-child) {
   border-bottom: 1px solid rgb(163, 163, 163);
   padding-block: 15px;
 }
 
-.collItemButton{
+.collItemButton {
   box-sizing: border-box;
   border: 0;
   padding: 0;
@@ -305,7 +385,7 @@
   background-color: transparent;
 }
 
-.collItemButton svg{
+.collItemButton svg {
   width: 2em;
   height: 2em;
   cursor: pointer;
@@ -313,7 +393,12 @@
   transition: transform 0.4s ease;
 }
 
-.collItemButton svg:hover{
+.collItemButton svg:hover {
   transform: scale(1.2);
-}
+} */
 
+.recipePage {
+  flex-grow: 1;
+  overflow: auto;
+  height: 100%;
+}

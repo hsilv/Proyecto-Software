@@ -105,7 +105,7 @@ function Register({ pageCallback }) {
         </Button>
         {signUpError && (
           <span>
-            {signUpError.message === "Sesión expirada"
+            {signUpError.message === "Sesión expirada" || signUpError.message === "Token no válido"
               ? ""
               : signUpError.message}
           </span>

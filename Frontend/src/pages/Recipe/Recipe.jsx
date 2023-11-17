@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
-import styles from "./Recipe.module.css";
-import { useParams } from "react-router-dom";
+import styles from "./Recipe.module.scss";
+import { NavLink, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Ratings from "../../components/Ratings/Ratings";
 import { TbFolderPlus, TbHeart } from "react-icons/tb";
@@ -17,6 +18,7 @@ import { CgClose } from "react-icons/cg";
 import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
 import { SessionContext } from "../../context/sessionContext";
 import Loading from "../../components/Loading";
+import ImgWithLoading from "../../components/ImgWithLoading";
 
 function Recipe() {
   let { id } = useParams();
@@ -139,7 +141,7 @@ function Recipe() {
 
   return (
     <>
-      <div className={styles.RecipeInfoContainer}>
+      {/*       <div className={styles.RecipeInfoContainer}>
         <div className={styles.RecipeImageContainer}>
           <img
             src={
@@ -267,8 +269,50 @@ function Recipe() {
             </div>
           </div>
         </div>
-      </Modal>
-      <Loading loading={loadingRecipeDetails && loadingSimilarRecipes} />
+      </Modal> */}
+      <div className={styles.RecipeInfoContainer}>
+        <div className={styles.RecipeImageContainer}>
+          <ImgWithLoading
+            src={
+              detailsRecipe.miniatura && detailsRecipe.miniatura[0]?.url
+                ? detailsRecipe.miniatura[0]?.url
+                : undefined
+            }
+            className={styles.RecipeImage}
+            placeholder="Imagen de Receta"
+            alt="Recipe"
+          />
+        </div>
+        <div className={styles.RecipeDetails}>
+          <div className={styles.RecipeHeader}>
+            <h1>{detailsRecipe ? detailsRecipe.nombre : "Placeholder"}</h1>
+            <div className={styles.tools}>
+              <h2>
+                {detailsRecipe.usuario ? (
+                  <NavLink
+                    className={styles.AuthorUsername}
+                    to={`/profile/${detailsRecipe.usuario?.username}`}
+                  >
+                    @{detailsRecipe.usuario?.username}
+                  </NavLink>
+                ) : null}
+              </h2>
+              <TbFolderPlus
+                fontSize={"30px"}
+                className={styles.intButton}
+                onClick={handleAddColection}
+              />
+              <TbHeart
+                fontSize={"30px"}
+                className={styles.intButton}
+                onClick={handleFavorite}
+              />
+            </div>
+          </div>
+          <Ratings value={detailsRecipe.avg_calificacion} color={"#434343"} />
+        </div>
+      </div>
+      {/* <Loading loading={loadingRecipeDetails && loadingSimilarRecipes} /> */}
     </>
   );
 }

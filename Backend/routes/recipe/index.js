@@ -172,7 +172,9 @@ router.delete('/comments', async (req, res) => {
         .eq('receta_id', req.body.id_recipe)
         .eq('autor_id', tokenState.idUser);
       if (data === null && !error) {
-        res.status(200).json({ status: 200, message: 'Comentario borrado con éxito' });
+        res
+          .status(200)
+          .json({ status: 200, message: 'Comentario borrado con éxito' });
       } else {
         res.status(500).json({ status: 500, message: 'Error de servidor' });
       }
@@ -195,7 +197,9 @@ router.post('/comments/flag', async (req, res) => {
       fs.mkdirSync(reportsPath, { recursive: true });
     } catch (err) {
       console.error(err);
-      return res.status(500).json({ status: 500, message: 'Error al crear el directorio' });
+      return res
+        .status(500)
+        .json({ status: 500, message: 'Error al crear el directorio' });
     }
   }
 
@@ -203,10 +207,14 @@ router.post('/comments/flag', async (req, res) => {
 
   try {
     fs.appendFileSync(filePath, newReport);
-    return res.status(200).json({ status: 200, message: 'Denuncia completada :)' });
+    return res
+      .status(200)
+      .json({ status: 200, message: 'Denuncia completada :)' });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ status: 500, message: 'Error al escribir en el archivo' });
+    return res
+      .status(500)
+      .json({ status: 500, message: 'Error al escribir en el archivo' });
   }
 });
 
