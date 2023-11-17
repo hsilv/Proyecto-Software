@@ -1,23 +1,17 @@
-/* eslint-disable no-constant-condition */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Recipe.module.scss";
 import { NavLink, useParams } from "react-router-dom";
 import Ratings from "../../components/Ratings/Ratings";
 import { TbFolderPlus, TbHeart } from "react-icons/tb";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { AiFillPlusCircle } from "react-icons/ai";
 import "swiper/css";
 import CommentBlock from "../../components/CommentBlock/CommentBlock";
 import { useRecipeDetails } from "../../hooks/api/useRecipe";
 import { useRecipeComments } from "../../hooks/api/useComments";
-import Modal from "../../components/Modal/Modal";
-import { useCollectionsByUser } from "../../hooks/api/useCollectionsByUser";
-import { SessionContext } from "../../context/sessionContext";
 import ImgWithLoading from "../../components/ImgWithLoading";
 import RecipeSkeleton from "../../components/RecipeSkeleton";
 import SimilarRecipesSwiper from "../../components/SimilarRecipesSwiper/SimilarRecipesSwiper";
+import AddRecipeToCollectionModal from "../../components/AddRecipeToCollectionModal";
 
 function Recipe() {
   let { id } = useParams();
@@ -27,7 +21,6 @@ function Recipe() {
   const [refreshComments, setRefreshComments] = useState(0);
   const [recipeCountry, setRecipeCountry] = useState("");
   const [showCollModal, setShowCollModal] = useState(false);
-  const [transStyles, setTransStyles] = useState(false);
 
   const {
     getRecipeDetails,
@@ -41,25 +34,12 @@ function Recipe() {
     loadingRecipeComments,
   } = useRecipeComments();
 
-  const { userInfo } = useContext(SessionContext);
-
-  const { getCollectionsByUser, resultCollectionsByUser } =
-    useCollectionsByUser();
-
-  const { postRecipeToColl } = useCollectionsByUser();
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(loadingRecipeDetails);
     }, 20);
     return () => clearTimeout(timer);
-  }, [loadingRecipeDetails,]);
-
-  useEffect(() => {
-    if (userInfo) {
-      getCollectionsByUser(userInfo.idUser);
-    }
-  }, [userInfo]);
+  }, [loadingRecipeDetails]);
 
   const renderBlock = (title, subtitle) => (
     <div className={styles.Block}>
@@ -115,25 +95,11 @@ function Recipe() {
   }, [detailsRecipe.pais]);
 
   const handleAddColection = () => {
-    toggleModal();
-  };
-
-  const toggleModal = async () => {
-    if (showCollModal) {
-      setTransStyles(false);
-      await setTimeout(() => setShowCollModal(false), 400);
-    } else {
-      setShowCollModal(true);
-      setTimeout(() => setTransStyles(true), 50);
-    }
+    setShowCollModal(true);
   };
 
   const handleFavorite = () => {
     console.log("Añadir favorita");
-  };
-
-  const handleAddRecipe = (idColl, recipeID) => {
-    postRecipeToColl(idColl, recipeID);
   };
 
   return (
@@ -211,50 +177,10 @@ function Recipe() {
           </div>
         )}
       </div>
-      {/* <Modal show={showCollModal}>
-        <div
-          className={`${styles.addCollModal} ${
-            transStyles ? styles.showedCollModal : ""
-          }`}
-        >
-          <div className={styles.addToCollCard}>
-            <div className={styles.cardModalHeader}>
-              <h2>Añadir receta a una colección</h2>
-              <button onClick={toggleModal} className={styles.closerModal}>
-                <CgClose />
-              </button>
-            </div>
-            <div className={styles.cardModalBody}>
-              <ul className={styles.collList}>
-                {resultCollectionsByUser ? (
-                  resultCollectionsByUser.length > 0 &&
-                  resultCollectionsByUser.map((value) => {
-                    return (
-                      <li
-                        key={`${value.id} ${value.nombre} ${value.user_id}`}
-                        className={styles.collItem}
-                      >
-                        <span>{value.nombre}</span>
-                        <button
-                          className={styles.collItemButton}
-                          onClick={() => handleAddRecipe(value.id, id)}
-                        >
-                          <AiFillPlusCircle />
-                        </button>
-                      </li>
-                    );
-                  })
-                ) : (
-                  <span className={styles.collPlaceholder}>
-                    Aún no tienes colecciones!
-                  </span>
-                )}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </Modal> */}
-      <Modal show={showCollModal} title="Modal" setCloseState={setShowCollModal}>Hola</Modal>
+      <AddRecipeToCollectionModal
+        show={showCollModal}
+        setCloseState={setShowCollModal}
+      />
     </>
   );
 }
