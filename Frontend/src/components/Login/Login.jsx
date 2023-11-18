@@ -5,6 +5,7 @@ import Input from "../../components/Input/Input";
 import useForm from "../../hooks/useForm";
 import Button from "../../components/Button/Button";
 import { useContext, useEffect, useState } from "react";
+import ImgWithLoading from "../../components/ImgWithLoading";
 import { SessionContext } from "../../context/sessionContext";
 import { useNavigate } from "react-router-dom";
 import loginImage from "/assets/login.jpg";
@@ -114,7 +115,12 @@ function LoginComponent({ pageCallback }) {
         </div>
       </div>
       <div className={styles.loginmainImageContainer}>
-        <img src={loginImage} alt="Register Image" loading="lazy" />
+        <ImgWithLoading
+              src={loginImage}
+              className={styles.loginImageContainer}
+              placeholder="Cargando imagen"
+              alt="Register Image"
+            />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import useForm from "../../hooks/useForm";
 import Button from "../../components/Button/Button";
 import { useSignUp } from "../../hooks/useSignUp";
 import registerImage from "/assets/register.jpg";
+import ImgWithLoading from "../../components/ImgWithLoading";
 
 const schema = Joi.object({
   realName: Joi.string().min(3).max(30).required(),
@@ -44,7 +45,13 @@ function Register({ pageCallback }) {
   return (
     <div className={styles.registerContainer}>
       <div className={styles.mainImageContainer}>
-        <img src={registerImage} alt="Register Image" />
+      <ImgWithLoading
+            src={registerImage}
+            className={styles.registermainImageContainer}
+            placeholder="Cargando imagen"
+            alt="Register Image"
+          />
+
       </div>
       <div className={styles.formContainer}>
         <h1>Join us!</h1>
