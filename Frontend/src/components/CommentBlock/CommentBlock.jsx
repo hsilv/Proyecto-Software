@@ -29,6 +29,7 @@ function CommentBlock({ idRecipe, idReceiver }) {
   const { userInfo } = useContext(SessionContext);
   const [canComment, setCanComment] = useState(false);
   const [posted, setPosted] = useState(undefined);
+  const [deleted, setDeleted] = useState(false);
 
   const {
     getRecipeComments,
@@ -40,6 +41,14 @@ function CommentBlock({ idRecipe, idReceiver }) {
   useEffect(() => {
     getRecipeComments(idRecipe);
   }, []);
+
+  useEffect(() => {
+    if (deleted) {
+      setCanComment(true);
+      setPosted(undefined);
+      setDeleted(false);
+    }
+  }, [deleted]);
 
   useEffect(() => {
     if (comments && userInfo && Array.isArray(comments)) {
@@ -58,9 +67,7 @@ function CommentBlock({ idRecipe, idReceiver }) {
     }
   }, [comments, userInfo]);
 
-  /*   useEffect(() => {
-    console.log(posted);
-  }, [posted]) */
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -80,12 +87,17 @@ function CommentBlock({ idRecipe, idReceiver }) {
               setPostedState={setPosted}
             />
           )}
-          {posted && (
-            <Comment comment={posted} key={`${userInfo?.username} comment`} defaultOwner />
-          )}
-          {Array.isArray(comments) && comments.map((comment) => {
-            return <Comment comment={comment} key={comment.id} />;
-          })}
+          {posted &&
+              <Comment
+                comment={posted}
+                key={`${userInfo?.username} comment`}
+                defaultOwner
+                setOnDelete={setDeleted}
+              />}
+          {Array.isArray(comments) &&
+            comments.map((comment) => {
+              return <Comment comment={comment} key={comment.id} />;
+            })}
         </>
       )}
     </>
@@ -93,8 +105,8 @@ function CommentBlock({ idRecipe, idReceiver }) {
 }
 
 CommentBlock.propTypes = {
-  idRecipe: PropTypes.number.isRequired || PropTypes.string.isRequired,
-  idReceiver: PropTypes.number.isRequired || PropTypes.string.isRequired,
+  idRecipe: PropTypes.number || PropTypes.string,
+  idReceiver: PropTypes.number || PropTypes.string,
 };
 
 export default CommentBlock;

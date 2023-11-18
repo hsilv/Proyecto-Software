@@ -5,7 +5,13 @@ import PropTypes from "prop-types";
 import styles from "./Modal.module.scss";
 import { CgClose } from "react-icons/cg";
 
-export default function Modal({ show, children, title, setCloseState }) {
+export default function Modal({
+  show,
+  children,
+  title,
+  setCloseState,
+  triggerToggle,
+}) {
   const [transStyles, setTransStyles] = useState(false);
 
   const toggleModal = async () => {
@@ -17,6 +23,10 @@ export default function Modal({ show, children, title, setCloseState }) {
       setTimeout(() => setCloseState(true), 50);
     }
   };
+
+  useEffect(() => {
+    if (triggerToggle) toggleModal();
+  }, [triggerToggle]);
 
   useEffect(() => {
     const initShow = async () => {
@@ -38,7 +48,7 @@ export default function Modal({ show, children, title, setCloseState }) {
               className={`${styles.modalView} ${
                 transStyles && styles.backgTransition
               }`}
-              onClick={toggleModal}
+              /*               onClick={toggleModal} */
             >
               <div
                 className={`${styles.modal} ${
@@ -66,10 +76,12 @@ Modal.propTypes = {
   show: PropTypes.bool,
   children: PropTypes.node,
   title: PropTypes.string,
+  triggerToggle: PropTypes.bool,
 };
 
 Modal.defaultProps = {
   setCloseState: () => {},
   show: false,
   children: "",
+  triggerToggle: false,
 };

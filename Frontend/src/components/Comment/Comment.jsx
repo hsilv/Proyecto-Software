@@ -30,21 +30,25 @@ const months = [
   "diciembre",
 ];
 
-function Comment({ comment }) {
+function Comment({ comment, setOnDelete }) {
 
   const { userInfo } = useContext(SessionContext);
   const [isOwned, setOwned] = useState(false);
   const [date, setDate] = useState("");
   const [showReport, setShowReport] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [deleted, setDeleted] = useState(false);
 
   const onFlagClick = () => {
-    console.log("Mandar reporte");
     setShowReport(true);
   };
 
+  const onDelete = () => {
+    setDeleted(true);
+    setOnDelete(true);
+  }
+
   const onDeleteClick = () => {
-    console.log("Borrar comentario");
     setShowDelete(true);
   };
 
@@ -81,7 +85,7 @@ function Comment({ comment }) {
 
   return (
     <>
-      <div className={styles.container}>
+      {!deleted && <div className={styles.container}>
         <div className={styles.userData}>
           <div className={styles.profile}>
             <NavLink
@@ -131,9 +135,9 @@ function Comment({ comment }) {
         <span className={styles.commentSpan}>
           {comment ? comment.comentario : "..."}
         </span>
-      </div>
+      </div>}
       <ReportModal setCloseModal={setShowReport} show={showReport}/>
-      <DeleteCommentModal setCloseModal={setShowDelete} show={showDelete} />
+      <DeleteCommentModal setCloseModal={setShowDelete} show={showDelete} idRecipe={comment.receta_id} onDelete={onDelete}/>
     </>
   );
 }
@@ -150,9 +154,11 @@ Comment.propTypes = {
       username: PropTypes.string,
     }),
   }),
+  setOnDelete: PropTypes.func,
 };
 
 Comment.defaultProps = {
+  setOnDelete: () => {},
 };
 
 export default Comment;

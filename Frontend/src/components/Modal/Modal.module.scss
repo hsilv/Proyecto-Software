@@ -7,7 +7,7 @@
   width: 100vw;
   height: 100vh;
   background-color: #808080b7;
-  z-index: 9999;
+  z-index: 5000;
   align-items: center;
   opacity: 0;
   justify-content: center;
@@ -22,6 +22,7 @@
   min-width: 350px;
   padding-inline: 20px;
   position: relative;
+  z-index: 9999;
   top: 10vh;
   opacity: 0;
   transition: top 0.6s ease, opacity 0.6s ease;

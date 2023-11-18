@@ -161,6 +161,7 @@ router.get('/comments', async (req, res) => {
 });
 
 router.delete('/comments', async (req, res) => {
+  console.log(req.body);
   if (req.headers.authorization) {
     const tokenState = verifyToken(req.headers.authorization);
     if (tokenState.error) {
@@ -171,6 +172,7 @@ router.delete('/comments', async (req, res) => {
         .delete()
         .eq('receta_id', req.body.id_recipe)
         .eq('autor_id', tokenState.idUser);
+      console.log(data, error);
       if (data === null && !error) {
         res
           .status(200)

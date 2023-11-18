@@ -11,7 +11,7 @@ function ReportModal({ setCloseModal, show }) {
 
 ReportModal.propTypes = {
     setCloseModal: PropTypes.func.isRequired,
-    show: PropTypes.func.bool,
+    show: PropTypes.bool,
 }
 
 ReportModal.defaultProps = {

@@ -34,7 +34,6 @@ function Recipe() {
 
   useEffect(() => {
     getRecipeDetails();
-    console.table(userInfo);
   }, [id, userInfo]);
 
   const isAdmin = userInfo && userInfo.rol === 'admin';
