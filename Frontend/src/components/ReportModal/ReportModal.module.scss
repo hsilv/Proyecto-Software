@@ -1,0 +1,28 @@
+.modalBody{
+    display: flex;
+    flex-direction: column;
+
+    span{
+        margin-block-start: 10px;
+        margin-block-end: 17px;
+    }
+}
+
+.caseList{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 5px;
+    margin-block-end: 10px;
+}
+
+.observation{
+    font-family: 'League Spartan', sans-serif;
+    resize: none;
+    border-radius: 10px;
+    margin-block-end: 17px;
+    outline: none;
+    padding-inline: 15px;
+    padding-block: 12px;
+}
+

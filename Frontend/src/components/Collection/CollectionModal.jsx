@@ -5,28 +5,29 @@ import { useAPI } from "../../hooks/useAPI";
 import RecipePreview from "../RecipePreview/RecipePreview";
 import CollectionRecipe from "./CollectionRecipe";
 import { useNavigate } from "react-router-dom";
+import Modal from "../Modal/Modal";
 
 export default function CollectionModal({ id, showModal, closer }) {
-  const [transStyles, setTransStyles] = useState(false);
-  const [collectionName, setCollectionName] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  /*   const [transStyles, setTransStyles] = useState(false); */
+  const [collectionName, setCollectionName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [recipes, setRecipes] = useState([]);
-  const {fetchAPI} = useAPI();
+  const { fetchAPI } = useAPI();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (showModal) {
       setTimeout(() => setTransStyles(true), 50);
     }
-  }, [showModal]);
+  }, [showModal]); */
 
-  const closeModal = () => {
+  /*   const closeModal = () => {
     closer(false);
-  };
+  }; */
 
   const onRecipeClick = (id) => {
     navigate(`/Recipe/${id}`);
-  }
+  };
 
   useEffect(() => {
     if (id) {
@@ -46,42 +47,38 @@ export default function CollectionModal({ id, showModal, closer }) {
       };
       fetchRecipes();
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
-    if(recipes){
-        if(recipes.status){
-            setCollectionName(recipes.name);
-            setErrorMessage(recipes.message);
-        } else {
-            recipes.forEach((value) => {
-                setCollectionName(value.coleccion.nombre);
-            })
-        }
+    if (recipes) {
+      if (recipes.status) {
+        setCollectionName(recipes.name);
+        setErrorMessage(recipes.message);
+      } else {
+        recipes.forEach((value) => {
+          setCollectionName(value.coleccion.nombre);
+        });
+      }
     }
-  }, [recipes])
+  }, [recipes]);
 
   return (
-    <div
-      className={
-        styles.collModal + " " + (transStyles ? styles.collShowed : undefined)
-      }
-    >
-      <div
-        className={
-          styles.collBody +
-          " " +
-          (transStyles ? styles.collBodyShowed : undefined)
-        }
-      >
-        <div className={styles.modalHeader}>
-          <h2>{collectionName}</h2>
-          <CgClose onClick={closeModal} className={styles.closeIcon} />
-        </div>
-        {recipes.status? <span className={styles.errorMessage}>{errorMessage}</span> : recipes.map((value, index) => {
-            return <CollectionRecipe key={value+index} recipe={value.receta} onClick={onRecipeClick}/>
-        })}
+    <Modal title={collectionName} setCloseState={closer} show={showModal}>
+      <div className={styles.modalBody}>
+        {recipes.status ? (
+          <span className={styles.errorMessage}>{errorMessage}</span>
+        ) : (
+          recipes.map((value, index) => {
+            return (
+              <CollectionRecipe
+                key={value + index}
+                recipe={value.receta}
+                onClick={onRecipeClick}
+              />
+            );
+          })
+        )}
       </div>
-    </div>
+    </Modal>
   );
 }

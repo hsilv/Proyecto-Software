@@ -19,8 +19,16 @@ function Profile() {
   const { userInfo, loading } = useContext(SessionContext);
   const [showModal, setShowModal] = useState(false);
   const [selectedCollection, setSelectedCollection] = useState();
-  const {getRecipesByUser, resultRecipesByUser: userRecipes, loadingRecipesByUser} = useRecipesByUser();
-  const {getCollectionsByUser, resultCollectionsByUser: userCollections, loadingCollectionsByUser} = useCollectionsByUser();
+  const {
+    getRecipesByUser,
+    resultRecipesByUser: userRecipes,
+    loadingRecipesByUser,
+  } = useRecipesByUser();
+  const {
+    getCollectionsByUser,
+    resultCollectionsByUser: userCollections,
+    loadingCollectionsByUser,
+  } = useCollectionsByUser();
   const navigate = useNavigate();
 
   const recipeClickHandler = (recipeID) => {
@@ -30,7 +38,7 @@ function Profile() {
   const collectionClickHandler = (id) => {
     setShowModal(true);
     setSelectedCollection(id);
-  }
+  };
 
   const showCurrent = () => {
     if (selected === 1) {
@@ -52,14 +60,23 @@ function Profile() {
         );
       }
     } else if (selected === 2) {
-      return <span className={style.noData}>This user hasn't liked any recipes.</span>;
+      return (
+        <span className={style.noData}>
+          This user hasn't liked any recipes.
+        </span>
+      );
     } else {
       if (userCollections && !userCollections.message) {
         return userCollections.map((collection, index) => {
           return (
-            <Collection key={index+collection} name={collection.nombre} className={style.collectionPreview} onClick={() => collectionClickHandler(collection.id)}/>
-          )
-        })
+            <Collection
+              key={index + collection}
+              name={collection.nombre}
+              className={style.collectionPreview}
+              onClick={() => collectionClickHandler(collection.id)}
+            />
+          );
+        });
       } else {
         return (
           <span className={style.noData}>
@@ -79,16 +96,20 @@ function Profile() {
     <>
       <div className={style.mainContainer}>
         <div className={style.userInfoContainer}>
-          <ProfileInfo/>
+          <ProfileInfo />
         </div>
         <div className={style.recipesContainer}>
           <ProfileNav active={selected} callback={setSelected} />
           <div className={style.recipeViewer}>{showCurrent()}</div>
         </div>
-        <Modal show={showModal}>
-        <CollectionModal id={selectedCollection} showModal={showModal} closer={setShowModal}/>
-      </Modal>
-      <Loading loading={loading && loadingCollectionsByUser && loadingRecipesByUser}/>
+        <CollectionModal
+          id={selectedCollection}
+          showModal={showModal}
+          closer={setShowModal}
+        />
+        <Loading
+          loading={loading && loadingCollectionsByUser && loadingRecipesByUser}
+        />
       </div>
     </>
   );
