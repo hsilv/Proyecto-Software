@@ -115,7 +115,7 @@ function LoginComponent({ pageCallback }) {
         </div>
       </div>
       <div className={styles.loginmainImageContainer}>
-        <ImgWithLoading
+        <ImgWithLoading 
               src={loginImage}
               className={styles.loginImageContainer}
               placeholder="Cargando imagen"
