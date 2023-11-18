@@ -40,7 +40,6 @@ function CommentBlock({ idRecipe, idReceiver }) {
 
   useEffect(() => {
     getRecipeComments(idRecipe);
-    console.log(userInfo);
   }, []);
 
   useEffect(() => {
@@ -85,7 +84,7 @@ function CommentBlock({ idRecipe, idReceiver }) {
           {posted && (
             <Comment comment={posted} key={`${userInfo?.username} comment`} />
           )}
-          {comments.map((comment) => {
+          {Array.isArray(comments) && comments.map((comment) => {
             return <Comment comment={comment} key={comment.id} />;
           })}
         </>
