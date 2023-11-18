@@ -96,7 +96,7 @@ function CommentBlock({ idRecipe, idReceiver }) {
               />}
           {Array.isArray(comments) &&
             comments.map((comment) => {
-              return <Comment comment={comment} key={comment.id} />;
+              return <Comment comment={comment} key={comment.id} setOnDelete={setDeleted} />;
             })}
         </>
       )}
