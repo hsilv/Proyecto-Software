@@ -9,6 +9,7 @@ import IngredientsContainer from "../../components/IngredientsContainer/Ingredie
 import StepsContainer from "../../components/StepsContainer/StepsContainer";
 import Button from "../../components/Button/Button";
 import { useAPI } from "../../hooks/useAPI";
+import { useCategories } from "../../hooks/api/useCategories";
 
 const schema = Joi.object({
   title: Joi.string().min(3).max(60).required(),
@@ -27,6 +28,7 @@ function CreateRecipe() {
   const [steps, setSteps] = useState([]);
   const [recipeImage, setRecipeImage] = useState(null);
   const [validForm, setValidForm] = useState(false);
+  const { getCategories, resultCategories: categoriesApi } = useCategories();
 
   const form = useForm(schema, {
     title:"",
@@ -43,7 +45,7 @@ function CreateRecipe() {
         method: 'POST',
         route: 'recipe/postRecipe',
         body: JSON.stringify({
-            authorId: userInfo.id,
+            authorId: userInfo.idUser,
             name: form.values.title,
             desc: form.values.desc,
             country: form.values.country,
@@ -52,19 +54,28 @@ function CreateRecipe() {
             portions: form.values.portions,
             calories: form.values.calories,
             steps: steps,
+            categories: categories,
             // imagen?
         }),
         log: true,
         showReply: true,
     });
-}
+
+    
+  }
 
   useEffect(() => {
     checkSession();
+    console.table(userInfo)
   }, []);
 
   useEffect(() => {
-  }, [form, ingredients, categories, steps])
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    console.log(categoriesApi)
+  }, [categoriesApi])
 
   useEffect(() => {
     setValidForm(form.validate());
@@ -149,7 +160,7 @@ function CreateRecipe() {
           />
 
           <h1 className={styles.sectionHeader}>Categories</h1>
-          <CategoryContainer callback={setCategories} />
+          <CategoryContainer categoriesApi={categoriesApi} callback={setCategories} />
 
           <h1 className={styles.sectionHeader}>Ingredients</h1>
           <IngredientsContainer callback={setIngredients} />

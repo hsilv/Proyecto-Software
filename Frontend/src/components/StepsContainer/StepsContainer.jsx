@@ -29,6 +29,10 @@ function StepsContainer({ callback }) {
         callback(steps);
     }
 
+    useEffect(() => {
+        callback(steps);
+    }, [steps]);
+
     return (
         <>
           <div className={styles.stepsContainer}>

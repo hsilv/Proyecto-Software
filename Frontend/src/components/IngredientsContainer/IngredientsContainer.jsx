@@ -25,13 +25,16 @@ function IngredientsContainer({ callback }) {
             form.setValue("ingredientAmount", "");
         };
         callback(ingredients);
-        console.log(ingredients)
     };
 
     const removeIngredient = (elemId) => {
         setIngredients(ingredients.filter((element, id) => elemId != id));
         callback(ingredients);
     }
+
+    useEffect(() => {
+        callback(ingredients)
+    }, [ingredients]);
 
     return (
         <>
