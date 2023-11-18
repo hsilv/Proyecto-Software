@@ -9,7 +9,7 @@ const schema = Joi.object({
     category: Joi.string().min(3).max(30).required(),
   });
 
-function CategoryContainer({ callback }) {
+function CategoryContainer({ callback, categoriesApi }) {
     const [categories, setCategories] = useState([]);
 
     const form = useForm(schema, {
@@ -17,10 +17,7 @@ function CategoryContainer({ callback }) {
       });
 
     const addCategory = (newCategory) => {
-        if(form.validate() && categories.length < 6){
-            setCategories([...categories, newCategory]);
-            form.setValue("category", "");
-        };
+        setCategories([...categories, newCategory]);
         callback(categories);
     };
 
@@ -33,6 +30,13 @@ function CategoryContainer({ callback }) {
         callback(categories)
     }, [categories]);
 
+    const [selected, setSelected] = useState(null);
+
+    const handleChange = (selectedOption) => {
+      setSelected(selectedOption.target.value);
+      addCategory(selectedOption.target.value)
+    };
+
     return (
         <>
           <div className={styles.categoryContainer}>
@@ -42,20 +46,14 @@ function CategoryContainer({ callback }) {
                 )
             })}
             <div className={styles.formContainer}>
-                <Input
-                    value={form.values.category}
-                    onChange={form.onChange("category")}
-                    required
-                    name="newCategory"
-                    label="Add Category"
-                    type="text"
-                />
-                <button
-                    className={styles.addBtn}
-                    disabled={!(form.values.category.length > 2)}
-                    onClick={() => {addCategory(form.values.category)}}>
-                    +
-                </button>
+            <label style={{fontFamily: "League Spartan, sans-serif"}} for="categories">Choose a category:&nbsp;</label>
+            {categoriesApi && (<select style={{fontFamily: "League Spartan, sans-serif"}} onChange={handleChange} autoFocus={true} name="categories" id="categories">
+                {categoriesApi.map((category) => {
+                    if(!categories.includes(category.categoria)){   
+                        return(<option value={category.categoria}>{category.categoria}</option>)
+                    }
+                })}
+            </select>)}
             </div>
           </div>
         </>

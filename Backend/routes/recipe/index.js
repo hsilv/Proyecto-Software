@@ -283,4 +283,74 @@ router.post('/comments', async (req, res) => {
   }
 });
 
+router.post('/postRecipe', async (req, res) => {
+  let date = new Date();
+  date = date.toUTCString();
+  console.log(date);
+  try {
+
+    let { error } = await database.from('receta').insert({
+      nombre: req.body.name,
+      autor_id: req.body.authorId,
+      tiempo: req.body.time,
+      ingredientes: req.body.ingredients,
+      fecha: date,
+      avg_calificacion: 0,
+      pais: req.body.country,
+      descripcion: req.body.desc,
+      porciones: req.body.portions,
+      calorias: req.body.calories,
+    });
+
+    if (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+
+    // Esto se puede porque le puse un constraint a la tabla unique(nombre, autor_id)
+    let result = await database.from('receta').select('id').eq('autor_id', req.body.authorId);
+
+    const recipeId = result.data[0].id;
+
+    req.body.steps.map(async (step, index) => {
+      error = await database.from('paso').insert({
+        receta_id: recipeId,
+        numero: index + 1,
+        descripcion: step,
+      })
+    })
+
+    if (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+
+    result = await database.from('categoria').select('id, categoria');
+
+    result.data.map(async (category) => {
+      if(req.body.categories.includes(category.categoria)){
+        error = await database.from('receta_categoria').insert({
+          receta_id: recipeId,
+          categoria_id: category.id,
+        })
+      }
+    })
+
+    error = await database.from('miniatura').insert( {
+      receta_id: recipeId,
+      url: 'https://fakeimg.pl/1000x1000',
+    } );
+
+    if (error) {
+      res.status(201).json({ message: 'Receta publicada' });
+    } else {
+      res.status(201).json({ message: 'Receta publicada' });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    res.status(500).json({ error: 'Error al publicar receta' });
+  }
+});
+
 export default router;
